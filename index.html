@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="styles.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
 </head>
 <body>
 
@@ -21,11 +21,11 @@
      ============================================================ -->
 
 <header class="site-header">
-  <div class="container nav-row">
+  <div class="header-inner">
     <a href="https://lindjanar.ee" class="logo">LINDJANAR</a>
     <nav class="nav">
       <a href="#pricing" data-et="Hinnad" data-en="Pricing">Hinnad</a>
-      <a href="#process" data-et="Kuidas see käib" data-en="How it works">Kuidas see käib</a>
+      <a href="#process" data-et="Protsess" data-en="Process">Protsess</a>
       <a href="#agency" data-et="Agentuuridele" data-en="For agencies">Agentuuridele</a>
       <a href="#contact" data-et="Kontakt" data-en="Contact">Kontakt</a>
     </nav>
@@ -36,19 +36,14 @@
 <main>
 
   <!-- ============================================================
-       HERO
+       HERO — split panel
        [EDIT ASSET] assets/hero.jpg
-       Kui pilt on lisatud, lisa section-ile klass "has-image"
+       Pärast pildi lisamist: lisa <section class="hero has-image">
        ============================================================ -->
   <section class="hero">
-    <div class="placeholder">
-      <span data-et="Hero foto" data-en="Hero photo">Hero foto</span>
-      <small>assets/hero.jpg</small>
-    </div>
-    <!-- <img src="assets/hero.jpg" alt="" class="hero-bg" /> -->
-    <div class="hero-overlay">
-      <div class="container">
-        <p class="hero-tag" data-et="Kinnisvarafotograafia" data-en="Real estate photography">Kinnisvarafotograafia</p>
+    <div class="hero-left">
+      <div class="hero-text">
+        <span class="eyebrow" data-et="Kinnisvarafotograafia · Tartu" data-en="Real Estate Photography · Tartu">Kinnisvarafotograafia · Tartu</span>
         <h1 data-et="Sinu kinnisvara müüb kiiremini." data-en="Your property sells faster.">Sinu kinnisvara müüb kiiremini.</h1>
         <p data-et="Professionaalne kinnisvarafotograafia Tartust. Ostjad helistavad enne vaatamist."
            data-en="Professional real estate photography from Tartu. Buyers call before the viewing.">
@@ -56,106 +51,130 @@
         </p>
         <div class="hero-actions">
           <a href="#pricing" class="btn-primary" data-et="Vaata hindu" data-en="View pricing">Vaata hindu</a>
-          <a href="#contact" class="btn-outline" data-et="Broneeri sessioon" data-en="Book a session">Broneeri sessioon</a>
+          <a href="#contact" class="btn-ghost" data-et="Broneeri sessioon" data-en="Book a session">Broneeri sessioon</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="img-placeholder">
+        <span data-et="Hero foto" data-en="Hero photo">Hero foto</span>
+        <small>assets/hero.jpg</small>
+      </div>
+      <!-- <img src="assets/hero.jpg" alt="" /> -->
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STATS — editorial typography
+       ============================================================ -->
+  <section class="stats-section">
+    <div class="stats-claim-wrap">
+      <p class="stats-claim" data-et="Iga päev kehvade fotodega kuulutuses on kaotatud raha." data-en="Every day with bad listing photos is money left on the table.">Iga päev kehvade fotodega kuulutuses on kaotatud raha.</p>
+    </div>
+    <div class="stats-row">
+      <div class="stat">
+        <span class="stat-num">3×</span>
+        <div class="stat-meta">
+          <span class="stat-label" data-et="kiirem müük" data-en="faster sale">kiirem müük</span>
+          <p data-et="Professionaalsed fotod müüvad kiiremini." data-en="Professional photos sell faster.">Professionaalsed fotod müüvad kiiremini.</p>
+        </div>
+      </div>
+      <div class="stat-rule"></div>
+      <div class="stat">
+        <span class="stat-num">+10%</span>
+        <div class="stat-meta">
+          <span class="stat-label" data-et="kõrgem hind" data-en="higher price">kõrgem hind</span>
+          <p data-et="Ostjad maksavad rohkem hea esmamulje eest." data-en="Buyers pay more for a great first impression.">Ostjad maksavad rohkem hea esmamulje eest.</p>
+        </div>
+      </div>
+      <div class="stat-rule"></div>
+      <div class="stat">
+        <span class="stat-num">48h</span>
+        <div class="stat-meta">
+          <span class="stat-label" data-et="toimetamine" data-en="editing">toimetamine</span>
+          <p data-et="Lõplikud pildid käes 48 tunni jooksul." data-en="Final photos delivered within 48 hours.">Lõplikud pildid käes 48 tunni jooksul.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-       PAIN — PROBLEEM
+       VALUE STACK
        ============================================================ -->
-  <section class="pain">
+  <section class="value-section">
     <div class="container">
-      <div class="pain-grid">
-        <div class="pain-text">
-          <h2 data-et="Iga päev kehvade fotodega kuulutuses on kaotatud raha." data-en="Every day with bad listing photos is money left on the table.">Iga päev kehvade fotodega kuulutuses on kaotatud raha.</h2>
-          <p data-et="Ostjad otsustavad 3 sekundiga, kas klikkida edasi või liikuda järgmise kuulutuse juurde. Professionaalselt pildistatud objektid müüvad kiiremini ja kõrgema hinnaga — sest esimene mullje müüb."
-             data-en="Buyers decide in 3 seconds whether to click through or move to the next listing. Professionally photographed properties sell faster and for more — because first impressions sell.">
-            Ostjad otsustavad 3 sekundiga, kas klikkida edasi või liikuda järgmise kuulutuse juurde. Professionaalselt pildistatud objektid müüvad kiiremini ja kõrgema hinnaga — sest esimene mullje müüb.
-          </p>
-        </div>
-        <div class="pain-stats">
-          <div class="stat">
-            <span class="stat-num">3×</span>
-            <span class="stat-label" data-et="kiirem müük" data-en="faster sale">kiirem müük</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">+10%</span>
-            <span class="stat-label" data-et="kõrgem lõpphind" data-en="higher final price">kõrgem lõpphind</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">48h</span>
-            <span class="stat-label" data-et="toimetamine" data-en="editing turnaround">toimetamine</span>
-          </div>
-        </div>
+      <div class="section-header">
+        <h2 data-et="Kõik ühes paketis" data-en="Everything in one package">Kõik ühes paketis</h2>
+        <p data-et="Üks sessioon. Kõik mida vaja." data-en="One session. Everything you need.">Üks sessioon. Kõik mida vaja.</p>
       </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       MIDA SA SAAD — VALUE STACK
-       ============================================================ -->
-  <section class="value-stack">
-    <div class="container">
-      <h2 data-et="Kõik ühes paketis" data-en="Everything in one package">Kõik ühes paketis</h2>
-      <p class="section-sub" data-et="Üks sessioon. Kõik mida vaja." data-en="One session. Everything you need.">Üks sessioon. Kõik mida vaja.</p>
       <div class="value-grid">
 
-        <div class="value-item">
-          <svg viewBox="0 0 24 24">
-            <rect x="2" y="7" width="20" height="14" rx="2"></rect>
-            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path>
-            <circle cx="12" cy="14" r="3"></circle>
-          </svg>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2"></rect>
+              <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path>
+              <circle cx="12" cy="14" r="3"></circle>
+            </svg>
+          </div>
           <h3 data-et="Professionaalne varustus" data-en="Professional equipment">Professionaalne varustus</h3>
-          <p data-et="Täiskaadrkaamera ja lainurkobjektiiv. Iga ruum näeb suurem ja heledamam välja kui päriselus." data-en="Full-frame camera and wide-angle lens. Every room looks bigger and brighter than in real life.">Täiskaadrkaamera ja lainurkobjektiiv. Iga ruum näeb suurem ja heledamam välja kui päriselus.</p>
+          <p data-et="Täiskaadrkaamera ja lainurkobjektiiv. Iga ruum näeb suurem ja heledamam välja." data-en="Full-frame camera and wide-angle lens. Every room looks bigger and brighter.">Täiskaadrkaamera ja lainurkobjektiiv. Iga ruum näeb suurem ja heledamam välja.</p>
         </div>
 
-        <div class="value-item">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-            <path d="M2 17l10 5 10-5"></path>
-            <path d="M2 12l10 5 10-5"></path>
-          </svg>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+              <path d="M2 17l10 5 10-5"></path>
+              <path d="M2 12l10 5 10-5"></path>
+            </svg>
+          </div>
           <h3 data-et="Sertifitseeritud droon" data-en="Certified drone">Sertifitseeritud droon</h3>
-          <p data-et="Janar on sertifitseeritud droonipiloot. Välisvõtted, õhuperspektiiv, krunditervikpilt — kõik ühes." data-en="Janar is a certified drone pilot. Exterior shots, aerial views, full plot overview — all in one.">Janar on sertifitseeritud droonipiloot. Välisvõtted, õhuperspektiiv, krunditervikpilt — kõik ühes.</p>
+          <p data-et="Janar on sertifitseeritud droonipiloot. Välisvõtted, õhuperspektiiv, krunditervikpilt." data-en="Janar is a certified drone pilot. Exterior shots, aerial views, full plot overview.">Janar on sertifitseeritud droonipiloot. Välisvõtted, õhuperspektiiv, krunditervikpilt.</p>
         </div>
 
-        <div class="value-item">
-          <svg viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
           <h3 data-et="Kiire toimetamine" data-en="Fast editing">Kiire toimetamine</h3>
-          <p data-et="Pildid on käes 48 tunni jooksul peale sessiooni. Premium paketis 24h." data-en="Photos delivered within 48 hours after the session. 24h with Premium package.">Pildid on käes 48 tunni jooksul peale sessiooni. Premium paketis 24h.</p>
+          <p data-et="Pildid on käes 48 tunni jooksul. Premium paketis 24h." data-en="Photos delivered within 48 hours. Premium package 24h.">Pildid on käes 48 tunni jooksul. Premium paketis 24h.</p>
         </div>
 
-        <div class="value-item">
-          <svg viewBox="0 0 24 24">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-          </svg>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </div>
           <h3 data-et="Virtuaalne staging" data-en="Virtual staging">Virtuaalne staging</h3>
-          <p data-et="Tühi ruum muutub sisustatud kujutiseks. Ostjad näevad potentsiaali, mitte tühja betooni." data-en="An empty room becomes a furnished image. Buyers see the potential, not bare concrete.">Tühi ruum muutub sisustatud kujutiseks. Ostjad näevad potentsiaali, mitte tühja betooni.</p>
+          <p data-et="Tühi ruum muutub sisustatud kujutiseks. Saadaval Premium paketis." data-en="An empty room becomes a furnished image. Available with Premium package.">Tühi ruum muutub sisustatud kujutiseks. Saadaval Premium paketis.</p>
         </div>
 
-        <div class="value-item">
-          <svg viewBox="0 0 24 24">
-            <rect x="2" y="3" width="20" height="14" rx="2"></rect>
-            <line x1="8" y1="21" x2="16" y2="21"></line>
-            <line x1="12" y1="17" x2="12" y2="21"></line>
-          </svg>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
           <h3 data-et="Kõik portaalid" data-en="All portals">Kõik portaalid</h3>
-          <p data-et="Pildid optimeeritud KV.ee, City24, Ober-Haus ja kõigi peamiste kinnisvaraportaalide jaoks." data-en="Photos optimized for KV.ee, City24, Ober-Haus and all major real estate portals.">Pildid optimeeritud KV.ee, City24, Ober-Haus ja kõigi peamiste kinnisvaraportaalide jaoks.</p>
+          <p data-et="Pildid optimeeritud KV.ee, City24, Ober-Haus ja kõigi peamiste portaalide jaoks." data-en="Photos optimized for KV.ee, City24, Ober-Haus and all major real estate portals.">Pildid optimeeritud KV.ee, City24, Ober-Haus ja kõigi peamiste portaalide jaoks.</p>
         </div>
 
-        <div class="value-item">
-          <svg viewBox="0 0 24 24">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-            <circle cx="12" cy="10" r="3"></circle>
-          </svg>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </div>
           <h3 data-et="Tartust, kogu Eesti" data-en="From Tartu, all of Estonia">Tartust, kogu Eesti</h3>
-          <p data-et="50 km Tartust — ilma lisatasuta. Kaugemale ka — €0,40/km edasi-tagasi." data-en="Within 50 km of Tartu — no extra charge. Further is fine too — €0.40/km round trip.">50 km Tartust — ilma lisatasuta. Kaugemale ka — €0,40/km edasi-tagasi.</p>
+          <p data-et="50 km Tartust — ilma lisatasuta. Kaugemale ka — €0,40/km edasi-tagasi." data-en="Within 50 km of Tartu — no extra charge. Further fine too — €0.40/km round trip.">50 km Tartust — ilma lisatasuta. Kaugemale ka — €0,40/km edasi-tagasi.</p>
         </div>
 
       </div>
@@ -165,10 +184,13 @@
   <!-- ============================================================
        HINNAD — KORTERID
        ============================================================ -->
-  <section class="pricing" id="pricing">
+  <section class="pricing-section" id="pricing">
     <div class="container">
-      <h2 data-et="Korteri paketid" data-en="Apartment packages">Korteri paketid</h2>
-      <p class="section-sub" data-et="Hind sõltub ruumide arvust" data-en="Price depends on number of rooms">Hind sõltub ruumide arvust</p>
+      <div class="section-header">
+        <span class="section-tag" data-et="Korterid" data-en="Apartments">Korterid</span>
+        <h2 data-et="Korteri paketid" data-en="Apartment packages">Korteri paketid</h2>
+        <p data-et="Hind sõltub ruumide arvust" data-en="Price depends on number of rooms">Hind sõltub ruumide arvust</p>
+      </div>
       <div class="pricing-grid">
 
         <div class="pricing-card">
@@ -194,7 +216,7 @@
             <li data-et="Toimetamine 48h" data-en="Editing within 48h">Toimetamine 48h</li>
             <li data-et="Kõik portaalide formaadid" data-en="All portal formats">Kõik portaalide formaadid</li>
           </ul>
-          <a href="#contact" class="btn-card featured" data-et="Broneeri" data-en="Book now">Broneeri</a>
+          <a href="#contact" class="btn-card-featured" data-et="Broneeri" data-en="Book now">Broneeri</a>
         </div>
 
         <div class="pricing-card">
@@ -218,10 +240,13 @@
   <!-- ============================================================
        HINNAD — ERAMAJAD
        ============================================================ -->
-  <section class="pricing pricing-alt">
+  <section class="pricing-section alt-bg">
     <div class="container">
-      <h2 data-et="Eramaja paketid" data-en="House packages">Eramaja paketid</h2>
-      <p class="section-sub" data-et="Sobilik kõikidele eramajadele ja villadele" data-en="Suitable for all houses and villas">Sobilik kõikidele eramajadele ja villadele</p>
+      <div class="section-header">
+        <span class="section-tag" data-et="Eramajad" data-en="Houses">Eramajad</span>
+        <h2 data-et="Eramaja paketid" data-en="House packages">Eramaja paketid</h2>
+        <p data-et="Sobilik kõikidele eramajadele ja villadele" data-en="Suitable for all houses and villas">Sobilik kõikidele eramajadele ja villadele</p>
+      </div>
       <div class="pricing-grid">
 
         <div class="pricing-card">
@@ -247,7 +272,7 @@
             <li data-et="Toimetamine 48h" data-en="Editing within 48h">Toimetamine 48h</li>
             <li data-et="Kõik portaalide formaadid" data-en="All portal formats">Kõik portaalide formaadid</li>
           </ul>
-          <a href="#contact" class="btn-card featured" data-et="Broneeri" data-en="Book now">Broneeri</a>
+          <a href="#contact" class="btn-card-featured" data-et="Broneeri" data-en="Book now">Broneeri</a>
         </div>
 
         <div class="pricing-card">
@@ -272,16 +297,17 @@
   <!-- ============================================================
        LISTING REEL LISA
        ============================================================ -->
-  <section class="addon">
+  <section class="addon-section">
     <div class="container">
       <div class="addon-card">
-        <div class="addon-text">
-          <h3 data-et="Lisa: Listing Reel" data-en="Add-on: Listing Reel">Lisa: Listing Reel</h3>
-          <p data-et="30–60 sekundiline lühivideo kinnisvara turundamiseks sotsiaalmeedias. Sobib Instagram Reels, Facebook ja TikToki. Tõstab kuulutuse nähtavust oluliselt." data-en="A 30–60 second short video for marketing your property on social media. Perfect for Instagram Reels, Facebook and TikTok. Significantly increases listing visibility.">30–60 sekundiline lühivideo kinnisvara turundamiseks sotsiaalmeedias. Sobib Instagram Reels, Facebook ja TikToki. Tõstab kuulutuse nähtavust oluliselt.</p>
+        <div class="addon-eyebrow" data-et="Lisa teenus" data-en="Add-on service">Lisa teenus</div>
+        <div class="addon-body">
+          <h3 data-et="Listing Reel" data-en="Listing Reel">Listing Reel</h3>
+          <p data-et="30–60 sekundiline lühivideo kinnisvara turundamiseks sotsiaalmeedias. Instagram Reels, Facebook, TikTok. Tõstab kuulutuse nähtavust oluliselt." data-en="A 30–60 second short video for marketing on social media. Instagram Reels, Facebook, TikTok. Significantly boosts listing visibility.">30–60 sekundiline lühivideo kinnisvara turundamiseks sotsiaalmeedias. Instagram Reels, Facebook, TikTok. Tõstab kuulutuse nähtavust oluliselt.</p>
         </div>
-        <div class="addon-price-block">
-          <div class="addon-from" data-et="alates" data-en="from">alates</div>
-          <div class="addon-amount">€150</div>
+        <div class="addon-price-col">
+          <span class="addon-from" data-et="alates" data-en="from">alates</span>
+          <span class="addon-price">€150</span>
           <a href="#contact" class="btn-outline" data-et="Lisa broneeringusse" data-en="Add to booking">Lisa broneeringusse</a>
         </div>
       </div>
@@ -289,36 +315,46 @@
   </section>
 
   <!-- ============================================================
-       PROTSESS
+       PROTSESS — ghost number steps
        ============================================================ -->
-  <section class="process" id="process">
+  <section class="process-section" id="process">
     <div class="container">
-      <h2 data-et="Kuidas see käib" data-en="How it works">Kuidas see käib</h2>
-      <p class="section-sub" data-et="Neli lihtsat sammu müügivalmis piltideni" data-en="Four simple steps to listing-ready photos">Neli lihtsat sammu müügivalmis piltideni</p>
+      <div class="section-header">
+        <h2 data-et="Kuidas see käib" data-en="How it works">Kuidas see käib</h2>
+        <p data-et="Neli sammu müügivalmis piltideni" data-en="Four steps to listing-ready photos">Neli sammu müügivalmis piltideni</p>
+      </div>
       <div class="steps">
 
         <div class="step">
-          <div class="step-num">01</div>
-          <h3 data-et="Saada sõnum" data-en="Send a message">Saada sõnum</h3>
-          <p data-et="Kirjuta objekti aadress, tüüp ja soovitud kuupäev. Vastame 24h." data-en="Write the address, property type and preferred date. We reply within 24h.">Kirjuta objekti aadress, tüüp ja soovitud kuupäev. Vastame 24h.</p>
+          <div class="step-ghost">01</div>
+          <div class="step-content">
+            <h3 data-et="Saada sõnum" data-en="Send a message">Saada sõnum</h3>
+            <p data-et="Kirjuta objekti aadress, tüüp ja soovitud kuupäev. Vastame 24h jooksul." data-en="Write the address, property type and preferred date. We reply within 24h.">Kirjuta objekti aadress, tüüp ja soovitud kuupäev. Vastame 24h jooksul.</p>
+          </div>
         </div>
 
         <div class="step">
-          <div class="step-num">02</div>
-          <h3 data-et="Sessioon" data-en="The shoot">Sessioon</h3>
-          <p data-et="Janar tuleb kohale täpselt õigel ajal. Sessioon kestab 1–3 tundi." data-en="Janar arrives on time. The session takes 1–3 hours.">Janar tuleb kohale täpselt õigel ajal. Sessioon kestab 1–3 tundi.</p>
+          <div class="step-ghost">02</div>
+          <div class="step-content">
+            <h3 data-et="Sessioon" data-en="The shoot">Sessioon</h3>
+            <p data-et="Janar tuleb kohale täpselt õigel ajal. Sessioon kestab 1–3 tundi." data-en="Janar arrives on time. The session takes 1–3 hours.">Janar tuleb kohale täpselt õigel ajal. Sessioon kestab 1–3 tundi.</p>
+          </div>
         </div>
 
         <div class="step">
-          <div class="step-num">03</div>
-          <h3 data-et="Toimetatud pildid 48h" data-en="Edited photos in 48h">Toimetatud pildid 48h</h3>
-          <p data-et="Lõplikud pildid on käes 48 tunni jooksul, Premium paketis 24h. Valmiid portaalidesse laadimiseks." data-en="Final photos within 48 hours, Premium package 24h. Ready to upload to portals.">Lõplikud pildid on käes 48 tunni jooksul, Premium paketis 24h. Valmiid portaalidesse laadimiseks.</p>
+          <div class="step-ghost">03</div>
+          <div class="step-content">
+            <h3 data-et="Pildid 48h" data-en="Photos in 48h">Pildid 48h</h3>
+            <p data-et="Lõplikud pildid 48h jooksul, Premium paketis 24h. Valmiid portaalidesse." data-en="Final photos in 48h, Premium 24h. Ready to upload to portals.">Lõplikud pildid 48h jooksul, Premium paketis 24h. Valmiid portaalidesse.</p>
+          </div>
         </div>
 
         <div class="step">
-          <div class="step-num">04</div>
-          <h3 data-et="Kuulutus online" data-en="Listing goes live">Kuulutus online</h3>
-          <p data-et="Professionaalsed pildid, mis panevad ostjad klikkima — ja helistama." data-en="Professional photos that make buyers click — and call.">Professionaalsed pildid, mis panevad ostjad klikkima — ja helistama.</p>
+          <div class="step-ghost">04</div>
+          <div class="step-content">
+            <h3 data-et="Kuulutus online" data-en="Listing goes live">Kuulutus online</h3>
+            <p data-et="Pildid, mis panevad ostjad klikkima — ja helistama." data-en="Photos that make buyers click — and call.">Pildid, mis panevad ostjad klikkima — ja helistama.</p>
+          </div>
         </div>
 
       </div>
@@ -326,48 +362,42 @@
   </section>
 
   <!-- ============================================================
-       AGENTUURIDELE
+       AGENTUURIDELE — dark forest green section
        ============================================================ -->
-  <section class="agency" id="agency">
+  <section class="agency-section" id="agency">
     <div class="container">
-      <div class="agency-grid">
+      <div class="agency-layout">
 
         <div class="agency-intro">
-          <p class="section-tag" data-et="Kinnisvarabüroodele" data-en="For real estate agencies">Kinnisvarabüroodele</p>
+          <span class="eyebrow light" data-et="Kinnisvarabüroodele" data-en="For real estate agencies">Kinnisvarabüroodele</span>
           <h2 data-et="Ühtlane visuaalne kvaliteet kogu portfoolios." data-en="Consistent visual quality across your entire portfolio.">Ühtlane visuaalne kvaliteet kogu portfoolios.</h2>
-          <p data-et="Regulaarsed objektid? Igakuine pakett tagab prioriteetse aja, fikseeritud hinna ja brändiühtsed pildid — ilma iga kord uuesti läbi rääkimata." data-en="Shooting properties regularly? A monthly retainer secures priority booking, a fixed price and brand-consistent photos — without renegotiating every time.">Regulaarsed objektid? Igakuine pakett tagab prioriteetse aja, fikseeritud hinna ja brändiühtsed pildid — ilma iga kord uuesti läbi rääkimata.</p>
-          <a href="#contact" class="btn-primary" data-et="Küsi pakkumist" data-en="Request a quote">Küsi pakkumist</a>
+          <p data-et="Regulaarsed objektid? Igakuine pakett tagab prioriteetse aja, fikseeritud hinna ja brändiühtsed pildid — ilma iga kord uuesti läbi rääkimata." data-en="Shooting regularly? A monthly retainer secures priority booking, a fixed price and brand-consistent photos — without renegotiating every time.">Regulaarsed objektid? Igakuine pakett tagab prioriteetse aja, fikseeritud hinna ja brändiühtsed pildid — ilma iga kord uuesti läbi rääkimata.</p>
+          <a href="#contact" class="btn-light" data-et="Küsi pakkumist" data-en="Request a quote">Küsi pakkumist</a>
         </div>
 
         <div class="agency-plans">
-
           <div class="agency-plan">
-            <div class="plan-header">
-              <span class="plan-name" data-et="Foto" data-en="Photo">Foto</span>
-              <span class="plan-price">€999<small data-et="/kuu" data-en="/mo">/kuu</small></span>
-            </div>
+            <div class="agency-plan-price">€999<span data-et="/kuu" data-en="/mo">/kuu</span></div>
+            <div class="agency-plan-name" data-et="Foto" data-en="Photo">Foto</div>
             <ul>
               <li data-et="6 objekti kuus" data-en="6 properties per month">6 objekti kuus</li>
-              <li data-et="Fotograafia iga objektile" data-en="Photography for each property">Fotograafia iga objektile</li>
+              <li data-et="Fotograafia iga objektile" data-en="Photography per property">Fotograafia iga objektile</li>
               <li data-et="Prioriteetne broneering" data-en="Priority booking">Prioriteetne broneering</li>
               <li data-et="Ühtsed toimetamisstandardid" data-en="Consistent editing standards">Ühtsed toimetamisstandardid</li>
             </ul>
           </div>
-
-          <div class="agency-plan featured">
-            <div class="plan-header">
-              <span class="plan-name" data-et="Foto + Videod" data-en="Photo + Video">Foto + Videod</span>
-              <span class="plan-price">€1 849<small data-et="/kuu" data-en="/mo">/kuu</small></span>
-            </div>
+          <div class="agency-plan highlight">
+            <div class="agency-plan-price">€1 849<span data-et="/kuu" data-en="/mo">/kuu</span></div>
+            <div class="agency-plan-name" data-et="Foto + Videod" data-en="Photo + Video">Foto + Videod</div>
             <ul>
               <li data-et="6 objekti kuus" data-en="6 properties per month">6 objekti kuus</li>
-              <li data-et="Fotograafia + Listing Reel iga objektile" data-en="Photography + Listing Reel per property">Fotograafia + Listing Reel iga objektile</li>
+              <li data-et="Foto + Listing Reel iga objektile" data-en="Photo + Listing Reel per property">Foto + Listing Reel iga objektile</li>
               <li data-et="Prioriteetne broneering" data-en="Priority booking">Prioriteetne broneering</li>
               <li data-et="Ühtsed toimetamisstandardid" data-en="Consistent editing standards">Ühtsed toimetamisstandardid</li>
             </ul>
           </div>
-
         </div>
+
       </div>
     </div>
   </section>
@@ -375,56 +405,64 @@
   <!-- ============================================================
        SÕIDUPIIRKOND
        ============================================================ -->
-  <section class="travel">
+  <section class="travel-section">
     <div class="container">
-      <div class="travel-card">
-        <div class="travel-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-            <circle cx="12" cy="10" r="3"></circle>
-          </svg>
-        </div>
+      <div class="travel-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+          <circle cx="12" cy="10" r="3"></circle>
+        </svg>
         <div>
           <h3 data-et="Teeninduspiirkond" data-en="Service area">Teeninduspiirkond</h3>
-          <p data-et="Asume Tartus. Kõik sessioonid 50 km raadiuses Tartust on ilma lisatasuta. Kaugemad objektid — €0,40/km edasi-tagasi. Näiteks Tallinn tuleb ~€80 juurde." data-en="We're based in Tartu. All sessions within 50 km of Tartu at no extra charge. Further properties — €0.40/km round trip. For example, Tallinn adds ~€80.">Asume Tartus. Kõik sessioonid 50 km raadiuses Tartust on ilma lisatasuta. Kaugemad objektid — €0,40/km edasi-tagasi. Näiteks Tallinn tuleb ~€80 juurde.</p>
+          <p data-et="Asume Tartus. 50 km raadiuses — lisatasu ei ole. Kaugemale sõidame ka: €0,40/km edasi-tagasi (nt Tallinn ~€80)." data-en="Based in Tartu. Within 50 km — no extra charge. We travel further too: €0.40/km round trip (e.g. Tallinn ~€80).">Asume Tartus. 50 km raadiuses — lisatasu ei ole. Kaugemale sõidame ka: €0,40/km edasi-tagasi (nt Tallinn ~€80).</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-       KONTAKT / CTA
+       KONTAKT
        ============================================================ -->
-  <section class="contact-cta" id="contact">
+  <section class="contact-section" id="contact">
     <div class="container">
-      <div class="contact-grid">
+      <div class="contact-layout">
 
         <div class="contact-intro">
           <h2 data-et="Valmis müüma kiiremini?" data-en="Ready to sell faster?">Valmis müüma kiiremini?</h2>
           <p data-et="Saada sõnum koos objekti aadressiga ja valitud paketiga. Vastame 24h jooksul." data-en="Send a message with the property address and chosen package. We respond within 24 hours.">Saada sõnum koos objekti aadressiga ja valitud paketiga. Vastame 24h jooksul.</p>
           <ul class="contact-details">
-            <li><span data-et="E-post" data-en="Email">E-post</span> — <a href="mailto:hello@lindjanar.ee">hello@lindjanar.ee</a></li>
-            <li><span data-et="Asukoht" data-en="Based in">Asukoht</span> — <span data-et="Tartu, Eesti" data-en="Tartu, Estonia">Tartu, Eesti</span></li>
+            <li>
+              <span data-et="E-post" data-en="Email">E-post</span>
+              <a href="mailto:hello@lindjanar.ee">hello@lindjanar.ee</a>
+            </li>
+            <li>
+              <span data-et="Asukoht" data-en="Based in">Asukoht</span>
+              <span data-et="Tartu, Eesti" data-en="Tartu, Estonia">Tartu, Eesti</span>
+            </li>
           </ul>
         </div>
 
         <form class="contact-form" action="mailto:hello@lindjanar.ee" method="post" enctype="text/plain">
-          <input type="text" name="first_name"
-            data-et-placeholder="Eesnimi" data-en-placeholder="First name"
-            placeholder="Eesnimi" required />
-          <input type="text" name="last_name"
-            data-et-placeholder="Perekonnanimi" data-en-placeholder="Last name"
-            placeholder="Perekonnanimi" required />
-          <input type="email" name="email"
-            data-et-placeholder="E-post" data-en-placeholder="Email"
-            placeholder="E-post" required />
-          <input type="tel" name="phone"
-            data-et-placeholder="Telefon" data-en-placeholder="Phone"
-            placeholder="Telefon" />
-          <input type="text" name="address" class="full"
+          <div class="form-row">
+            <input type="text" name="first_name"
+              data-et-placeholder="Eesnimi" data-en-placeholder="First name"
+              placeholder="Eesnimi" required />
+            <input type="text" name="last_name"
+              data-et-placeholder="Perekonnanimi" data-en-placeholder="Last name"
+              placeholder="Perekonnanimi" required />
+          </div>
+          <div class="form-row">
+            <input type="email" name="email"
+              data-et-placeholder="E-post" data-en-placeholder="Email"
+              placeholder="E-post" required />
+            <input type="tel" name="phone"
+              data-et-placeholder="Telefon" data-en-placeholder="Phone"
+              placeholder="Telefon" />
+          </div>
+          <input type="text" name="address"
             data-et-placeholder="Objekti aadress" data-en-placeholder="Property address"
             placeholder="Objekti aadress" />
-          <select name="package" class="full">
+          <select name="package">
             <option value="" data-et="Vali pakett" data-en="Choose a package">Vali pakett</option>
             <option value="apt-basic" data-et="Korter — Põhi (€99)" data-en="Apartment — Basic (€99)">Korter — Põhi (€99)</option>
             <option value="apt-standard" data-et="Korter — Standard (€159)" data-en="Apartment — Standard (€159)">Korter — Standard (€159)</option>
@@ -436,11 +474,10 @@
             <option value="reel" data-et="Listing Reel lisa" data-en="Listing Reel add-on">Listing Reel lisa</option>
             <option value="other" data-et="Muu / küsin" data-en="Other / question">Muu / küsin</option>
           </select>
-          <textarea class="full" name="message"
+          <textarea name="message"
             data-et-placeholder="Sõnum (vabatahtlik)" data-en-placeholder="Message (optional)"
             placeholder="Sõnum (vabatahtlik)"></textarea>
-          <button type="submit" class="full btn-submit"
-            data-et="Saada" data-en="Send">Saada</button>
+          <button type="submit" class="btn-submit" data-et="Saada" data-en="Send">Saada</button>
         </form>
 
       </div>
@@ -450,7 +487,7 @@
 </main>
 
 <footer class="site-footer">
-  <div class="container footer-row">
+  <div class="footer-inner">
     <span>&copy; <span class="year"></span> Janar Lind. <span data-et="Kõik õigused kaitstud." data-en="All rights reserved.">Kõik õigused kaitstud.</span></span>
     <a href="https://lindjanar.ee" data-et="← Autofotograafia" data-en="← Automotive photography">← Autofotograafia</a>
   </div>
