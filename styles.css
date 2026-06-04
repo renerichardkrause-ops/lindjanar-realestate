@@ -34,6 +34,7 @@ body {
   color: var(--fg);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 /* ── TYPOGRAPHY ── */
@@ -138,35 +139,62 @@ a  { color: inherit; text-decoration: none; }
 }
 .lang-toggle:hover { border-color: var(--fg-dim); color: var(--fg); }
 
-/* ── HERO — SPLIT PANEL ── */
+/* ── HERO — FULL-WIDTH BACKGROUND IMAGE ── */
 .hero {
-  display: grid;
-  grid-template-columns: 55% 45%;
-  min-height: calc(92vh - 62px);
-}
-
-.hero-left {
+  position: relative;
   display: flex;
   align-items: center;
-  padding: 5rem max(2rem, calc((100vw - var(--max)) / 2 + 2rem));
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-  background: var(--bg);
+  min-height: calc(92vh - 62px);
+  background: var(--bg-dark);
+  overflow: hidden;
 }
 
-.hero-text { max-width: 540px; }
+/* Background photo — drop assets/hero/hero.jpg. Falls back to dark green. */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: var(--bg-dark);
+  background-image: url('assets/hero/hero.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* Legibility gradient — darkest on the left, behind the text */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(100deg,
+    rgba(15,22,17,0.82) 0%,
+    rgba(15,22,17,0.55) 45%,
+    rgba(15,22,17,0.20) 100%);
+}
+
+.hero-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.hero-text { max-width: 560px; }
 
 .hero-text .eyebrow {
+  color: rgba(247,244,239,0.7);
   animation: fadeUp 0.55s ease both;
 }
 .hero-text h1 {
+  color: var(--accent-fg);
   font-style: italic;
   margin-bottom: 1.25rem;
   animation: fadeUp 0.65s 0.1s ease both;
 }
 .hero-text p {
+  color: rgba(247,244,239,0.82);
   font-size: 1rem;
-  max-width: 400px;
+  max-width: 440px;
   margin-bottom: 2.25rem;
   animation: fadeUp 0.65s 0.2s ease both;
 }
@@ -177,30 +205,14 @@ a  { color: inherit; text-decoration: none; }
   animation: fadeUp 0.65s 0.3s ease both;
 }
 
-.hero-right {
-  position: relative;
-  background: var(--bg-alt);
-  overflow: hidden;
+/* Ghost button needs light treatment on the dark image */
+.hero .btn-ghost {
+  border-color: rgba(247,244,239,0.4);
+  color: rgba(247,244,239,0.85);
 }
-.img-placeholder {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
-  color: var(--fg-muted);
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-}
-.img-placeholder small { font-size: 0.7rem; opacity: 0.5; }
-.hero-right img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.hero .btn-ghost:hover {
+  border-color: var(--accent-fg);
+  color: var(--accent-fg);
 }
 
 /* ── FADE-UP ANIMATION ── */
@@ -379,6 +391,36 @@ a  { color: inherit; text-decoration: none; }
 /* ── PRICING ── */
 .pricing-section { padding: 6rem 0; }
 .pricing-section.alt-bg { background: var(--bg-alt); }
+
+/* Full-size background photo behind a pricing section.
+   A light ivory scrim keeps the cards and headings readable.
+   Drop images: assets/korterid/korterid.jpg and assets/eramajad/eramajad.jpg */
+.pricing-bg { position: relative; isolation: isolate; }
+.pricing-bg > .container { position: relative; z-index: 2; }
+.pricing-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.pricing-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(247,244,239,0.72);
+}
+.pricing-bg--apt::before {
+  background-color: var(--bg);
+  background-image: url('assets/korterid/korterid.jpg');
+}
+.pricing-bg--house::before {
+  background-color: var(--bg-alt);
+  background-image: url('assets/eramajad/eramajad.jpg');
+}
 
 .pricing-grid {
   display: grid;
@@ -848,9 +890,7 @@ a  { color: inherit; text-decoration: none; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 960px) {
-  .hero { grid-template-columns: 1fr; min-height: auto; }
-  .hero-left { padding: 4rem 2rem; }
-  .hero-right { height: 55vw; min-height: 280px; }
+  .hero { min-height: 72vh; }
 
   .stats-row { flex-direction: column; padding: 0 2rem; }
   .stat-rule { width: 100%; height: 1px; }

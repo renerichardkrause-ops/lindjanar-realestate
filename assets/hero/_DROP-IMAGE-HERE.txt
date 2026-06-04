@@ -1,0 +1,11 @@
+Drop the HERO background image in this folder and name it exactly:
+
+    hero.jpg
+
+It will become the full-width background behind the headline.
+Recommended: a wide, landscape-oriented interior or exterior shot,
+at least 2000px wide. The page darkens the left side so the white
+headline text stays readable.
+
+To downscale before adding (keeps the repo small):
+    sips -s format jpeg -s formatOptions 70 source.jpg --out assets/hero/hero.jpg

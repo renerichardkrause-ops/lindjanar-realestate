@@ -36,12 +36,12 @@
 <main>
 
   <!-- ============================================================
-       HERO — split panel
-       [EDIT ASSET] assets/hero.jpg
-       Pärast pildi lisamist: lisa <section class="hero has-image">
+       HERO — full-width background image with overlaid text
+       [EDIT ASSET] assets/hero/hero.jpg
        ============================================================ -->
   <section class="hero">
-    <div class="hero-left">
+    <div class="hero-bg"></div>
+    <div class="container hero-container">
       <div class="hero-text">
         <span class="eyebrow" data-et="Kinnisvarafotograafia · Tartu" data-en="Real Estate Photography · Tartu">Kinnisvarafotograafia · Tartu</span>
         <h1 data-et="Sinu kinnisvara müüb kiiremini." data-en="Your property sells faster.">Sinu kinnisvara müüb kiiremini.</h1>
@@ -54,13 +54,6 @@
           <a href="#contact" class="btn-ghost" data-et="Broneeri sessioon" data-en="Book a session">Broneeri sessioon</a>
         </div>
       </div>
-    </div>
-    <div class="hero-right">
-      <div class="img-placeholder">
-        <span data-et="Hero foto" data-en="Hero photo">Hero foto</span>
-        <small>assets/hero.jpg</small>
-      </div>
-      <!-- <img src="assets/hero.jpg" alt="" /> -->
     </div>
   </section>
 
@@ -184,7 +177,7 @@
   <!-- ============================================================
        HINNAD — KORTERID
        ============================================================ -->
-  <section class="pricing-section" id="pricing">
+  <section class="pricing-section pricing-bg pricing-bg--apt" id="pricing">
     <div class="container">
       <div class="section-header">
         <span class="section-tag" data-et="Korterid" data-en="Apartments">Korterid</span>
@@ -240,7 +233,7 @@
   <!-- ============================================================
        HINNAD — ERAMAJAD
        ============================================================ -->
-  <section class="pricing-section alt-bg">
+  <section class="pricing-section alt-bg pricing-bg pricing-bg--house">
     <div class="container">
       <div class="section-header">
         <span class="section-tag" data-et="Eramajad" data-en="Houses">Eramajad</span>

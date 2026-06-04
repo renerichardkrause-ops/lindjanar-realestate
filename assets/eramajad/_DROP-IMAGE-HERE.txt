@@ -1,0 +1,10 @@
+Drop the HOUSE photo in this folder and name it exactly:
+
+    eramajad.jpg
+
+It becomes the full-size background of the "Eramaja paketid" section.
+Recommended: a house / villa exterior, landscape, at least 2000px wide.
+A light overlay is applied so the pricing cards stay readable.
+
+To downscale before adding:
+    sips -s format jpeg -s formatOptions 70 source.jpg --out assets/eramajad/eramajad.jpg

@@ -1,0 +1,10 @@
+Drop the APARTMENT photo in this folder and name it exactly:
+
+    korterid.jpg
+
+It becomes the full-size background of the "Korteri paketid" section.
+Recommended: a bright apartment interior, landscape, at least 2000px wide.
+A light overlay is applied so the pricing cards stay readable.
+
+To downscale before adding:
+    sips -s format jpeg -s formatOptions 70 source.jpg --out assets/korterid/korterid.jpg
