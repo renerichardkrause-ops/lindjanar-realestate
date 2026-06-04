@@ -108,23 +108,71 @@ applyLanguage(localStorage.getItem('lang') || 'et');
 })();
 
 // ============================================================
-// Conversion tracking — contact-form submit
-//   Fires a GA4 "generate_lead" event and (when a real Google Ads
-//   label is configured in index.html) a Google Ads conversion.
-//   Safe no-op until IDs/label are filled in.
+// Contact form — Formspree AJAX submit + conversion tracking
+//   Submits without leaving the page, shows an inline status message,
+//   and fires the GA4 "generate_lead" event plus the Google Ads
+//   conversion (when a real send_to label is set) only on success.
 // ============================================================
 (function () {
   const form = document.querySelector('.contact-form');
   if (!form) return;
-  form.addEventListener('submit', function () {
+
+  function t(et, en) {
+    let lang = 'et';
+    try { lang = localStorage.getItem('lang') || 'et'; } catch (e) {}
+    return lang === 'en' ? en : et;
+  }
+
+  const status = document.createElement('p');
+  status.className = 'form-status';
+  status.setAttribute('role', 'status');
+  status.hidden = true;
+  form.appendChild(status);
+
+  function fireConversion() {
     if (typeof window.gtag !== 'function') return;
-    // Google Analytics 4 lead event
     window.gtag('event', 'generate_lead', { method: 'contact_form' });
-    // Google Ads conversion (only once a real send_to label is set)
     const label = window.ADS_CONTACT_LABEL;
     if (label && label.indexOf('XXXX') === -1) {
       window.gtag('event', 'conversion', { send_to: label });
     }
+  }
+
+  function showStatus(ok, msg) {
+    status.hidden = false;
+    status.classList.toggle('form-status--ok', ok);
+    status.classList.toggle('form-status--error', !ok);
+    status.textContent = msg;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const btn = form.querySelector('.btn-submit');
+    const original = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = t('Saadan…', 'Sending…'); }
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { Accept: 'application/json' }
+    }).then(function (res) {
+      if (!res.ok) throw new Error('bad response');
+      fireConversion();
+      form.reset();
+      showStatus(true, t(
+        'Aitäh! Sõnum on saadetud — vastame 24 tunni jooksul.',
+        'Thank you! Your message has been sent — we reply within 24 hours.'
+      ));
+    }).catch(function () {
+      showStatus(false, t(
+        'Midagi läks valesti. Proovi uuesti või kirjuta hello@lindjanar.ee.',
+        'Something went wrong. Please try again or email hello@lindjanar.ee.'
+      ));
+    }).finally(function () {
+      if (btn) { btn.disabled = false; btn.textContent = original; }
+    });
   });
 })();
 

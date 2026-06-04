@@ -1035,12 +1035,12 @@ a  { color: inherit; text-decoration: none; }
   right: 1rem;
   bottom: 1rem;
   z-index: 200;
-  max-width: 600px;
+  max-width: 880px;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-  padding: 1.15rem 1.4rem;
+  gap: 2rem;
+  padding: 2.75rem 3rem;
   background: var(--bg-dark);
   border: 1px solid var(--border-dark);
   border-radius: var(--r);
@@ -1051,20 +1051,20 @@ a  { color: inherit; text-decoration: none; }
 .cookie-text {
   margin: 0;
   color: rgba(247, 244, 239, 0.85);
-  font-size: 0.8rem;
-  line-height: 1.55;
+  font-size: 1.2rem;
+  line-height: 1.65;
 }
 .cookie-actions {
   display: flex;
-  gap: 0.6rem;
+  gap: 0.85rem;
   flex-shrink: 0;
 }
 .cookie-btn {
   font-family: var(--font-body);
-  font-size: 0.74rem;
+  font-size: 1.05rem;
   font-weight: 500;
   letter-spacing: 0.04em;
-  padding: 0.55rem 1.15rem;
+  padding: 1rem 2.1rem;
   cursor: pointer;
   border-radius: var(--r);
   white-space: nowrap;
@@ -1094,8 +1094,21 @@ a  { color: inherit; text-decoration: none; }
   .cookie-banner {
     flex-direction: column;
     align-items: stretch;
-    gap: 0.9rem;
+    gap: 1.1rem;
+    padding: 1.75rem 1.6rem;
   }
+  .cookie-text { font-size: 1.02rem; }
   .cookie-actions { width: 100%; }
   .cookie-btn { flex: 1; }
 }
+
+/* ── CONTACT FORM STATUS MESSAGE ── */
+.form-status {
+  margin: 0.25rem 0 0;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.form-status[hidden] { display: none; }
+.form-status--ok { color: var(--accent); }
+.form-status--error { color: #b3402f; }
