@@ -5,6 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Kinnisvarafotograafia — LINDJANAR</title>
 <meta name="description" content="Professionaalne kinnisvarafotograafia ja videograafia Tartust. Müü kiiremini, küsi rohkem raha." />
+<!-- ============================================================
+     GOOGLE TAG — Analytics 4 (G-) + Google Ads (AW-)
+     ▸ SETUP: paste your real IDs in the three lines marked below.
+       Until you do, NO tracking requests are sent anywhere.
+         GA4 Measurement ID            → format  G-XXXXXXXXXX
+         Ads Conversion ID             → format  AW-XXXXXXXXXX
+         Ads contact-lead label        → format  AW-XXXXXXXXXX/Abc123label
+     ============================================================ -->
+<script>
+  /* ↓↓↓ PASTE YOUR IDS HERE ↓↓↓ */
+  window.GA4_ID = 'G-XXXXXXXXXX';
+  window.ADS_ID = 'AW-XXXXXXXXXX';
+  window.ADS_CONTACT_LABEL = 'AW-XXXXXXXXXX/XXXXXXXXXXXXXXXXX';
+  /* ↑↑↑ PASTE YOUR IDS HERE ↑↑↑ */
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { dataLayer.push(arguments); };
+  (function () {
+    var ids = [];
+    if (window.GA4_ID && window.GA4_ID.indexOf('XXXX') === -1) ids.push(window.GA4_ID);
+    if (window.ADS_ID && window.ADS_ID.indexOf('XXXX') === -1) ids.push(window.ADS_ID);
+    if (!ids.length) return; /* not configured yet → load nothing */
+    gtag('js', new Date());
+    ids.forEach(function (id) { gtag('config', id); });
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ids[0];
+    document.head.appendChild(s);
+  })();
+</script>
 <link rel="stylesheet" href="styles.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
