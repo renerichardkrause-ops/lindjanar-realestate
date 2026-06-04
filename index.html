@@ -92,6 +92,31 @@
   </section>
 
   <!-- ============================================================
+       GALERII — auto-advance + manual carousel
+       [EDIT ASSETS] assets/galerii/gallery-01.jpg ... gallery-NN.jpg
+       To add/remove photos: change data-count below and add matching
+       files (gallery-38.jpg, …). Names are zero-padded to 2 digits.
+       ============================================================ -->
+  <section class="gallery-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-et="Galerii" data-en="Gallery">Galerii</span>
+        <h2 data-et="Hiljutised tööd" data-en="Recent work">Hiljutised tööd</h2>
+        <p data-et="Valik meie kinnisvarafotodest." data-en="A selection of our property photography.">Valik meie kinnisvarafotodest.</p>
+      </div>
+      <div class="gallery-carousel">
+        <button class="gallery-arrow gallery-arrow--prev" type="button" aria-label="Eelmine">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="gallery-track" id="galleryTrack" data-count="37"></div>
+        <button class="gallery-arrow gallery-arrow--next" type="button" aria-label="Järgmine">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
        VALUE STACK
        ============================================================ -->
   <section class="value-section">

@@ -35,3 +35,74 @@ window.toggleLanguage = toggleLanguage;
 
 // Apply saved language on every page load (default: Estonian)
 applyLanguage(localStorage.getItem('lang') || 'et');
+
+// ============================================================
+// Gallery carousel — auto-advance + manual arrows + native swipe
+//   Slides are built from assets/galerii/gallery-NN.jpg using the
+//   data-count on #galleryTrack. Pauses on hover/touch and when the
+//   section is off-screen.
+// ============================================================
+(function () {
+  const track = document.getElementById('galleryTrack');
+  if (!track) return;
+
+  const count = parseInt(track.getAttribute('data-count'), 10) || 0;
+  for (let i = 1; i <= count; i++) {
+    const n = String(i).padStart(2, '0');
+    const slide = document.createElement('div');
+    slide.className = 'gallery-slide';
+    const img = document.createElement('img');
+    img.src = 'assets/galerii/gallery-' + n + '.jpg';
+    img.loading = 'lazy';
+    img.alt = 'Kinnisvarafoto ' + i;
+    slide.appendChild(img);
+    track.appendChild(slide);
+  }
+
+  const carousel = track.closest('.gallery-carousel');
+  const prev = carousel.querySelector('.gallery-arrow--prev');
+  const next = carousel.querySelector('.gallery-arrow--next');
+
+  function stepWidth() {
+    const slide = track.querySelector('.gallery-slide');
+    if (!slide) return track.clientWidth;
+    const gap = parseFloat(getComputedStyle(track).gap) || 0;
+    return slide.getBoundingClientRect().width + gap;
+  }
+
+  function go(dir) {
+    const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+    const atStart = track.scrollLeft <= 4;
+    if (dir > 0 && atEnd) { track.scrollTo({ left: 0, behavior: 'smooth' }); return; }
+    if (dir < 0 && atStart) { track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' }); return; }
+    track.scrollBy({ left: dir * stepWidth(), behavior: 'smooth' });
+  }
+
+  if (next) next.addEventListener('click', () => go(1));
+  if (prev) prev.addEventListener('click', () => go(-1));
+
+  // Auto-advance
+  let timer = null;
+  const DELAY = 3500;
+  function start() { stop(); timer = setInterval(() => go(1), DELAY); }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+  // Pause on hover (desktop)
+  carousel.addEventListener('mouseenter', stop);
+  carousel.addEventListener('mouseleave', start);
+
+  // Pause on touch (mobile), resume shortly after
+  let resumeT;
+  track.addEventListener('touchstart', () => { stop(); clearTimeout(resumeT); }, { passive: true });
+  track.addEventListener('touchend', () => { clearTimeout(resumeT); resumeT = setTimeout(start, 4000); }, { passive: true });
+
+  // Only run while the carousel is visible
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => (e.isIntersecting ? start() : stop()));
+    }, { threshold: 0.25 });
+    io.observe(carousel);
+  } else {
+    start();
+  }
+})();
