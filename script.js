@@ -106,3 +106,24 @@ applyLanguage(localStorage.getItem('lang') || 'et');
     start();
   }
 })();
+
+// ============================================================
+// Conversion tracking — contact-form submit
+//   Fires a GA4 "generate_lead" event and (when a real Google Ads
+//   label is configured in index.html) a Google Ads conversion.
+//   Safe no-op until IDs/label are filled in.
+// ============================================================
+(function () {
+  const form = document.querySelector('.contact-form');
+  if (!form) return;
+  form.addEventListener('submit', function () {
+    if (typeof window.gtag !== 'function') return;
+    // Google Analytics 4 lead event
+    window.gtag('event', 'generate_lead', { method: 'contact_form' });
+    // Google Ads conversion (only once a real send_to label is set)
+    const label = window.ADS_CONTACT_LABEL;
+    if (label && label.indexOf('XXXX') === -1) {
+      window.gtag('event', 'conversion', { send_to: label });
+    }
+  });
+})();
