@@ -22,6 +22,27 @@
 
   window.dataLayer = window.dataLayer || [];
   window.gtag = function () { dataLayer.push(arguments); };
+
+  /* Consent Mode v2 — deny everything until the visitor chooses. GA/Ads
+     send only cookieless pings until consent is granted via the banner. */
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    wait_for_update: 500
+  });
+  try {
+    if (localStorage.getItem('cookie-consent') === 'granted') {
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
+        analytics_storage: 'granted'
+      });
+    }
+  } catch (e) {}
+
   (function () {
     var ids = [];
     if (window.GA4_ID && window.GA4_ID.indexOf('XXXX') === -1) ids.push(window.GA4_ID);
@@ -527,6 +548,19 @@
     <a href="https://lindjanar.ee" data-et="← Autofotograafia" data-en="← Automotive photography">← Autofotograafia</a>
   </div>
 </footer>
+
+<!-- ============================================================
+     COOKIE CONSENT BANNER (GDPR / Consent Mode v2)
+     ============================================================ -->
+<div class="cookie-banner" id="cookieBanner" hidden>
+  <p class="cookie-text"
+     data-et="Kasutame küpsiseid saidi kasutuse analüüsimiseks. Vajuta „Nõustun“, et lubada analüütika, või „Keeldun“, et seda mitte teha."
+     data-en="We use cookies to analyse site usage. Choose “Accept” to allow analytics, or “Decline” to opt out.">Kasutame küpsiseid saidi kasutuse analüüsimiseks. Vajuta „Nõustun“, et lubada analüütika, või „Keeldun“, et seda mitte teha.</p>
+  <div class="cookie-actions">
+    <button type="button" class="cookie-btn cookie-btn--decline" id="cookieDecline" data-et="Keeldun" data-en="Decline">Keeldun</button>
+    <button type="button" class="cookie-btn cookie-btn--accept" id="cookieAccept" data-et="Nõustun" data-en="Accept">Nõustun</button>
+  </div>
+</div>
 
 <script src="script.js"></script>
 </body>

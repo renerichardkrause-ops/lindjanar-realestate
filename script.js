@@ -127,3 +127,36 @@ applyLanguage(localStorage.getItem('lang') || 'et');
     }
   });
 })();
+
+// ============================================================
+// Cookie consent banner (GDPR / Consent Mode v2)
+//   Shows until the visitor chooses. "Accept" grants consent and lets
+//   GA/Ads set cookies; "Decline" keeps the denied default. Choice is
+//   remembered in localStorage so the banner doesn't reappear.
+// ============================================================
+(function () {
+  const banner = document.getElementById('cookieBanner');
+  if (!banner) return;
+
+  let stored = null;
+  try { stored = localStorage.getItem('cookie-consent'); } catch (e) {}
+  if (!stored) banner.hidden = false;
+
+  function choose(state) {
+    try { localStorage.setItem('cookie-consent', state); } catch (e) {}
+    if (state === 'granted' && typeof window.gtag === 'function') {
+      window.gtag('consent', 'update', {
+        ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
+        analytics_storage: 'granted'
+      });
+    }
+    banner.hidden = true;
+  }
+
+  const accept = document.getElementById('cookieAccept');
+  const decline = document.getElementById('cookieDecline');
+  if (accept) accept.addEventListener('click', function () { choose('granted'); });
+  if (decline) decline.addEventListener('click', function () { choose('denied'); });
+})();
