@@ -485,8 +485,8 @@
       <div class="section-header">
         <span class="section-tag" data-et="Soovitusprogramm" data-en="Referral program">Soovitusprogramm</span>
         <h2 data-et="Soovita meid ja teeni" data-en="Refer us and earn">Soovita meid ja teeni</h2>
-        <p data-et="Kinnisvara hindajad, maaklerid ja kõik teised — soovita Lindjanari ja saad tasu iga õnnestunud pildistamise eest."
-           data-en="Real-estate evaluators, agents and everyone else — refer Lindjanar and earn a reward for every successful shoot.">Kinnisvara hindajad, maaklerid ja kõik teised — soovita Lindjanari ja saad tasu iga õnnestunud pildistamise eest.</p>
+        <p data-et="Programm on mõeldud kinnisvaraspetsialistidele — maakleritele, hindajatele ja koostööpartneritele — ning meie senistele klientidele. Soovita Lindjanari ja teeni tasu iga õnnestunud pildistamise eest."
+           data-en="The program is for real-estate professionals — agents, valuators and partners — and our past clients. Refer Lindjanar and earn a reward for every successful shoot.">Programm on mõeldud kinnisvaraspetsialistidele — maakleritele, hindajatele ja koostööpartneritele — ning meie senistele klientidele. Soovita Lindjanari ja teeni tasu iga õnnestunud pildistamise eest.</p>
       </div>
 
       <div class="referral-layout">
@@ -512,10 +512,13 @@
           </ol>
 
           <p class="referral-note"
-             data-et="* Ettevõtetele maksame täissumma arve alusel. Eraisikutele maksame summa, millest on maha arvatud seadusega ettenähtud maksud. Tasu makstakse pärast pildistamise toimumist ja arve tasumist."
-             data-en="* Companies receive the full amount against an invoice. Private individuals receive the amount after statutory taxes are deducted. The reward is paid after the shoot is completed and the invoice is paid.">* Ettevõtetele maksame täissumma arve alusel. Eraisikutele maksame summa, millest on maha arvatud seadusega ettenähtud maksud. Tasu makstakse pärast pildistamise toimumist ja arve tasumist.</p>
+             data-et="* Soovitatav klient peab olema uus klient — keegi, kes ei broneeriks pildistamist ka ilma sinu soovituseta (mitte sina ise ega sinu leibkonnaliige). Ettevõtetele maksame täissumma arve alusel; eraisikutele summa, millest on maha arvatud seadusega ettenähtud maksud. Tasu makstakse pärast pildistamise toimumist ja arve tasumist."
+             data-en="* The person you refer must be a genuinely new client — someone who wouldn't have booked without your recommendation (not you or a member of your household). Companies are paid the full amount against an invoice; private individuals are paid net of statutory taxes. The reward is paid after the shoot is completed and the invoice is paid.">* Soovitatav klient peab olema uus klient — keegi, kes ei broneeriks pildistamist ka ilma sinu soovituseta (mitte sina ise ega sinu leibkonnaliige). Ettevõtetele maksame täissumma arve alusel; eraisikutele summa, millest on maha arvatud seadusega ettenähtud maksud. Tasu makstakse pärast pildistamise toimumist ja arve tasumist.</p>
         </div>
 
+        <!-- Referral signups currently share the contact Formspree form (mkoanabz).
+             To send a PARTNER-SPECIFIC autoresponse, create a separate Formspree
+             form, turn on its Autoresponse (paid plan), and swap its ID in below. -->
         <form class="contact-form referral-form" action="https://formspree.io/f/mkoanabz" method="POST" data-form-type="referral">
           <input type="hidden" name="_subject" value="Soovitusprogrammi liitumine — kinnisvara.lindjanar.ee" />
           <input type="hidden" name="form_type" value="referral_partner" />
@@ -531,10 +534,12 @@
               data-et-placeholder="Telefon" data-en-placeholder="Phone"
               placeholder="Telefon" />
           </div>
-          <select name="referrer_type">
+          <select name="referrer_type" required>
             <option value="" data-et="Kes sa oled?" data-en="Who are you?">Kes sa oled?</option>
-            <option value="company" data-et="Ettevõte (arve alusel)" data-en="Company (invoiced)">Ettevõte (arve alusel)</option>
-            <option value="private" data-et="Eraisik" data-en="Private individual">Eraisik</option>
+            <option value="agent" data-et="Kinnisvaramaakler" data-en="Real-estate agent">Kinnisvaramaakler</option>
+            <option value="valuator" data-et="Kinnisvara hindaja" data-en="Real-estate valuator">Kinnisvara hindaja</option>
+            <option value="partner" data-et="Koostööpartner" data-en="Partner">Koostööpartner</option>
+            <option value="past_client" data-et="Varasem klient" data-en="Past client">Varasem klient</option>
           </select>
           <input type="text" name="iban"
             data-et-placeholder="IBAN (väljamakse jaoks)" data-en-placeholder="IBAN (for payout)"
