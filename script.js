@@ -114,8 +114,8 @@ applyLanguage(localStorage.getItem('lang') || 'et');
 //   conversion (when a real send_to label is set) only on success.
 // ============================================================
 (function () {
-  const form = document.querySelector('.contact-form');
-  if (!form) return;
+  const forms = document.querySelectorAll('.contact-form');
+  if (!forms.length) return;
 
   function t(et, en) {
     let lang = 'et';
@@ -123,55 +123,66 @@ applyLanguage(localStorage.getItem('lang') || 'et');
     return lang === 'en' ? en : et;
   }
 
-  const status = document.createElement('p');
-  status.className = 'form-status';
-  status.setAttribute('role', 'status');
-  status.hidden = true;
-  form.appendChild(status);
-
-  function fireConversion() {
+  function fireConversion(type) {
     if (typeof window.gtag !== 'function') return;
-    window.gtag('event', 'generate_lead', { method: 'contact_form' });
+    // Referral partner signups and contact requests are both leads.
+    const method = type === 'referral' ? 'referral_signup' : 'contact_form';
+    window.gtag('event', 'generate_lead', { method: method });
     const label = window.ADS_CONTACT_LABEL;
     if (label && label.indexOf('XXXX') === -1) {
       window.gtag('event', 'conversion', { send_to: label });
     }
   }
 
-  function showStatus(ok, msg) {
-    status.hidden = false;
-    status.classList.toggle('form-status--ok', ok);
-    status.classList.toggle('form-status--error', !ok);
-    status.textContent = msg;
-  }
+  forms.forEach(function (form) {
+    const type = form.getAttribute('data-form-type') || 'contact';
 
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    if (!form.reportValidity()) return;
+    const status = document.createElement('p');
+    status.className = 'form-status';
+    status.setAttribute('role', 'status');
+    status.hidden = true;
+    form.appendChild(status);
 
-    const btn = form.querySelector('.btn-submit');
-    const original = btn ? btn.textContent : '';
-    if (btn) { btn.disabled = true; btn.textContent = t('Saadan…', 'Sending…'); }
+    function showStatus(ok, msg) {
+      status.hidden = false;
+      status.classList.toggle('form-status--ok', ok);
+      status.classList.toggle('form-status--error', !ok);
+      status.textContent = msg;
+    }
 
-    fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { Accept: 'application/json' }
-    }).then(function (res) {
-      if (!res.ok) throw new Error('bad response');
-      fireConversion();
-      form.reset();
-      showStatus(true, t(
-        'Aitäh! Sõnum on saadetud — vastame 24 tunni jooksul.',
-        'Thank you! Your message has been sent — we reply within 24 hours.'
-      ));
-    }).catch(function () {
-      showStatus(false, t(
-        'Midagi läks valesti. Proovi uuesti või kirjuta hello@lindjanar.ee.',
-        'Something went wrong. Please try again or email hello@lindjanar.ee.'
-      ));
-    }).finally(function () {
-      if (btn) { btn.disabled = false; btn.textContent = original; }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const btn = form.querySelector('.btn-submit');
+      const original = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = t('Saadan…', 'Sending…'); }
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      }).then(function (res) {
+        if (!res.ok) throw new Error('bad response');
+        fireConversion(type);
+        form.reset();
+        showStatus(true, type === 'referral'
+          ? t(
+              'Aitäh! Võtame sinuga ühendust ja saadame sinu soovituskoodi.',
+              'Thank you! We will be in touch and send you your referral code.'
+            )
+          : t(
+              'Aitäh! Sõnum on saadetud — vastame 24 tunni jooksul.',
+              'Thank you! Your message has been sent — we reply within 24 hours.'
+            ));
+      }).catch(function () {
+        showStatus(false, t(
+          'Midagi läks valesti. Proovi uuesti või kirjuta hello@lindjanar.ee.',
+          'Something went wrong. Please try again or email hello@lindjanar.ee.'
+        ));
+      }).finally(function () {
+        if (btn) { btn.disabled = false; btn.textContent = original; }
+      });
     });
   });
 })();
