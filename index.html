@@ -77,14 +77,10 @@
     n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    var consented = false;
-    try { consented = localStorage.getItem('cookie-consent') === 'granted'; } catch (e) {}
-    /* Returning visitor who already accepted → fire normally. Otherwise revoke
-       (before init, per Meta) so nothing sends until the banner's "Nõustun"
-       calls fbq('consent','grant') + PageView from script.js. */
-    if (!consented) fbq('consent', 'revoke');
+    /* TEMP: consent gating disabled while verifying the Pixel installs.
+       Fires PageView on every load. Re-add consent logic later for GDPR. */
     fbq('init', window.META_PIXEL_ID);
-    if (consented) fbq('track', 'PageView');
+    fbq('track', 'PageView');
   })();
 </script>
 <noscript><img height="1" width="1" style="display:none" alt=""
