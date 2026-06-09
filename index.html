@@ -77,14 +77,14 @@
     n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('consent', 'revoke');            /* nothing until the visitor accepts */
+    var consented = false;
+    try { consented = localStorage.getItem('cookie-consent') === 'granted'; } catch (e) {}
+    /* Returning visitor who already accepted → fire normally. Otherwise revoke
+       (before init, per Meta) so nothing sends until the banner's "Nõustun"
+       calls fbq('consent','grant') + PageView from script.js. */
+    if (!consented) fbq('consent', 'revoke');
     fbq('init', window.META_PIXEL_ID);
-    try {
-      if (localStorage.getItem('cookie-consent') === 'granted') {
-        fbq('consent', 'grant');
-        fbq('track', 'PageView');
-      }
-    } catch (e) {}
+    if (consented) fbq('track', 'PageView');
   })();
 </script>
 <noscript><img height="1" width="1" style="display:none" alt=""
