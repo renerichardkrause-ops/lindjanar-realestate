@@ -124,9 +124,16 @@ applyLanguage(localStorage.getItem('lang') || 'et');
   }
 
   function fireConversion(type) {
-    if (typeof window.gtag !== 'function') return;
     // Referral partner signups and contact requests are both leads.
     const method = type === 'referral' ? 'referral_signup' : 'contact_form';
+
+    // Meta Pixel — Lead event (only sends if consent was granted)
+    if (typeof window.fbq === 'function') {
+      window.fbq('track', 'Lead', { content_name: method });
+    }
+
+    // Google Analytics 4 + Google Ads
+    if (typeof window.gtag !== 'function') return;
     window.gtag('event', 'generate_lead', { method: method });
     const label = window.ADS_CONTACT_LABEL;
     if (label && label.indexOf('XXXX') === -1) {
@@ -203,13 +210,19 @@ applyLanguage(localStorage.getItem('lang') || 'et');
 
   function choose(state) {
     try { localStorage.setItem('cookie-consent', state); } catch (e) {}
-    if (state === 'granted' && typeof window.gtag === 'function') {
-      window.gtag('consent', 'update', {
-        ad_storage: 'granted',
-        ad_user_data: 'granted',
-        ad_personalization: 'granted',
-        analytics_storage: 'granted'
-      });
+    if (state === 'granted') {
+      if (typeof window.gtag === 'function') {
+        window.gtag('consent', 'update', {
+          ad_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted',
+          analytics_storage: 'granted'
+        });
+      }
+      if (typeof window.fbq === 'function') {
+        window.fbq('consent', 'grant');
+        window.fbq('track', 'PageView');
+      }
     }
     banner.hidden = true;
   }

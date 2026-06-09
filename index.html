@@ -57,6 +57,38 @@
     document.head.appendChild(s);
   })();
 </script>
+<!-- ============================================================
+     META PIXEL — Facebook / Instagram Ads
+     ▸ SETUP: paste your Pixel (dataset) ID in the line marked below.
+       Find it in Meta Events Manager → Data sources → your dataset.
+       Until you do, NO Meta tracking requests are sent anywhere.
+     ▸ GDPR: consent is REVOKED by default; the cookie banner's
+       "Nõustun" grants it and fires PageView. "Ainult vajalikud"
+       keeps it revoked (no Meta cookies / events).
+     ============================================================ -->
+<script>
+  /* ↓↓↓ PASTE YOUR META PIXEL ID HERE ↓↓↓ */
+  window.META_PIXEL_ID = 'XXXXXXXXXXXXXXX';
+  /* ↑↑↑ PASTE YOUR META PIXEL ID HERE ↑↑↑ */
+  (function () {
+    if (!window.META_PIXEL_ID || window.META_PIXEL_ID.indexOf('XXXX') !== -1) return; /* not configured → load nothing */
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('consent', 'revoke');            /* nothing until the visitor accepts */
+    fbq('init', window.META_PIXEL_ID);
+    try {
+      if (localStorage.getItem('cookie-consent') === 'granted') {
+        fbq('consent', 'grant');
+        fbq('track', 'PageView');
+      }
+    } catch (e) {}
+  })();
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+  src="https://www.facebook.com/tr?id=XXXXXXXXXXXXXXX&ev=PageView&noscript=1" /></noscript>
 <link rel="stylesheet" href="styles.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
