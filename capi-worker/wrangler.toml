@@ -1,0 +1,14 @@
+# Cloudflare Worker config for the Meta CAPI relay.
+# Deploy with:  wrangler deploy   (run from this capi-worker/ folder)
+
+name = "lindjanar-capi"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# Non-secret config. Safe to commit.
+[vars]
+META_PIXEL_ID = "1317354163706077"
+
+# SECRETS — do NOT put these here. Set them via the CLI:
+#   wrangler secret put META_CAPI_TOKEN   (required — from Events Manager)
+#   wrangler secret put META_TEST_CODE    (optional — only while testing)

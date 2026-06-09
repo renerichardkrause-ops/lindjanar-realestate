@@ -123,12 +123,16 @@ applyLanguage(localStorage.getItem('lang') || 'et');
     return lang === 'en' ? en : et;
   }
 
-  function fireConversion(type) {
+  function fireConversion(type, userData) {
     // Referral partner signups and contact requests are both leads.
     const method = type === 'referral' ? 'referral_signup' : 'contact_form';
 
-    // Meta Pixel — Lead event (only sends if consent was granted)
-    if (typeof window.fbq === 'function') {
+    // Meta — Lead event. fbTrack mirrors it to the server-side CAPI Worker
+    // (when configured) with a shared event_id for dedup; falls back to the
+    // browser Pixel alone otherwise.
+    if (typeof window.fbTrack === 'function') {
+      window.fbTrack('Lead', { content_name: method }, userData || {});
+    } else if (typeof window.fbq === 'function') {
       window.fbq('track', 'Lead', { content_name: method });
     }
 
@@ -171,7 +175,13 @@ applyLanguage(localStorage.getItem('lang') || 'et');
         headers: { Accept: 'application/json' }
       }).then(function (res) {
         if (!res.ok) throw new Error('bad response');
-        fireConversion(type);
+        // Capture PII for CAPI match quality before the form is reset.
+        const emailEl = form.querySelector('[name="email"]');
+        const phoneEl = form.querySelector('[name="phone"]');
+        fireConversion(type, {
+          email: emailEl ? emailEl.value : '',
+          phone: phoneEl ? phoneEl.value : ''
+        });
         form.reset();
         showStatus(true, type === 'referral'
           ? t(

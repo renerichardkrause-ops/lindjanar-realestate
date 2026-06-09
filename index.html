@@ -70,6 +70,9 @@
   /* ↓↓↓ PASTE YOUR META PIXEL ID HERE ↓↓↓ */
   window.META_PIXEL_ID = '1317354163706077';
   /* ↑↑↑ PASTE YOUR META PIXEL ID HERE ↑↑↑ */
+  /* Server-side Conversions API: paste your deployed Cloudflare Worker URL
+     here (see capi-worker/). Leave '' to keep browser-only Pixel tracking. */
+  window.CAPI_ENDPOINT = '';
   (function () {
     if (!window.META_PIXEL_ID || window.META_PIXEL_ID.indexOf('XXXX') !== -1) return; /* not configured → load nothing */
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -80,7 +83,43 @@
     /* TEMP: consent gating disabled while verifying the Pixel installs.
        Fires PageView on every load. Re-add consent logic later for GDPR. */
     fbq('init', window.META_PIXEL_ID);
-    fbq('track', 'PageView');
+
+    /* Read a browser cookie by name. */
+    function cookie(name) {
+      var m = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+      return m ? m.pop() : '';
+    }
+
+    /* fbTrack — fire one event to the Pixel AND (if configured) to the CAPI
+       Worker with a SHARED event_id, so Meta deduplicates the two copies.
+       userData (optional): { email, phone } from a submitted form. */
+    window.fbTrack = function (name, params, userData) {
+      var id = Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+      if (typeof fbq === 'function') fbq('track', name, params || {}, { eventID: id });
+      if (!window.CAPI_ENDPOINT) return;
+      var fbc = cookie('_fbc');
+      if (!fbc) {
+        var m = location.search.match(/[?&]fbclid=([^&]+)/);
+        if (m) fbc = 'fb.1.' + Date.now() + '.' + m[1];
+      }
+      try {
+        fetch(window.CAPI_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            event_name: name,
+            event_id: id,
+            event_source_url: location.href,
+            fbp: cookie('_fbp'),
+            fbc: fbc,
+            user_data: userData || {}
+          }),
+          keepalive: true
+        });
+      } catch (e) {}
+    };
+
+    window.fbTrack('PageView');
   })();
 </script>
 <noscript><img height="1" width="1" style="display:none" alt=""
