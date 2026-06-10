@@ -127,13 +127,16 @@ applyLanguage(localStorage.getItem('lang') || 'et');
     // Referral partner signups and contact requests are both leads.
     const method = type === 'referral' ? 'referral_signup' : 'contact_form';
 
-    // Meta — Lead event. fbTrack mirrors it to the server-side CAPI Worker
-    // (when configured) with a shared event_id for dedup; falls back to the
+    // Meta — booking/contact requests are Leads; referral-partner signups
+    // are CompleteRegistration, so the two are separable in Ads Manager.
+    // fbTrack mirrors the event to the server-side CAPI Worker (when
+    // configured) with a shared event_id for dedup; falls back to the
     // browser Pixel alone otherwise.
+    const fbEvent = type === 'referral' ? 'CompleteRegistration' : 'Lead';
     if (typeof window.fbTrack === 'function') {
-      window.fbTrack('Lead', { content_name: method }, userData || {});
+      window.fbTrack(fbEvent, { content_name: method }, userData || {});
     } else if (typeof window.fbq === 'function') {
-      window.fbq('track', 'Lead', { content_name: method });
+      window.fbq('track', fbEvent, { content_name: method });
     }
 
     // Google Analytics 4 + Google Ads
