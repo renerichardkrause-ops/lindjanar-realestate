@@ -389,6 +389,56 @@ a  { color: inherit; text-decoration: none; }
 }
 .value-card p { font-size: 0.85rem; margin: 0; }
 
+/* ── JUUNI KAMPAANIA BANNER ── */
+.campaign-banner-section { padding: 0; margin-top: -4rem; }
+.campaign-banner {
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1.75rem 2rem;
+  text-align: center;
+  background: var(--accent);
+  color: var(--accent-fg);
+  border: 1px solid var(--gold);
+  border-radius: var(--r);
+}
+.campaign-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.3rem 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--bg-dark);
+  background: var(--gold);
+  border-radius: var(--r);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: 'lnum' 1, 'tnum' 1;
+}
+.campaign-eyebrow {
+  display: inline-block;
+  margin-bottom: 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.campaign-headline {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1.3;
+}
+.campaign-fine {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: rgba(247,244,239,0.6);
+}
+
 /* ── PRICING ── */
 .pricing-section { padding: 6rem 0; }
 .pricing-section.alt-bg { background: var(--bg-alt); }
@@ -567,6 +617,7 @@ a  { color: inherit; text-decoration: none; }
   border: 1px solid var(--border);
   position: relative;
 }
+.addon-card + .addon-card { margin-top: 1.75rem; }
 
 .addon-eyebrow {
   position: absolute;
@@ -1032,6 +1083,7 @@ a  { color: inherit; text-decoration: none; }
   .addon-card { flex-direction: column; align-items: flex-start; }
   .form-row { grid-template-columns: 1fr; }
   .footer-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
+  .campaign-badge { position: static; display: inline-block; margin-bottom: 0.75rem; }
 }
 
 /* ============================================================
