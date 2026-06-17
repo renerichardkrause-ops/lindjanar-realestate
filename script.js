@@ -123,7 +123,7 @@ applyLanguage(localStorage.getItem('lang') || 'et');
     return lang === 'en' ? en : et;
   }
 
-  function fireConversion(type, userData) {
+  function fireConversion(type, userData, form) {
     // Referral partner signups and contact requests are both leads.
     const method = type === 'referral' ? 'referral_signup' : 'contact_form';
 
@@ -141,7 +141,23 @@ applyLanguage(localStorage.getItem('lang') || 'et');
 
     // Google Analytics 4 + Google Ads
     if (typeof window.gtag !== 'function') return;
-    window.gtag('event', 'generate_lead', { method: method });
+    // Enrich the lead with the chosen package (+ its € value parsed from the
+    // option label, so it never drifts from the displayed price) and, on the
+    // referral form, the client type — lets GA4 segment which packages and
+    // audiences actually convert.
+    var params = { method: method };
+    if (form) {
+      var pkgEl = form.querySelector('[name="package"]');
+      if (pkgEl && pkgEl.value) {
+        params.package = pkgEl.value;
+        var opt = pkgEl.options[pkgEl.selectedIndex];
+        var m = opt && opt.text ? opt.text.match(/€\s?(\d+)/) : null;
+        if (m) { params.value = parseInt(m[1], 10); params.currency = 'EUR'; }
+      }
+      var clientEl = form.querySelector('[name="referrer_type"]');
+      if (clientEl && clientEl.value) params.client_type = clientEl.value;
+    }
+    window.gtag('event', 'generate_lead', params);
     const label = window.ADS_CONTACT_LABEL;
     if (label && label.indexOf('XXXX') === -1) {
       window.gtag('event', 'conversion', { send_to: label });
@@ -184,7 +200,7 @@ applyLanguage(localStorage.getItem('lang') || 'et');
         fireConversion(type, {
           email: emailEl ? emailEl.value : '',
           phone: phoneEl ? phoneEl.value : ''
-        });
+        }, form);
         form.reset();
         showStatus(true, type === 'referral'
           ? t(
@@ -244,4 +260,19 @@ applyLanguage(localStorage.getItem('lang') || 'et');
   const decline = document.getElementById('cookieDecline');
   if (accept) accept.addEventListener('click', function () { choose('granted'); });
   if (decline) decline.addEventListener('click', function () { choose('denied'); });
+})();
+
+// ============================================================
+// Micro-conversions — phone & email link clicks
+//   People who call or email instead of using the form are invisible
+//   otherwise. Delegated so it also covers links added later. Fires a
+//   GA4 "contact_click" event (method: phone | email).
+// ============================================================
+(function () {
+  document.addEventListener('click', function (e) {
+    const link = e.target.closest('a[href^="tel:"], a[href^="mailto:"]');
+    if (!link || typeof window.gtag !== 'function') return;
+    const isTel = link.getAttribute('href').indexOf('tel:') === 0;
+    window.gtag('event', 'contact_click', { method: isTel ? 'phone' : 'email' });
+  }, true);
 })();

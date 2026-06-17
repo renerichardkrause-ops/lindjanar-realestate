@@ -33,6 +33,10 @@
     analytics_storage: 'denied',
     wait_for_update: 500
   });
+  /* Pass Google click IDs through URLs + redact ad identifiers while consent
+     is denied — improves Ads measurement without setting cookies. */
+  gtag('set', 'url_passthrough', true);
+  gtag('set', 'ads_data_redaction', true);
   try {
     if (localStorage.getItem('cookie-consent') === 'granted') {
       gtag('consent', 'update', {
@@ -80,8 +84,9 @@
     n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    /* TEMP: consent gating disabled while verifying the Pixel installs.
-       Fires PageView on every load. Re-add consent logic later for GDPR. */
+    /* GDPR: deny Meta cookies/events until the cookie banner grants consent.
+       The banner's "Nõustun" calls fbq('consent','grant') and fires PageView. */
+    fbq('consent', 'revoke');
     fbq('init', window.META_PIXEL_ID);
 
     /* Read a browser cookie by name. */
@@ -119,7 +124,14 @@
       } catch (e) {}
     };
 
-    window.fbTrack('PageView');
+    /* Returning visitors who already accepted: grant + fire PageView now.
+       Fresh visitors are tracked only after they accept via the banner. */
+    try {
+      if (localStorage.getItem('cookie-consent') === 'granted') {
+        fbq('consent', 'grant');
+        window.fbTrack('PageView');
+      }
+    } catch (e) {}
   })();
 </script>
 <noscript><img height="1" width="1" style="display:none" alt=""
