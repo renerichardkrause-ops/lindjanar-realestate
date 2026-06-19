@@ -76,7 +76,7 @@
   /* ↑↑↑ PASTE YOUR META PIXEL ID HERE ↑↑↑ */
   /* Server-side Conversions API: paste your deployed Cloudflare Worker URL
      here (see capi-worker/). Leave '' to keep browser-only Pixel tracking. */
-  window.CAPI_ENDPOINT = '';
+  window.CAPI_ENDPOINT = 'https://lindjanar-capi.lindjanar.workers.dev';
   (function () {
     if (!window.META_PIXEL_ID || window.META_PIXEL_ID.indexOf('XXXX') !== -1) return; /* not configured → load nothing */
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
