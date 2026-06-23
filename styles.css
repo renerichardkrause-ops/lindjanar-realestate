@@ -330,6 +330,29 @@ a  { color: inherit; text-decoration: none; }
   flex-shrink: 0;
 }
 
+/* Range numbers (e.g. "€3–10k") are longer — scale down so they sit
+   neatly in the column next to the single-token stats. */
+.stat-num--range { font-size: clamp(1.9rem, 3vw, 2.9rem); }
+
+.stats-source-wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 2rem 2.25rem;
+}
+.stats-source {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+.stats-source a {
+  color: var(--fg-dim);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.stats-source a:hover { color: var(--accent); }
+
 .stat-meta { flex: 1; }
 .stat-label {
   display: block;
