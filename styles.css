@@ -969,8 +969,9 @@ a  { color: inherit; text-decoration: none; }
 }
 
 .contact-intro h2 {
-  font-style: italic;
-  font-weight: 300;
+  font-family: 'Cabinet Grotesk', var(--font-body);
+  font-style: normal;
+  font-weight: 400;
   margin-bottom: 1rem;
 }
 .contact-intro p { margin-bottom: 2rem; font-size: 0.9rem; }
