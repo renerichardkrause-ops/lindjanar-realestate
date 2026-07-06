@@ -186,6 +186,10 @@
           <a href="#pricing" class="btn-primary" data-et="Vaata hindu" data-en="View pricing">Vaata hindu</a>
           <a href="#contact" class="btn-ghost" data-et="Broneeri sessioon" data-en="Book a session">Broneeri sessioon</a>
         </div>
+        <p class="hero-phone">
+          <span data-et="Või helista:" data-en="Or call:">Või helista:</span>
+          <a href="tel:+37253053253">+372 5305 3253</a>
+        </p>
       </div>
     </div>
   </section>
@@ -659,9 +663,6 @@
             <option value="partner" data-et="Koostööpartner" data-en="Partner">Koostööpartner</option>
             <option value="past_client" data-et="Varasem klient" data-en="Past client">Varasem klient</option>
           </select>
-          <input type="text" name="iban"
-            data-et-placeholder="IBAN (väljamakse jaoks)" data-en-placeholder="IBAN (for payout)"
-            placeholder="IBAN (väljamakse jaoks)" />
           <textarea name="message"
             data-et-placeholder="Lisainfo (vabatahtlik)" data-en-placeholder="Notes (optional)"
             placeholder="Lisainfo (vabatahtlik)"></textarea>
@@ -683,6 +684,10 @@
           <p data-et="Saada sõnum koos objekti aadressiga ja valitud paketiga. Vastame 24h jooksul." data-en="Send a message with the property address and chosen package. We respond within 24 hours.">Saada sõnum koos objekti aadressiga ja valitud paketiga. Vastame 24h jooksul.</p>
           <ul class="contact-details">
             <li>
+              <span data-et="Telefon" data-en="Phone">Telefon</span>
+              <a href="tel:+37253053253">+372 5305 3253</a>
+            </li>
+            <li>
               <span data-et="E-post" data-en="Email">E-post</span>
               <a href="mailto:hello@lindjanar.ee">hello@lindjanar.ee</a>
             </li>
@@ -696,14 +701,9 @@
         <form class="contact-form" action="https://formspree.io/f/mkoanabz" method="POST">
           <input type="hidden" name="_subject" value="Uus päring — kinnisvara.lindjanar.ee" />
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
-          <div class="form-row">
-            <input type="text" name="first_name"
-              data-et-placeholder="Eesnimi" data-en-placeholder="First name"
-              placeholder="Eesnimi" required />
-            <input type="text" name="last_name"
-              data-et-placeholder="Perekonnanimi" data-en-placeholder="Last name"
-              placeholder="Perekonnanimi" required />
-          </div>
+          <input type="text" name="name"
+            data-et-placeholder="Nimi" data-en-placeholder="Name"
+            placeholder="Nimi" required />
           <div class="form-row">
             <input type="email" name="email"
               data-et-placeholder="E-post" data-en-placeholder="Email"
@@ -712,12 +712,6 @@
               data-et-placeholder="Telefon" data-en-placeholder="Phone"
               placeholder="Telefon" />
           </div>
-          <input type="text" name="address"
-            data-et-placeholder="Objekti aadress" data-en-placeholder="Property address"
-            placeholder="Objekti aadress" />
-          <input type="text" name="referrer"
-            data-et-placeholder="Soovitaja kood või nimi (vabatahtlik)" data-en-placeholder="Referrer code or name (optional)"
-            placeholder="Soovitaja kood või nimi (vabatahtlik)" />
           <select name="package">
             <option value="" data-et="Vali pakett" data-en="Choose a package">Vali pakett</option>
             <option value="apt-basic" data-et="Korter — Põhi (€85)" data-en="Apartment — Basic (€85)">Korter — Põhi (€85)</option>
@@ -731,8 +725,8 @@
             <option value="other" data-et="Muu / küsin" data-en="Other / question">Muu / küsin</option>
           </select>
           <textarea name="message"
-            data-et-placeholder="Sõnum (vabatahtlik)" data-en-placeholder="Message (optional)"
-            placeholder="Sõnum (vabatahtlik)"></textarea>
+            data-et-placeholder="Objekti aadress ja lisainfo (nt soovituskood)" data-en-placeholder="Property address and details (e.g. referral code)"
+            placeholder="Objekti aadress ja lisainfo (nt soovituskood)"></textarea>
           <button type="submit" class="btn-submit" data-et="Saada" data-en="Send">Saada</button>
         </form>
 
