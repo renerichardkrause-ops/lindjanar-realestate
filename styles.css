@@ -2,7 +2,17 @@
    LINDJANAR Kinnisvarafotograafia
    Nordic Luxury Editorial
    Cormorant Garamond × DM Sans / Forest Green × Warm Ivory
+   Hero: Cabinet Grotesk (self-hosted below)
    ============================================================ */
+
+/* Cabinet Grotesk Regular — Fontshare (ITF) free license, self-hosted. */
+@font-face {
+  font-family: 'Cabinet Grotesk';
+  src: url('assets/fonts/cabinet-grotesk-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   --bg:           #f7f4ef;
@@ -186,14 +196,19 @@ a  { color: inherit; text-decoration: none; }
   color: rgba(247,244,239,0.7);
   animation: fadeUp 0.55s ease both;
 }
+/* Hero headline + subline use Cabinet Grotesk (self-hosted, see @font-face
+   at the top of this file). Regular weight, no italic — the face has none. */
 .hero-text h1 {
   color: var(--accent-fg);
-  font-style: italic;
+  font-family: 'Cabinet Grotesk', var(--font-body);
+  font-style: normal;
+  font-weight: 400;
   margin-bottom: 1.25rem;
   animation: fadeUp 0.65s 0.1s ease both;
 }
 .hero-text p {
   color: rgba(247,244,239,0.82);
+  font-family: 'Cabinet Grotesk', var(--font-body);
   font-size: 1rem;
   max-width: 440px;
   margin-bottom: 2.25rem;
@@ -752,8 +767,9 @@ a  { color: inherit; text-decoration: none; }
 
 .agency-intro h2 {
   color: var(--accent-fg);
-  font-style: italic;
-  font-weight: 300;
+  font-family: 'Cabinet Grotesk', var(--font-body);
+  font-style: normal;
+  font-weight: 400;
   margin-bottom: 1.25rem;
 }
 .agency-intro p {
