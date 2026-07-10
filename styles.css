@@ -816,6 +816,110 @@ a  { color: inherit; text-decoration: none; }
   .photographer-figure { flex: none; width: min(320px, 100%); }
 }
 
+/* ── BLOGI ── */
+.blog-header {
+  padding: 7rem 0 3.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.blog-header h1 {
+  font-family: 'Cabinet Grotesk', var(--font-body);
+  font-style: normal;
+  font-weight: 400;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  margin-bottom: 0.75rem;
+}
+.blog-header p { color: var(--fg-dim); max-width: 520px; }
+.post-list { padding: 3.5rem 0 5rem; display: grid; gap: 1.5rem; max-width: 760px; }
+.post-card {
+  display: block;
+  padding: 2rem 2.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  text-decoration: none;
+  color: var(--fg);
+  background: var(--bg);
+  transition: border-color 0.2s ease;
+}
+.post-card:hover { border-color: var(--accent); }
+.post-card time {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.post-card h2 {
+  font-family: 'Cabinet Grotesk', var(--font-body);
+  font-weight: 400;
+  font-size: 1.45rem;
+  margin: 0.5rem 0 0.6rem;
+}
+.post-card p { font-size: 0.9rem; color: var(--fg-dim); margin: 0; }
+
+.article { max-width: 680px; margin: 0 auto; padding: 6.5rem 2rem 5rem; }
+.article-meta {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 1rem;
+}
+.article h1 {
+  font-family: 'Cabinet Grotesk', var(--font-body);
+  font-style: normal;
+  font-weight: 400;
+  font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+  line-height: 1.15;
+  margin-bottom: 1.75rem;
+}
+.article h2 {
+  font-family: 'Cabinet Grotesk', var(--font-body);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.5rem;
+  margin: 2.5rem 0 0.9rem;
+}
+.article p, .article li { font-size: 1rem; line-height: 1.75; color: var(--fg); }
+.article p { margin-bottom: 1.2rem; }
+.article ul, .article ol { margin: 0 0 1.2rem 1.3rem; }
+.article li { margin-bottom: 0.4rem; }
+.article a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.article a.btn-primary { color: var(--accent-fg); text-decoration: none; }
+.article .article-note { font-size: 0.8rem; color: var(--fg-dim); }
+.article-figure { margin: 2rem 0; }
+.article-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+}
+.article-figure figcaption {
+  margin-top: 0.7rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--fg-dim);
+}
+.article-cta {
+  margin-top: 3rem;
+  padding: 2rem 2.25rem;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+}
+.article-cta p { margin-bottom: 1.25rem; }
+.back-to-blog {
+  display: inline-block;
+  margin-bottom: 2rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--fg-dim);
+  text-decoration: none;
+}
+.back-to-blog:hover { color: var(--accent); }
+
 /* ── AGENCY — dark forest green ── */
 .agency-section {
   background: var(--bg-dark);

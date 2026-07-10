@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kinnisvara.lindjanar.ee/sitemap.xml

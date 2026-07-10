@@ -3,11 +3,69 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Kinnisvarafotograafia — LINDJANAR</title>
-<meta name="description" content="Professionaalne kinnisvarafotograafia ja videograafia Tartust. Müü kiiremini, küsi rohkem raha." />
+<title>Kinnisvarafotograafia üle Eesti – hinnad alates 85€ | LINDJANAR</title>
+<meta name="description" content="Professionaalne kinnisvarafotograafia ja videograafia üle Eesti. Avalikud hinnad alates 85€, pildid käes 48 tunniga, droonifotod ja virtuaalne staging. Baas Tartus." />
+<link rel="canonical" href="https://kinnisvara.lindjanar.ee/" />
 <link rel="icon" href="favicon.ico" sizes="any" />
+
+<!-- Social cards -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Kinnisvarafotograafia üle Eesti – hinnad alates 85€ | LINDJANAR" />
+<meta property="og:description" content="Professionaalsed kinnisvarafotod 48 tunniga. Avalikud hinnad, droonifotod, virtuaalne staging. Baas Tartus, teenindame üle Eesti." />
+<meta property="og:url" content="https://kinnisvara.lindjanar.ee/" />
+<meta property="og:image" content="https://kinnisvara.lindjanar.ee/assets/hero/hero.jpg" />
+<meta property="og:locale" content="et_EE" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- Structured data: the business, the photographer, and the current price list.
+     NB: keep prices in sync with the pricing cards when they change. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://kinnisvara.lindjanar.ee/#business",
+  "name": "LINDJANAR Kinnisvarafotograafia",
+  "url": "https://kinnisvara.lindjanar.ee/",
+  "image": "https://kinnisvara.lindjanar.ee/assets/hero/hero.jpg",
+  "description": "Professionaalne kinnisvarafotograafia ja videograafia. Avalikud hinnad, pildid käes 48 tunniga, droonifotod sertifitseeritud droonipiloodilt, virtuaalne staging. Baas Tartus, teenindame kogu Eestit.",
+  "telephone": "+37253053253",
+  "email": "hello@lindjanar.ee",
+  "priceRange": "€85–€1554",
+  "currenciesAccepted": "EUR",
+  "address": { "@type": "PostalAddress", "addressLocality": "Tartu", "addressCountry": "EE" },
+  "areaServed": { "@type": "Country", "name": "Estonia" },
+  "knowsLanguage": ["et", "en"],
+  "founder": {
+    "@type": "Person",
+    "name": "Janar Lind",
+    "jobTitle": "Kinnisvarafotograaf",
+    "description": "Fotograafina 9 aastat, neist 3 kinnisvara pildistades. Sertifitseeritud droonipiloot.",
+    "image": "https://kinnisvara.lindjanar.ee/assets/janar/janar.webp",
+    "sameAs": ["https://lindjanar.ee"]
+  },
+  "sameAs": ["https://lindjanar.ee"],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Kinnisvarafotograafia hinnakiri",
+    "itemListElement": [
+      { "@type": "Offer", "name": "Korteri pildistamine – Põhi (stuudio / 1–2 tuba)", "price": "85", "priceCurrency": "EUR", "description": "15–20 fotot, pildid kätte 48h-ga" },
+      { "@type": "Offer", "name": "Korteri pildistamine – Standard (3–4 tuba)", "price": "95", "priceCurrency": "EUR", "description": "25–35 fotot, pildid kätte 48h-ga" },
+      { "@type": "Offer", "name": "Korteri pildistamine – Premium (5+ tuba)", "price": "249", "priceCurrency": "EUR", "description": "40+ fotot, droonifotod, virtuaalne staging 2 ruumi, toimetamine 72h" },
+      { "@type": "Offer", "name": "Eramaja pildistamine – Põhi", "price": "109", "priceCurrency": "EUR", "description": "20–30 fotot, pildid kätte 48h-ga" },
+      { "@type": "Offer", "name": "Eramaja pildistamine – Standard", "price": "129", "priceCurrency": "EUR", "description": "30–40 fotot, pildid kätte 48h-ga" },
+      { "@type": "Offer", "name": "Eramaja pildistamine – Premium", "price": "329", "priceCurrency": "EUR", "description": "45+ fotot, droon täispakett, hämarikuvõtted, Listing Reel, pildid kätte 48h-ga" },
+      { "@type": "Offer", "name": "Droonifotod (lisa)", "price": "59", "priceCurrency": "EUR" },
+      { "@type": "Offer", "name": "Virtuaalne staging (tuba)", "price": "39", "priceCurrency": "EUR" },
+      { "@type": "Offer", "name": "Hämarikuvõtted (lisa majavõttele)", "price": "59", "priceCurrency": "EUR" },
+      { "@type": "Offer", "name": "Listing Reel (30–60 s video)", "price": "150", "priceCurrency": "EUR" },
+      { "@type": "Offer", "name": "Kinnisvarabüroo kuupakett – Foto (6 objekti)", "price": "777", "priceCurrency": "EUR" },
+      { "@type": "Offer", "name": "Kinnisvarabüroo kuupakett – Foto + Video (6 objekti)", "price": "1554", "priceCurrency": "EUR" }
+    ]
+  }
+}
+</script>
 <!-- ============================================================
-     GOOGLE TAG — Analytics 4 (G-) + Google Ads (AW-)
+     GOOGLE TAG – Analytics 4 (G-) + Google Ads (AW-)
      ▸ SETUP: paste your real IDs in the three lines marked below.
        Until you do, NO tracking requests are sent anywhere.
          GA4 Measurement ID            → format  G-XXXXXXXXXX
@@ -24,7 +82,7 @@
   window.dataLayer = window.dataLayer || [];
   window.gtag = function () { dataLayer.push(arguments); };
 
-  /* Consent Mode v2 — deny everything until the visitor chooses. GA/Ads
+  /* Consent Mode v2 – deny everything until the visitor chooses. GA/Ads
      send only cookieless pings until consent is granted via the banner. */
   gtag('consent', 'default', {
     ad_storage: 'denied',
@@ -34,7 +92,7 @@
     wait_for_update: 500
   });
   /* Pass Google click IDs through URLs + redact ad identifiers while consent
-     is denied — improves Ads measurement without setting cookies. */
+     is denied – improves Ads measurement without setting cookies. */
   gtag('set', 'url_passthrough', true);
   gtag('set', 'ads_data_redaction', true);
   try {
@@ -62,7 +120,7 @@
   })();
 </script>
 <!-- ============================================================
-     META PIXEL — Facebook / Instagram Ads
+     META PIXEL – Facebook / Instagram Ads
      ▸ SETUP: paste your Pixel (dataset) ID in the line marked below.
        Find it in Meta Events Manager → Data sources → your dataset.
        Until you do, NO Meta tracking requests are sent anywhere.
@@ -95,7 +153,7 @@
       return m ? m.pop() : '';
     }
 
-    /* fbTrack — fire one event to the Pixel AND (if configured) to the CAPI
+    /* fbTrack – fire one event to the Pixel AND (if configured) to the CAPI
        Worker with a SHARED event_id, so Meta deduplicates the two copies.
        userData (optional): { email, phone } from a submitted form. */
     window.fbTrack = function (name, params, userData) {
@@ -160,6 +218,7 @@
       <a href="#process" data-et="Protsess" data-en="Process">Protsess</a>
       <a href="#agency" data-et="Kinnisvarabüroodele" data-en="For agencies">Kinnisvarabüroodele</a>
       <a href="#referral" data-et="Soovita" data-en="Refer">Soovita</a>
+      <a href="/blogi/" data-et="Blogi" data-en="Blog">Blogi</a>
       <a href="#contact" data-et="Kontakt" data-en="Contact">Kontakt</a>
     </nav>
     <button class="lang-toggle" onclick="toggleLanguage()" aria-label="Switch to English">EN</button>
@@ -169,7 +228,7 @@
 <main>
 
   <!-- ============================================================
-       HERO — full-width background image with overlaid text
+       HERO – full-width background image with overlaid text
        [EDIT ASSET] assets/hero/hero.jpg
        ============================================================ -->
   <section class="hero">
@@ -195,7 +254,7 @@
   </section>
 
   <!-- ============================================================
-       STATS — editorial typography
+       STATS – editorial typography
        ============================================================ -->
   <section class="stats-section">
     <div class="stats-claim-wrap">
@@ -230,7 +289,7 @@
         <span class="stat-num" data-et="9 a" data-en="9 yr">9 a</span>
         <div class="stat-meta">
           <span class="stat-label" data-et="kogemust" data-en="of experience">kogemust</span>
-          <p data-et="Fotograafina 9 aastat, neist 3 kinnisvara pildistades." data-en="Nine years as a photographer — three of them shooting real estate.">Fotograafina 9 aastat, neist 3 kinnisvara pildistades.</p>
+          <p data-et="Fotograafina 9 aastat, neist 3 kinnisvara pildistades." data-en="Nine years as a photographer – three of them shooting real estate.">Fotograafina 9 aastat, neist 3 kinnisvara pildistades.</p>
         </div>
       </div>
     </div>
@@ -244,7 +303,7 @@
   </section>
 
   <!-- ============================================================
-       GALERII — auto-advance + manual carousel
+       GALERII – auto-advance + manual carousel
        [EDIT ASSETS] assets/galerii/gallery-01.jpg ... gallery-NN.jpg
        To add/remove photos: change data-count below and add matching
        files (gallery-38.jpg, …). Names are zero-padded to 2 digits.
@@ -344,7 +403,7 @@
             </svg>
           </div>
           <h3 data-et="Tartust, üle Eesti" data-en="From Tartu, all of Estonia">Tartust, üle Eesti</h3>
-          <p data-et="Transport €0,20/km edasi-tagasi. Teenused alates 170€ — transport tasuta." data-en="Travel €0.20/km round trip. Services from €170 — travel included.">Transport €0,20/km edasi-tagasi. Teenused alates 170€ — transport tasuta.</p>
+          <p data-et="Transport €0,20/km edasi-tagasi. Teenused alates 170€ – transport tasuta." data-en="Travel €0.20/km round trip. Services from €170 – travel included.">Transport €0,20/km edasi-tagasi. Teenused alates 170€ – transport tasuta.</p>
         </div>
 
       </div>
@@ -352,7 +411,7 @@
   </section>
 
   <!-- ============================================================
-       HINNAD — KORTERID
+       HINNAD – KORTERID
        ============================================================ -->
   <section class="pricing-section pricing-bg pricing-bg--apt" id="pricing">
     <div class="container">
@@ -401,7 +460,7 @@
   </section>
 
   <!-- ============================================================
-       HINNAD — ERAMAJAD
+       HINNAD – ERAMAJAD
        ============================================================ -->
   <section class="pricing-section alt-bg pricing-bg pricing-bg--house">
     <div class="container">
@@ -451,7 +510,7 @@
   </section>
 
   <!-- ============================================================
-       JUULI KAMPAANIA — drone free on July house shoots
+       JUULI KAMPAANIA – drone free on July house shoots
        ============================================================ -->
   <section class="campaign-banner-section">
     <div class="container">
@@ -498,7 +557,7 @@
   </section>
 
   <!-- ============================================================
-       PROTSESS — ghost number steps
+       PROTSESS – ghost number steps
        ============================================================ -->
   <section class="process-section" id="process">
     <div class="container">
@@ -545,7 +604,7 @@
   </section>
 
   <!-- ============================================================
-       FOTOGRAAF — kes pildistab
+       FOTOGRAAF – kes pildistab
        [EDIT ASSET] assets/janar/janar.webp
        ============================================================ -->
   <section class="photographer-section">
@@ -558,7 +617,7 @@
         <div class="photographer-text">
           <span class="section-tag" data-et="Kes pildistab?" data-en="Who's behind the camera?">Kes pildistab?</span>
           <p class="photographer-claim" data-et="Iga objekti pildistab Janar ise." data-en="Every property is photographed by Janar himself.">Iga objekti pildistab Janar ise.</p>
-          <p class="photographer-bio" data-et="Fotograafina 9 aastat, neist 3 kinnisvara pildistades. Sertifitseeritud droonipiloot. Pildistan Tartust üle Eesti — pildid on käes 48 tunniga." data-en="Nine years as a photographer, three of them shooting real estate. Certified drone pilot. Based in Tartu, working across Estonia — photos delivered within 48 hours.">Fotograafina 9 aastat, neist 3 kinnisvara pildistades. Sertifitseeritud droonipiloot. Pildistan Tartust üle Eesti — pildid on käes 48 tunniga.</p>
+          <p class="photographer-bio" data-et="Fotograafina 9 aastat, neist 3 kinnisvara pildistades. Sertifitseeritud droonipiloot. Pildistan Tartust üle Eesti – pildid on käes 48 tunniga." data-en="Nine years as a photographer, three of them shooting real estate. Certified drone pilot. Based in Tartu, working across Estonia – photos delivered within 48 hours.">Fotograafina 9 aastat, neist 3 kinnisvara pildistades. Sertifitseeritud droonipiloot. Pildistan Tartust üle Eesti – pildid on käes 48 tunniga.</p>
           <a href="#contact" class="btn-outline" data-et="Broneeri pildistamine" data-en="Book a shoot">Broneeri pildistamine</a>
         </div>
       </div>
@@ -566,7 +625,7 @@
   </section>
 
   <!-- ============================================================
-       AGENTUURIDELE — dark forest green section
+       AGENTUURIDELE – dark forest green section
        ============================================================ -->
   <section class="agency-section" id="agency">
     <div class="container">
@@ -575,7 +634,7 @@
         <div class="agency-intro">
           <span class="eyebrow light" data-et="Kinnisvarabüroodele" data-en="For real estate agencies">Kinnisvarabüroodele</span>
           <h2 data-et="Ühtlane visuaalne kvaliteet kogu portfoolios." data-en="Consistent visual quality across your entire portfolio.">Ühtlane visuaalne kvaliteet kogu portfoolios.</h2>
-          <p data-et="Regulaarsed objektid? Igakuine pakett tagab prioriteetse aja, fikseeritud hinna ja brändiühtsed pildid — ilma iga kord uuesti läbi rääkimata." data-en="Shooting regularly? A monthly retainer secures priority booking, a fixed price and brand-consistent photos — without renegotiating every time.">Regulaarsed objektid? Igakuine pakett tagab prioriteetse aja, fikseeritud hinna ja brändiühtsed pildid — ilma iga kord uuesti läbi rääkimata.</p>
+          <p data-et="Regulaarsed objektid? Igakuine pakett tagab prioriteetse aja, fikseeritud hinna ja brändiühtsed pildid – ilma iga kord uuesti läbi rääkimata." data-en="Shooting regularly? A monthly retainer secures priority booking, a fixed price and brand-consistent photos – without renegotiating every time.">Regulaarsed objektid? Igakuine pakett tagab prioriteetse aja, fikseeritud hinna ja brändiühtsed pildid – ilma iga kord uuesti läbi rääkimata.</p>
           <a href="#contact" class="btn-light" data-et="Küsi pakkumist" data-en="Request a quote">Küsi pakkumist</a>
         </div>
 
@@ -632,8 +691,8 @@
       <div class="section-header">
         <span class="section-tag" data-et="Soovitusprogramm" data-en="Referral program">Soovitusprogramm</span>
         <h2 data-et="Soovita meid ja teeni" data-en="Refer us and earn">Soovita meid ja teeni</h2>
-        <p data-et="Programm on mõeldud kinnisvaraspetsialistidele — maakleritele, hindajatele, koostööpartneritele ning meie senistele klientidele. Soovita meid ja teeni tasu iga õnnestunud pildistamise eest."
-           data-en="The program is for real-estate professionals — agents, valuators, partners and our past clients. Refer Lindjanar and earn a reward for every successful shoot.">Programm on mõeldud kinnisvaraspetsialistidele — maakleritele, hindajatele ja koostööpartneritele — ning meie senistele klientidele. Soovita Lindjanarit ja teeni tasu iga õnnestunud pildistamise eest.</p>
+        <p data-et="Programm on mõeldud kinnisvaraspetsialistidele – maakleritele, hindajatele, koostööpartneritele ning meie senistele klientidele. Soovita meid ja teeni tasu iga õnnestunud pildistamise eest."
+           data-en="The program is for real-estate professionals – agents, valuators, partners and our past clients. Refer Lindjanar and earn a reward for every successful shoot.">Programm on mõeldud kinnisvaraspetsialistidele – maakleritele, hindajatele ja koostööpartneritele – ning meie senistele klientidele. Soovita Lindjanarit ja teeni tasu iga õnnestunud pildistamise eest.</p>
       </div>
 
       <div class="referral-layout">
@@ -641,13 +700,13 @@
           <div class="referral-rewards">
             <div class="referral-reward">
               <span class="referral-amount">20€</span>
-              <span class="referral-label" data-et="iga õnnestunud pildistamise eest — korter või eramaja" data-en="per successful shoot — apartment or house">iga õnnestunud pildistamise eest — korter või eramaja</span>
+              <span class="referral-label" data-et="iga õnnestunud pildistamise eest – korter või eramaja" data-en="per successful shoot – apartment or house">iga õnnestunud pildistamise eest – korter või eramaja</span>
             </div>
           </div>
 
           <ol class="referral-steps">
-            <li data-et="Liitu programmiga — täida vorm ja saad isikliku soovituskoodi."
-                data-en="Join the program — fill in the form and get your personal referral code.">Liitu programmiga — täida vorm ja saad isikliku soovituskoodi.</li>
+            <li data-et="Liitu programmiga – täida vorm ja saad isikliku soovituskoodi."
+                data-en="Join the program – fill in the form and get your personal referral code.">Liitu programmiga – täida vorm ja saad isikliku soovituskoodi.</li>
             <li data-et="Soovita Lindjanarit oma kliendile või tuttavale. Klient märgib broneerimisel sinu koodi."
                 data-en="Recommend Lindjanar to a client or contact. They enter your code when booking.">Soovita Lindjanarit oma kliendile või tuttavale. Klient märgib broneerimisel sinu koodi.</li>
             <li data-et="Kui pildistamine toimub ja arve on tasutud, maksame sulle tasu."
@@ -655,15 +714,15 @@
           </ol>
 
           <p class="referral-note"
-             data-et="* Soovitatav klient peab olema uus klient — keegi, kes ei broneeriks pildistamist ka ilma sinu soovituseta (mitte sina ise ega sinu leibkonnaliige). Ettevõtetele maksame täissumma arve alusel; eraisikutele summa, millest on maha arvatud seadusega ettenähtud maksud. Tasu makstakse pärast pildistamise toimumist ja arve tasumist."
-             data-en="* The person you refer must be a genuinely new client — someone who wouldn't have booked without your recommendation (not you or a member of your household). Companies are paid the full amount against an invoice; private individuals are paid net of statutory taxes. The reward is paid after the shoot is completed and the invoice is paid.">* Soovitatav klient peab olema uus klient — keegi, kes ei broneeriks pildistamist ka ilma sinu soovituseta (mitte sina ise ega sinu leibkonnaliige). Ettevõtetele maksame täissumma arve alusel; eraisikutele summa, millest on maha arvatud seadusega ettenähtud maksud. Tasu makstakse pärast pildistamise toimumist ja arve tasumist.</p>
+             data-et="* Soovitatav klient peab olema uus klient – keegi, kes ei broneeriks pildistamist ka ilma sinu soovituseta (mitte sina ise ega sinu leibkonnaliige). Ettevõtetele maksame täissumma arve alusel; eraisikutele summa, millest on maha arvatud seadusega ettenähtud maksud. Tasu makstakse pärast pildistamise toimumist ja arve tasumist."
+             data-en="* The person you refer must be a genuinely new client – someone who wouldn't have booked without your recommendation (not you or a member of your household). Companies are paid the full amount against an invoice; private individuals are paid net of statutory taxes. The reward is paid after the shoot is completed and the invoice is paid.">* Soovitatav klient peab olema uus klient – keegi, kes ei broneeriks pildistamist ka ilma sinu soovituseta (mitte sina ise ega sinu leibkonnaliige). Ettevõtetele maksame täissumma arve alusel; eraisikutele summa, millest on maha arvatud seadusega ettenähtud maksud. Tasu makstakse pärast pildistamise toimumist ja arve tasumist.</p>
         </div>
 
         <!-- Referral signups currently share the contact Formspree form (mkoanabz).
              To send a PARTNER-SPECIFIC autoresponse, create a separate Formspree
              form, turn on its Autoresponse (paid plan), and swap its ID in below. -->
         <form class="contact-form referral-form" action="https://formspree.io/f/mkoanabz" method="POST" data-form-type="referral">
-          <input type="hidden" name="_subject" value="Soovitusprogrammi liitumine — kinnisvara.lindjanar.ee" />
+          <input type="hidden" name="_subject" value="Soovitusprogrammi liitumine – kinnisvara.lindjanar.ee" />
           <input type="hidden" name="form_type" value="referral_partner" />
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
           <input type="text" name="name"
@@ -720,7 +779,7 @@
         </div>
 
         <form class="contact-form" action="https://formspree.io/f/mkoanabz" method="POST">
-          <input type="hidden" name="_subject" value="Uus päring — kinnisvara.lindjanar.ee" />
+          <input type="hidden" name="_subject" value="Uus päring – kinnisvara.lindjanar.ee" />
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
           <input type="text" name="name"
             data-et-placeholder="Nimi" data-en-placeholder="Name"
@@ -735,12 +794,12 @@
           </div>
           <select name="package">
             <option value="" data-et="Vali pakett" data-en="Choose a package">Vali pakett</option>
-            <option value="apt-basic" data-et="Korter — Põhi (€85)" data-en="Apartment — Basic (€85)">Korter — Põhi (€85)</option>
-            <option value="apt-standard" data-et="Korter — Standard (€95)" data-en="Apartment — Standard (€95)">Korter — Standard (€95)</option>
-            <option value="apt-premium" data-et="Korter — Premium (€249)" data-en="Apartment — Premium (€249)">Korter — Premium (€249)</option>
-            <option value="house-basic" data-et="Eramaja — Põhi (€109)" data-en="House — Basic (€109)">Eramaja — Põhi (€109)</option>
-            <option value="house-standard" data-et="Eramaja — Standard (€129)" data-en="House — Standard (€129)">Eramaja — Standard (€129)</option>
-            <option value="house-premium" data-et="Eramaja — Premium (€329)" data-en="House — Premium (€329)">Eramaja — Premium (€329)</option>
+            <option value="apt-basic" data-et="Korter – Põhi (€85)" data-en="Apartment – Basic (€85)">Korter – Põhi (€85)</option>
+            <option value="apt-standard" data-et="Korter – Standard (€95)" data-en="Apartment – Standard (€95)">Korter – Standard (€95)</option>
+            <option value="apt-premium" data-et="Korter – Premium (€249)" data-en="Apartment – Premium (€249)">Korter – Premium (€249)</option>
+            <option value="house-basic" data-et="Eramaja – Põhi (€109)" data-en="House – Basic (€109)">Eramaja – Põhi (€109)</option>
+            <option value="house-standard" data-et="Eramaja – Standard (€129)" data-en="House – Standard (€129)">Eramaja – Standard (€129)</option>
+            <option value="house-premium" data-et="Eramaja – Premium (€329)" data-en="House – Premium (€329)">Eramaja – Premium (€329)</option>
             <option value="agency" data-et="Kinnisvarabüroopakett" data-en="Agency retainer">Kinnisvarabüroo pakett</option>
             <option value="reel" data-et="Listing Reel lisa" data-en="Listing Reel add-on">Listing Reel lisa</option>
             <option value="other" data-et="Muu / küsin" data-en="Other / question">Muu / küsin</option>
