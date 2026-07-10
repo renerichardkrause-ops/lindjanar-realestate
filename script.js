@@ -108,6 +108,55 @@ applyLanguage(localStorage.getItem('lang') || 'et');
 })();
 
 // ============================================================
+// Gallery lightbox — click a photo to view it full size.
+//   Reuses the same gallery files (they're already full resolution).
+//   Close: X, backdrop click or Esc. Navigate: arrows or ←/→ keys.
+// ============================================================
+(function () {
+  const track = document.getElementById('galleryTrack');
+  const lb = document.getElementById('lightbox');
+  if (!track || !lb) return;
+
+  const img = lb.querySelector('.lightbox-img');
+  const count = parseInt(track.getAttribute('data-count'), 10) || 0;
+  let cur = 1;
+
+  function srcFor(i) {
+    return 'assets/galerii/gallery-' + String(i).padStart(2, '0') + '.jpg';
+  }
+  function show(i) {
+    cur = ((i - 1 + count) % count) + 1;
+    img.src = srcFor(cur);
+    img.alt = 'Kinnisvarafoto ' + cur + ' täissuuruses';
+    lb.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    lb.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  track.addEventListener('click', function (e) {
+    const t = e.target.closest('img');
+    if (!t) return;
+    const m = t.src.match(/gallery-(\d+)/);
+    if (m) show(parseInt(m[1], 10));
+  });
+  lb.addEventListener('click', function (e) {
+    if (e.target === lb) close();
+  });
+  lb.querySelector('.lightbox-close').addEventListener('click', close);
+  lb.querySelector('.lightbox-prev').addEventListener('click', function () { show(cur - 1); });
+  lb.querySelector('.lightbox-next').addEventListener('click', function () { show(cur + 1); });
+  document.addEventListener('keydown', function (e) {
+    if (lb.hidden) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') show(cur - 1);
+    if (e.key === 'ArrowRight') show(cur + 1);
+  });
+})();
+
+// ============================================================
 // Contact form — Formspree AJAX submit + conversion tracking
 //   Submits without leaving the page, shows an inline status message,
 //   and fires the GA4 "generate_lead" event plus the Google Ads

@@ -832,15 +832,22 @@ a  { color: inherit; text-decoration: none; }
 .post-list { padding: 3.5rem 0 5rem; display: grid; gap: 1.5rem; max-width: 760px; }
 .post-card {
   display: block;
-  padding: 2rem 2.25rem;
   border: 1px solid var(--border);
   border-radius: var(--r);
+  overflow: hidden;
   text-decoration: none;
   color: var(--fg);
   background: var(--bg);
   transition: border-color 0.2s ease;
 }
 .post-card:hover { border-color: var(--accent); }
+.post-card-thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid var(--border);
+}
+.post-card-body { padding: 1.75rem 2.25rem 2rem; }
 .post-card time {
   font-family: var(--font-body);
   font-size: 0.7rem;
@@ -919,6 +926,151 @@ a  { color: inherit; text-decoration: none; }
   text-decoration: none;
 }
 .back-to-blog:hover { color: var(--accent); }
+
+/* ── ARVUSTUSED — Google reviews marquee (under the hero) ──
+   Track holds two identical groups; the keyframe slides the track by
+   exactly one group's width (-50%), so the loop is seamless. Spacing
+   lives in .review-card margin-right so both halves measure equal. */
+.reviews-strip {
+  padding: 1.75rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.reviews-google-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 0 0 1.25rem;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+}
+.reviews-google-line a {
+  color: var(--fg-dim);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-feature-settings: 'lnum' 1;
+}
+.reviews-google-line a:hover { color: var(--accent); }
+.reviews-marquee { overflow: hidden; }
+.reviews-track {
+  display: flex;
+  width: max-content;
+  animation: reviews-scroll 45s linear infinite;
+}
+.reviews-marquee:hover .reviews-track { animation-play-state: paused; }
+.reviews-group { display: flex; }
+@keyframes reviews-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reviews-track { animation: none; }
+}
+.review-card {
+  width: 340px;
+  flex-shrink: 0;
+  margin: 0 1.1rem 0 0;
+  padding: 1.1rem 1.35rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.review-card--bare { width: 180px; justify-content: center; }
+.review-stars {
+  color: var(--gold);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+}
+.review-card blockquote {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--fg);
+}
+.review-card figcaption {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--fg-dim);
+}
+
+/* ── BLOGI STRIP — latest post teaser after the gallery ── */
+.blog-strip { padding: 0 0 3.5rem; }
+.blog-strip-card {
+  display: flex;
+  align-items: center;
+  gap: 2.25rem;
+  padding: 1.6rem 2.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: var(--bg-alt);
+}
+.blog-strip-thumb-link { flex-shrink: 0; line-height: 0; }
+.blog-strip-thumb {
+  display: block;
+  width: 220px;
+  height: auto;
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+}
+.blog-strip-body { flex: 1; }
+.blog-strip-body h3 {
+  font-family: 'Cabinet Grotesk', var(--font-body);
+  font-weight: 400;
+  font-size: 1.25rem;
+  margin: 0.45rem 0 0.35rem;
+}
+.blog-strip-body h3 a { color: var(--fg); text-decoration: none; }
+.blog-strip-body h3 a:hover { color: var(--accent); }
+.blog-strip-body p { font-size: 0.85rem; color: var(--fg-dim); margin: 0; }
+.blog-strip .btn-outline { flex-shrink: 0; }
+@media (max-width: 640px) {
+  .blog-strip-card { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .blog-strip-thumb { width: 100%; }
+}
+
+/* ── GALERII LIGHTBOX ── */
+.gallery-slide img { cursor: zoom-in; }
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(20, 24, 21, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox[hidden] { display: none; }
+.lightbox-img {
+  max-width: 92vw;
+  max-height: 88vh;
+  display: block;
+  border-radius: var(--r);
+}
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  background: none;
+  border: none;
+  color: rgba(247, 244, 239, 0.85);
+  font-size: 2.4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.5rem 0.9rem;
+  transition: color 0.15s ease;
+}
+.lightbox-close:hover,
+.lightbox-prev:hover,
+.lightbox-next:hover { color: var(--accent-fg); }
+.lightbox-close { top: 1rem; right: 1.25rem; }
+.lightbox-prev { left: 0.75rem; top: 50%; transform: translateY(-50%); font-size: 3rem; }
+.lightbox-next { right: 0.75rem; top: 50%; transform: translateY(-50%); font-size: 3rem; }
 
 /* ── AGENCY — dark forest green ── */
 .agency-section {
