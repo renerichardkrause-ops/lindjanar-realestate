@@ -1072,6 +1072,144 @@ a  { color: inherit; text-decoration: none; }
 .lightbox-prev { left: 0.75rem; top: 50%; transform: translateY(-50%); font-size: 3rem; }
 .lightbox-next { right: 0.75rem; top: 50%; transform: translateY(-50%); font-size: 3rem; }
 
+.travel-areas {
+  margin-top: 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  line-height: 1.9;
+  color: var(--fg-dim);
+}
+.travel-areas a {
+  color: var(--fg-dim);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.travel-areas a:hover { color: var(--accent); }
+
+/* ── PIIRKONNALEHED + KKK (SEO pages) ── */
+.area-page { padding: 6.5rem 0 4rem; }
+.area-page .container { max-width: 760px; }
+.area-breadcrumb {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--fg-muted);
+  margin-bottom: 1.75rem;
+}
+.area-breadcrumb a { color: var(--fg-dim); text-decoration: none; }
+.area-breadcrumb a:hover { color: var(--accent); }
+.area-page h1 {
+  font-family: 'Cabinet Grotesk', var(--font-body);
+  font-style: normal;
+  font-weight: 400;
+  font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+}
+.area-lead { font-size: 1.02rem; line-height: 1.7; margin-bottom: 2.5rem; }
+.area-block { margin-bottom: 2.5rem; }
+.area-block h2 {
+  font-family: 'Cabinet Grotesk', var(--font-body);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.45rem;
+  margin-bottom: 0.8rem;
+}
+.area-block h3 {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 1.3rem 0 0.35rem;
+}
+.area-block p, .area-block li { font-size: 0.95rem; line-height: 1.7; }
+.area-block p { margin-bottom: 0.8rem; }
+.area-block a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.area-services { list-style: none; margin: 0 0 1rem; padding: 0; }
+.area-services li {
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.area-services li:first-child { border-top: 1px solid var(--border); }
+.area-cta {
+  margin: 3rem 0 2.5rem;
+  padding: 2rem 2.25rem;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+}
+.area-cta p { margin-bottom: 1.25rem; font-size: 0.95rem; }
+.area-cta-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.area-other {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--fg-dim);
+  line-height: 2;
+}
+.area-other a { color: var(--fg-dim); text-decoration: underline; text-underline-offset: 2px; }
+.area-other a:hover { color: var(--accent); }
+
+/* ── PREMIUM (Tallinn) — dark full-page variant ──
+   Inverts the site's light default onto the forest-green ground the
+   agency section already established as the "premium" register. */
+.premium-body { background: var(--bg-dark); }
+.site-header--dark {
+  background: rgba(29,44,34,0.92);
+  border-bottom: 1px solid var(--border-dark);
+}
+.site-header--dark .logo,
+.site-header--dark .nav a { color: var(--accent-fg); }
+.site-header--dark .nav a:hover { color: var(--gold); }
+.premium-page { color: var(--accent-fg); }
+.premium-page .area-breadcrumb { color: rgba(247,244,239,0.45); }
+.premium-page .area-breadcrumb a { color: rgba(247,244,239,0.6); }
+.premium-page .area-breadcrumb a:hover { color: var(--gold); }
+.premium-eyebrow {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.premium-page h1 { color: var(--accent-fg); margin-bottom: 0.9rem; }
+.premium-tagline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+  color: rgba(247,244,239,0.75);
+  margin-bottom: 2rem;
+}
+.premium-page .area-lead { color: rgba(247,244,239,0.85); }
+.premium-page .area-block h2 { color: var(--accent-fg); }
+.premium-page .area-block h3 { color: var(--accent-fg); }
+.premium-page .area-block p,
+.premium-page .area-block li { color: rgba(247,244,239,0.8); }
+.premium-page .area-block a { color: var(--gold); }
+.premium-page .area-services li { border-color: var(--border-dark); }
+.premium-page .area-services li:first-child { border-color: var(--border-dark); }
+.premium-page .area-services strong { color: var(--accent-fg); }
+.premium-cta {
+  background: var(--bg-dark-mid);
+  border-color: var(--border-dark);
+}
+.premium-cta p { color: rgba(247,244,239,0.85); }
+.premium-phone {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--accent-fg);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-feature-settings: 'lnum' 1;
+}
+.premium-phone:hover { color: var(--gold); }
+.premium-page .area-other { color: rgba(247,244,239,0.5); }
+.premium-page .area-other a { color: rgba(247,244,239,0.6); }
+.premium-page .area-other a:hover { color: var(--gold); }
+
 /* ── AGENCY — dark forest green ── */
 .agency-section {
   background: var(--bg-dark);

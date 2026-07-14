@@ -40,4 +40,14 @@
 ## Lehed (Pages)
 
 - [Avaleht ja hinnakiri](https://kinnisvara.lindjanar.ee/): teenused, hinnad, protsess, kontakt
+- [KKK](https://kinnisvara.lindjanar.ee/kkk.html): korduma kippuvad küsimused
 - [Blogi](https://kinnisvara.lindjanar.ee/blogi/): artiklid kinnisvarafotograafiast
+- Piirkonnad (service areas): [Tartumaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-tartumaa.html),
+  [Jõgevamaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-jogevamaa.html),
+  [Viljandimaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-viljandimaa.html),
+  [Pärnumaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-parnumaa.html),
+  [Valgamaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-valgamaa.html),
+  [Põlvamaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-polvamaa.html),
+  [Võrumaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-vorumaa.html),
+  [Järvamaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-jarvamaa.html),
+  [Tallinn – premium eramajad ja arhitektuur](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-tallinnas.html)
