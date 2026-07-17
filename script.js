@@ -108,26 +108,23 @@ applyLanguage(localStorage.getItem('lang') || 'et');
 })();
 
 // ============================================================
-// Gallery lightbox — click a photo to view it full size.
-//   Reuses the same gallery files (they're already full resolution).
-//   Close: X, backdrop click or Esc. Navigate: arrows or ←/→ keys.
+// Lightbox — gallery carousel + example strips.
+//   Click any photo in the homepage carousel or in a .example-track
+//   strip to view it full size. Close: X, backdrop or Esc.
+//   Navigate within the clicked collection: arrows or ←/→ keys.
 // ============================================================
 (function () {
-  const track = document.getElementById('galleryTrack');
   const lb = document.getElementById('lightbox');
-  if (!track || !lb) return;
+  if (!lb) return;
 
   const img = lb.querySelector('.lightbox-img');
-  const count = parseInt(track.getAttribute('data-count'), 10) || 0;
-  let cur = 1;
+  let list = [];   // [{src, alt}] of the active collection
+  let cur = 0;     // index into list
 
-  function srcFor(i) {
-    return 'assets/galerii/gallery-' + String(i).padStart(2, '0') + '.jpg';
-  }
   function show(i) {
-    cur = ((i - 1 + count) % count) + 1;
-    img.src = srcFor(cur);
-    img.alt = 'Kinnisvarafoto ' + cur + ' täissuuruses';
+    cur = (i + list.length) % list.length;
+    img.src = list[cur].src;
+    img.alt = list[cur].alt || 'Kinnisvarafoto täissuuruses';
     lb.hidden = false;
     document.body.style.overflow = 'hidden';
   }
@@ -136,12 +133,35 @@ applyLanguage(localStorage.getItem('lang') || 'et');
     document.body.style.overflow = '';
   }
 
-  track.addEventListener('click', function (e) {
-    const t = e.target.closest('img');
-    if (!t) return;
-    const m = t.src.match(/gallery-(\d+)/);
-    if (m) show(parseInt(m[1], 10));
+  // Homepage carousel: full-size files follow the gallery-NN pattern.
+  const track = document.getElementById('galleryTrack');
+  if (track) {
+    const count = parseInt(track.getAttribute('data-count'), 10) || 0;
+    track.addEventListener('click', function (e) {
+      const t = e.target.closest('img');
+      if (!t) return;
+      const m = t.src.match(/gallery-(\d+)/);
+      if (!m) return;
+      list = [];
+      for (let i = 1; i <= count; i++) {
+        list.push({ src: 'assets/galerii/gallery-' + String(i).padStart(2, '0') + '.jpg',
+                    alt: 'Kinnisvarafoto ' + i + ' täissuuruses' });
+      }
+      show(parseInt(m[1], 10) - 1);
+    });
+  }
+
+  // Example strips: the collection is the strip's own images.
+  document.querySelectorAll('.example-track').forEach(function (strip) {
+    strip.addEventListener('click', function (e) {
+      const t = e.target.closest('img');
+      if (!t) return;
+      const imgs = [...strip.querySelectorAll('img')];
+      list = imgs.map(function (im) { return { src: im.getAttribute('src'), alt: im.alt }; });
+      show(imgs.indexOf(t));
+    });
   });
+
   lb.addEventListener('click', function (e) {
     if (e.target === lb) close();
   });
