@@ -2174,3 +2174,96 @@ a  { color: inherit; text-decoration: none; }
 .form-status[hidden] { display: none; }
 .form-status--ok { color: var(--accent); }
 .form-status--error { color: #b3402f; }
+
+/* ── REEL OVERLAY (Tallinn page, #video link) ── */
+.reel-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 12, 11, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.reel-overlay[hidden] { display: none; }
+.reel-overlay video {
+  max-height: 92vh;
+  max-width: 92vw;
+  width: auto;
+  height: auto;
+  aspect-ratio: 9 / 16;
+  border-radius: var(--r);
+  background: #000;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+.reel-overlay-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  z-index: 401;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.reel-overlay-close:hover { background: rgba(255, 255, 255, 0.18); }
+.reel-overlay-unmute {
+  position: absolute;
+  bottom: 6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 401;
+  padding: 0.7rem 1.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+.reel-overlay-unmute::before { content: "🔊 "; }
+.reel-overlay-unmute[hidden] { display: none; }
+@media (max-width: 640px) {
+  .reel-overlay video {
+    max-width: 100vw;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+  .reel-overlay-close { top: 0.75rem; right: 0.75rem; }
+}
+
+/* ── REEL FRAME → OVERLAY TRIGGER ── */
+#reelFrame { cursor: pointer; }
+.lux-reel-hint {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  padding: 0.45rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.lux-reel-hint::before { content: "🔊 "; }
+#reelFrame:hover .lux-reel-hint {
+  background: rgba(0, 0, 0, 0.75);
+  border-color: rgba(255, 255, 255, 0.55);
+}

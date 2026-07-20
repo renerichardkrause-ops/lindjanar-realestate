@@ -224,9 +224,10 @@
 
       <div class="lux-row lux-row--flip">
         <div class="lux-row-media">
-          <div class="lux-media-frame">
+          <div class="lux-media-frame" id="reelFrame" role="button" tabindex="0" aria-label="Ava video heliga">
             <img class="lux-media-frame-bg" src="assets/premium/ylevaatevideo-poster.webp" alt="" aria-hidden="true" />
             <video src="assets/premium/ylevaatevideo.mp4" poster="assets/premium/ylevaatevideo-poster.webp" width="720" height="1280" autoplay muted loop playsinline preload="metadata" aria-label="Näidis: kinnisvara Listing Reel video"></video>
+            <span class="lux-reel-hint"><span data-et="Vaata heliga" data-en="Watch with sound">Vaata heliga</span></span>
           </div>
         </div>
         <div class="lux-row-text">
@@ -388,6 +389,70 @@
   </div>
 </div>
 
+<div class="reel-overlay" id="reelOverlay" hidden>
+  <button type="button" class="reel-overlay-close" aria-label="Sulge video">&times;</button>
+  <video id="reelOverlayVideo" src="assets/premium/ylevaatevideo.mp4" poster="assets/premium/ylevaatevideo-poster.webp" width="720" height="1280" controls loop playsinline preload="none" aria-label="Kinnisvara Listing Reel video"></video>
+  <button type="button" class="reel-overlay-unmute" id="reelUnmute" hidden><span data-et="Heli sisse" data-en="Turn sound on">Heli sisse</span></button>
+</div>
+
 <script src="script.js"></script>
+<script>
+(function () {
+  var overlay = document.getElementById('reelOverlay');
+  var video = document.getElementById('reelOverlayVideo');
+  var unmuteBtn = document.getElementById('reelUnmute');
+  var closeBtn = overlay.querySelector('.reel-overlay-close');
+
+  function openReel() {
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    video.muted = false;
+    video.volume = 1;
+    var p = video.play();
+    if (p && p.catch) {
+      p.catch(function () {
+        video.muted = true;
+        unmuteBtn.hidden = false;
+        video.play();
+      });
+    }
+  }
+
+  function closeReel() {
+    video.pause();
+    overlay.hidden = true;
+    unmuteBtn.hidden = true;
+    document.body.style.overflow = '';
+    if (location.hash === '#video') {
+      history.replaceState(null, '', location.pathname + location.search);
+    }
+  }
+
+  unmuteBtn.addEventListener('click', function () {
+    video.muted = false;
+    unmuteBtn.hidden = true;
+  });
+  closeBtn.addEventListener('click', closeReel);
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closeReel();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !overlay.hidden) closeReel();
+  });
+  window.addEventListener('hashchange', function () {
+    if (location.hash === '#video') openReel();
+  });
+  var frame = document.getElementById('reelFrame');
+  function openFromFrame() {
+    if (location.hash === '#video') openReel();
+    else location.hash = '#video';
+  }
+  frame.addEventListener('click', openFromFrame);
+  frame.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openFromFrame(); }
+  });
+  if (location.hash === '#video') openReel();
+})();
+</script>
 </body>
 </html>
