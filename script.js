@@ -345,3 +345,10 @@ applyLanguage(localStorage.getItem('lang') || 'et');
     window.gtag('event', 'contact_click', { method: isTel ? 'phone' : 'email' });
   }, true);
 })();
+
+
+/* ── PROMO AUTO-EXPIRY: elements with data-promo-until vanish after the date ── */
+document.querySelectorAll('[data-promo-until]').forEach(function (el) {
+  var until = new Date(el.getAttribute('data-promo-until'));
+  if (!isNaN(until.getTime()) && new Date() > until) el.remove();
+});
