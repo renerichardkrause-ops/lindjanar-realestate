@@ -151,6 +151,27 @@ applyLanguage(localStorage.getItem('lang') || 'et');
     });
   }
 
+  // Example albums: click a cover to open the whole set (files follow
+  // the <base>NN.webp pattern, 1..count).
+  document.querySelectorAll('.album-card').forEach(function (card) {
+    function openAlbum() {
+      const base = card.getAttribute('data-base');
+      const count = parseInt(card.getAttribute('data-count'), 10) || 0;
+      const title = card.querySelector('.album-title');
+      const name = title ? title.textContent : 'Galerii';
+      list = [];
+      for (let i = 1; i <= count; i++) {
+        list.push({ src: base + String(i).padStart(2, '0') + '.webp',
+                    alt: name + ' – foto ' + i });
+      }
+      show(0);
+    }
+    card.addEventListener('click', openAlbum);
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAlbum(); }
+    });
+  });
+
   // Before/after figures: all four photos form one collection.
   document.querySelectorAll('.bna-grid').forEach(function (grid) {
     grid.addEventListener('click', function (e) {

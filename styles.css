@@ -2487,3 +2487,61 @@ a  { color: inherit; text-decoration: none; }
   color: var(--fg);
   font-weight: 600;
 }
+
+/* ── EXAMPLE ALBUMS (variant 1: album cards with cover + count) ── */
+.example-albums { margin-top: 2.75rem; }
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.album-grid--narrow {
+  grid-template-columns: minmax(0, 400px);
+  justify-content: center;
+}
+.album-card { cursor: zoom-in; }
+.album-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.album-cover { position: relative; overflow: hidden; border-radius: var(--r); }
+.album-cover img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+.album-card:hover .album-cover img { transform: scale(1.04); }
+.album-badge {
+  position: absolute;
+  right: 0.8rem;
+  bottom: 0.8rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+}
+.album-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.7rem;
+}
+.album-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--fg);
+}
+.album-cta {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
+.album-card:hover .album-cta { color: var(--accent); }
+@media (max-width: 800px) {
+  .album-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+}
