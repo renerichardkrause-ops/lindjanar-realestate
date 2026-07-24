@@ -2466,3 +2466,24 @@ a  { color: inherit; text-decoration: none; }
   .bna-inset--portrait { width: 24%; }
   .bna-story { padding: 1.6rem 1.4rem; }
 }
+
+/* ── PHOTOGRAPHER FACTS ── */
+.photographer-facts {
+  list-style: none;
+  margin: 1.5rem 0 1.75rem;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+.photographer-facts li {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--fg-dim);
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--border);
+}
+.photographer-facts strong {
+  color: var(--fg);
+  font-weight: 600;
+}
