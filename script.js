@@ -121,16 +121,24 @@ applyLanguage(localStorage.getItem('lang') || 'et');
   let list = [];   // [{src, alt}] of the active collection
   let cur = 0;     // index into list
 
+  const overlay = document.getElementById('galleryOverlay');
+
   function show(i) {
     cur = (i + list.length) % list.length;
     img.src = list[cur].src;
     img.alt = list[cur].alt || 'Kinnisvarafoto täissuuruses';
     lb.hidden = false;
     document.body.style.overflow = 'hidden';
+    // preload neighbours so arrows feel instant
+    [cur + 1, cur - 1].forEach(function (n) {
+      const item = list[(n + list.length) % list.length];
+      if (item) { const pre = new Image(); pre.src = item.src; }
+    });
   }
   function close() {
     lb.hidden = true;
-    document.body.style.overflow = '';
+    // keep scroll locked if the gallery grid is still open underneath
+    if (!overlay || overlay.hidden) document.body.style.overflow = '';
   }
 
   // Homepage carousel: full-size files follow the gallery-NN pattern.
@@ -151,20 +159,51 @@ applyLanguage(localStorage.getItem('lang') || 'et');
     });
   }
 
-  // Example albums: click a cover to open the whole set (files follow
-  // the <base>NN.webp pattern, 1..count).
+  // Example albums: a card opens a grid overlay of thumbnails; clicking a
+  // thumbnail opens the fullscreen lightbox (high-res -full files) at that
+  // photo. Thumbs follow <base>NN.webp, full versions <base>NN-full.webp.
+  const overlayGrid = document.getElementById('galleryOverlayGrid');
+  const overlayTitle = document.getElementById('galleryOverlayTitle');
+
+  function closeOverlay() {
+    overlay.hidden = true;
+    overlayGrid.innerHTML = '';
+    document.body.style.overflow = '';
+  }
+
+  if (overlay) {
+    overlay.querySelector('.gallery-overlay-close').addEventListener('click', closeOverlay);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !overlay.hidden && lb.hidden) closeOverlay();
+    });
+  }
+
   document.querySelectorAll('.album-card').forEach(function (card) {
     function openAlbum() {
       const base = card.getAttribute('data-base');
       const count = parseInt(card.getAttribute('data-count'), 10) || 0;
       const title = card.querySelector('.album-title');
       const name = title ? title.textContent : 'Galerii';
-      list = [];
+      overlayTitle.textContent = name + ' · ' + count + ' fotot';
+      overlayGrid.innerHTML = '';
       for (let i = 1; i <= count; i++) {
-        list.push({ src: base + String(i).padStart(2, '0') + '.webp',
-                    alt: name + ' – foto ' + i });
+        const t = document.createElement('img');
+        t.src = base + String(i).padStart(2, '0') + '.webp';
+        t.alt = name + ' – foto ' + i;
+        t.loading = 'lazy';
+        t.addEventListener('click', function () {
+          list = [];
+          for (let j = 1; j <= count; j++) {
+            list.push({ src: base + String(j).padStart(2, '0') + '-full.webp',
+                        alt: name + ' – foto ' + j });
+          }
+          show(i - 1);
+        });
+        overlayGrid.appendChild(t);
       }
-      show(0);
+      overlay.hidden = false;
+      overlay.scrollTop = 0;
+      document.body.style.overflow = 'hidden';
     }
     card.addEventListener('click', openAlbum);
     card.addEventListener('keydown', function (e) {

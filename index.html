@@ -611,10 +611,10 @@
               <span class="album-cta" data-et="Vaata galeriid →" data-en="View gallery →">Vaata galeriid →</span>
             </div>
           </div>
-          <div class="album-card" data-base="assets/naidised/korter-2t-" data-count="11" role="button" tabindex="0" aria-label="Ava galerii: 2-toaline korter">
+          <div class="album-card" data-base="assets/naidised/korter-2t-" data-count="14" role="button" tabindex="0" aria-label="Ava galerii: 2-toaline korter">
             <div class="album-cover">
               <img src="assets/naidised/korter-2t-04.webp" alt="2-toalise korteri pildistamise näide – elutuba" loading="lazy" />
-              <span class="album-badge" data-et="11 fotot" data-en="11 photos">11 fotot</span>
+              <span class="album-badge" data-et="14 fotot" data-en="14 photos">14 fotot</span>
             </div>
             <div class="album-meta">
               <span class="album-title" data-et="2-toaline korter" data-en="2-room apartment">2-toaline korter</span>
@@ -1018,6 +1018,14 @@
 <!-- ============================================================
      GALERII LIGHTBOX – click a gallery photo to view it full size
      ============================================================ -->
+<div class="gallery-overlay" id="galleryOverlay" hidden>
+  <div class="gallery-overlay-bar">
+    <span class="gallery-overlay-title" id="galleryOverlayTitle"></span>
+    <button type="button" class="gallery-overlay-close" aria-label="Sulge galerii">&times;</button>
+  </div>
+  <div class="gallery-overlay-grid" id="galleryOverlayGrid"></div>
+</div>
+
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto täissuuruses" hidden>
   <button type="button" class="lightbox-close" aria-label="Sulge">&times;</button>
   <button type="button" class="lightbox-prev" aria-label="Eelmine foto">&#8249;</button>
