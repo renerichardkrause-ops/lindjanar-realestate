@@ -2588,25 +2588,29 @@ a  { color: inherit; text-decoration: none; }
 }
 .gallery-overlay-close:hover { background: rgba(255, 255, 255, 0.18); }
 .gallery-overlay-grid {
-  columns: 3;
-  column-gap: 0.9rem;
+  /* justified rows: photos read left to right, natural ratios kept */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
   padding: 0.5rem 1.5rem 2.5rem;
   max-width: 1200px;
   margin: 0 auto;
 }
+.gallery-overlay-grid::after { content: ""; flex-grow: 100000; }
 .gallery-overlay-grid img {
   display: block;
-  width: 100%;
-  margin-bottom: 0.9rem;
+  height: 250px;
+  width: auto;
+  flex-grow: 1;
+  object-fit: cover;
   border-radius: var(--r);
   cursor: zoom-in;
-  break-inside: avoid;
   transition: opacity 0.2s ease;
 }
 .gallery-overlay-grid img:hover { opacity: 0.85; }
 @media (max-width: 800px) {
-  .gallery-overlay-grid { columns: 2; padding: 0.5rem 0.9rem 2rem; column-gap: 0.6rem; }
-  .gallery-overlay-grid img { margin-bottom: 0.6rem; }
+  .gallery-overlay-grid { gap: 0.6rem; padding: 0.5rem 0.9rem 2rem; }
+  .gallery-overlay-grid img { height: 150px; }
 }
 .album-grid--two {
   grid-template-columns: repeat(2, minmax(0, 400px));
