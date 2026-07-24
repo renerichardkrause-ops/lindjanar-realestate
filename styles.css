@@ -2311,3 +2311,158 @@ a  { color: inherit; text-decoration: none; }
   color: #b3402f;
 }
 .pricing-card:has(.promo-ribbon) .card-badge { left: 38%; }
+
+/* ── ENNE & PÄRAST (before/after) ── */
+.bna-section { padding: 5.5rem 0; background: var(--bg-alt); }
+.bna-title { font-family: 'Cabinet Grotesk', var(--font-body); }
+.bna-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+.bna-figure {
+  position: relative;
+  margin: 0;
+  cursor: zoom-in;
+}
+.bna-after {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--r);
+}
+.bna-inset {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  width: 37%;
+  display: block;
+  background: #fff;
+  border: 3px solid #fff;
+  border-radius: var(--r);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+.bna-inset--portrait { width: 26%; }
+.bna-inset img { display: block; width: 100%; border-radius: 1px; }
+.bna-chip {
+  position: absolute;
+  padding: 0.28rem 0.7rem;
+  font-family: var(--font-body);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.bna-chip--parast {
+  top: 0.9rem;
+  right: 0.9rem;
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+.bna-chip--enne {
+  top: -0.7rem;
+  left: 0.6rem;
+  background: #fff;
+  color: var(--fg-dim);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+.bna-caption {
+  margin: 0.9rem 0 0;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--fg-muted);
+}
+.bna-pains {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2.75rem;
+}
+.bna-pain {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.6rem 1.75rem;
+}
+.bna-pain h3 {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.bna-pain p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--fg-dim);
+}
+.bna-story {
+  margin-top: 2.75rem;
+  background: var(--bg);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r);
+  padding: 2rem 2.25rem;
+}
+.bna-story-eyebrow {
+  display: block;
+  margin-bottom: 0.8rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.bna-story p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--fg-dim);
+  max-width: 62ch;
+}
+.bna-story-punch {
+  margin-top: 1.1rem !important;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.25rem !important;
+  line-height: 1.5 !important;
+  color: var(--fg) !important;
+}
+.bna-brandline {
+  margin: 2.5rem auto 0;
+  max-width: 46rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--fg-dim);
+}
+.bna-cta {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+.bna-cta-note {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--fg-dim);
+}
+@media (max-width: 800px) {
+  .bna-grid, .bna-pains { grid-template-columns: 1fr; }
+  .bna-inset { width: 34%; }
+  .bna-inset--portrait { width: 24%; }
+  .bna-story { padding: 1.6rem 1.4rem; }
+}

@@ -151,6 +151,17 @@ applyLanguage(localStorage.getItem('lang') || 'et');
     });
   }
 
+  // Before/after figures: all four photos form one collection.
+  document.querySelectorAll('.bna-grid').forEach(function (grid) {
+    grid.addEventListener('click', function (e) {
+      const t = e.target.closest('img');
+      if (!t) return;
+      const imgs = [...grid.querySelectorAll('img')];
+      list = imgs.map(function (im) { return { src: im.getAttribute('src'), alt: im.alt }; });
+      show(imgs.indexOf(t));
+    });
+  });
+
   // Example strips: the collection is the strip's own images.
   document.querySelectorAll('.example-track').forEach(function (strip) {
     strip.addEventListener('click', function (e) {
