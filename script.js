@@ -169,6 +169,9 @@ applyLanguage(localStorage.getItem('lang') || 'et');
     overlay.hidden = true;
     overlayGrid.innerHTML = '';
     document.body.style.overflow = '';
+    if (/^#galerii-/.test(location.hash)) {
+      history.replaceState(null, '', location.pathname + location.search);
+    }
   }
 
   if (overlay) {
@@ -178,38 +181,56 @@ applyLanguage(localStorage.getItem('lang') || 'et');
     });
   }
 
-  document.querySelectorAll('.album-card').forEach(function (card) {
-    function openAlbum() {
-      const base = card.getAttribute('data-base');
-      const count = parseInt(card.getAttribute('data-count'), 10) || 0;
-      const title = card.querySelector('.album-title');
-      const name = title ? title.textContent : 'Galerii';
-      overlayTitle.textContent = name + ' · ' + count + ' fotot';
-      overlayGrid.innerHTML = '';
-      for (let i = 1; i <= count; i++) {
-        const t = document.createElement('img');
-        t.src = base + String(i).padStart(2, '0') + '.webp';
-        t.alt = name + ' – foto ' + i;
-        t.loading = 'lazy';
-        t.addEventListener('click', function () {
-          list = [];
-          for (let j = 1; j <= count; j++) {
-            list.push({ src: base + String(j).padStart(2, '0') + '-full.webp',
-                        alt: name + ' – foto ' + j });
-          }
-          show(i - 1);
-        });
-        overlayGrid.appendChild(t);
-      }
-      overlay.hidden = false;
-      overlay.scrollTop = 0;
-      document.body.style.overflow = 'hidden';
+  function openAlbumCard(card) {
+    const base = card.getAttribute('data-base');
+    const count = parseInt(card.getAttribute('data-count'), 10) || 0;
+    const title = card.querySelector('.album-title');
+    const name = title ? title.textContent : 'Galerii';
+    overlayTitle.textContent = name + ' · ' + count + ' fotot';
+    overlayGrid.innerHTML = '';
+    for (let i = 1; i <= count; i++) {
+      const t = document.createElement('img');
+      t.src = base + String(i).padStart(2, '0') + '.webp';
+      t.alt = name + ' – foto ' + i;
+      t.loading = 'lazy';
+      t.addEventListener('click', function () {
+        list = [];
+        for (let j = 1; j <= count; j++) {
+          list.push({ src: base + String(j).padStart(2, '0') + '-full.webp',
+                      alt: name + ' – foto ' + j });
+        }
+        show(i - 1);
+      });
+      overlayGrid.appendChild(t);
     }
-    card.addEventListener('click', openAlbum);
+    overlay.hidden = false;
+    overlay.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+    // shareable link: put the gallery slug in the address bar
+    if (card.dataset.gallery) {
+      history.replaceState(null, '', '#galerii-' + card.dataset.gallery);
+    }
+  }
+
+  document.querySelectorAll('.album-card').forEach(function (card) {
+    card.addEventListener('click', function () { openAlbumCard(card); });
     card.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAlbum(); }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAlbumCard(card); }
     });
   });
+
+  // deep link: #galerii-<slug> opens that album (on load and on hash change)
+  function openGalleryFromHash() {
+    const m = location.hash.match(/^#galerii-(.+)$/);
+    if (!m) return;
+    const card = document.querySelector('.album-card[data-gallery="' + m[1] + '"]');
+    if (card) {
+      card.scrollIntoView({ block: 'center' });
+      openAlbumCard(card);
+    }
+  }
+  window.addEventListener('hashchange', openGalleryFromHash);
+  openGalleryFromHash();
 
   // Before/after figures: all four photos form one collection.
   document.querySelectorAll('.bna-grid').forEach(function (grid) {
