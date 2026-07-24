@@ -2608,3 +2608,8 @@ a  { color: inherit; text-decoration: none; }
   .gallery-overlay-grid { columns: 2; padding: 0.5rem 0.9rem 2rem; column-gap: 0.6rem; }
   .gallery-overlay-grid img { margin-bottom: 0.6rem; }
 }
+.album-grid--two {
+  grid-template-columns: repeat(2, minmax(0, 400px));
+  justify-content: center;
+}
+@media (max-width: 800px) { .album-grid--two { grid-template-columns: 1fr; } }
