@@ -2617,3 +2617,29 @@ a  { color: inherit; text-decoration: none; }
   justify-content: center;
 }
 @media (max-width: 800px) { .album-grid--two { grid-template-columns: 1fr; } }
+
+/* ── BLOG BEFORE/AFTER PAIRS (side-by-side comparison) ── */
+.split-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+.split-cell { display: block; }
+.split-cell img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--r);
+}
+.split-tag {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.split-tag--enne { color: #8a8578; }
+.split-tag--parast { color: var(--accent); }
