@@ -159,6 +159,14 @@ applyLanguage(localStorage.getItem('lang') || 'et');
     });
   }
 
+  // Public hook so other pages (e.g. the portfolio wall) can drive the
+  // lightbox with their own collection.
+  window.LINDJANAR_openLightbox = function (collection, index) {
+    if (!collection || !collection.length) return;
+    list = collection;
+    show(index || 0);
+  };
+
   // Example albums: a card opens a grid overlay of thumbnails; clicking a
   // thumbnail opens the fullscreen lightbox (high-res -full files) at that
   // photo. Thumbs follow <base>NN.webp, full versions <base>NN-full.webp.

@@ -2643,3 +2643,77 @@ a  { color: inherit; text-decoration: none; }
 }
 .split-tag--enne { color: #8a8578; }
 .split-tag--parast { color: var(--accent); }
+
+/* ── PORTFOLIO WALL (tood.html) ── */
+.works-hero {
+  padding: 3.5rem 0 2rem;
+  background: var(--bg-alt);
+}
+.works-title {
+  font-family: 'Cabinet Grotesk', var(--font-body);
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 0.6rem 0 0.8rem;
+}
+.works-lead {
+  max-width: 46rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--fg-dim);
+  margin: 0;
+}
+.works-section { padding: 2.5rem 0 5rem; }
+/* the wall runs wider than the text container so it reads as a portfolio */
+.works-section > .container { max-width: 1560px; }
+
+/* justified rows: photos read left to right, natural ratios kept */
+.works-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.works-grid::after { content: ""; flex-grow: 100000; }
+.works-tile {
+  display: block;
+  height: 240px;
+  width: auto;
+  flex-grow: 1;
+  object-fit: cover;
+  border-radius: var(--r);
+  cursor: zoom-in;
+  opacity: 0;
+  transform: translateY(14px) scale(0.99);
+  transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) var(--d, 0ms),
+              transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) var(--d, 0ms),
+              filter 0.3s ease;
+}
+.works-tile.is-in { opacity: 1; transform: none; }
+.works-tile:hover { filter: brightness(1.06); }
+.works-more {
+  margin: 2.5rem 0 0;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--fg-dim);
+}
+.works-more a { color: var(--accent); margin-left: 0.4rem; }
+.works-cta {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+.works-cta-note {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--fg-dim);
+}
+@media (max-width: 800px) {
+  .works-grid { gap: 0.5rem; }
+  .works-tile { height: 165px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .works-tile { opacity: 1; transform: none; transition: none; }
+}

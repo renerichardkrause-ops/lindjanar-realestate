@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tehtud tööd – kinnisvarafotograafia näited | LINDJANAR</title>
+<meta name="description" content="Vaata LINDJANARi tehtud kinnisvarafotode näiteid – korterid, eramajad ja droonifotod üle Eesti. Päris objektid, päris kuulutusfotod." />
+<link rel="canonical" href="https://kinnisvara.lindjanar.ee/tood.html" />
+<link rel="icon" href="favicon.ico" sizes="any" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Tehtud tööd – kinnisvarafotograafia näited | LINDJANAR" />
+<meta property="og:description" content="Päris objektid, päris kuulutusfotod – korterid, eramajad ja droonifotod üle Eesti." />
+<meta property="og:url" content="https://kinnisvara.lindjanar.ee/tood.html" />
+<meta property="og:image" content="https://kinnisvara.lindjanar.ee/assets/naidised/korter-1t-06.webp" />
+<meta property="og:locale" content="et_EE" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Raleway:wght@600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo">LINDJANAR</a>
+    <nav class="nav">
+      <a href="/#pricing">Hinnad</a>
+      <a href="/tood.html">Tööd</a>
+      <a href="/blogi/">Blogi</a>
+      <a href="/kkk.html">KKK</a>
+      <a href="/#contact">Kontakt</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="works-hero">
+    <div class="container">
+      <p class="area-breadcrumb"><a href="/">Avaleht</a> › Tehtud tööd</p>
+      <span class="section-tag" data-et="Portfoolio" data-en="Portfolio">Portfoolio</span>
+      <h1 class="works-title" data-et="Tehtud tööd" data-en="Our work">Tehtud tööd</h1>
+      <p class="works-lead" data-et="Päris objektid, päris kuulutusfotod. Korterid, eramajad ja droonivõtted üle Eesti – kliki fotol, et näha seda täissuuruses." data-en="Real properties, real listing photos. Apartments, houses and drone shots across Estonia – click any photo to view it full size.">Päris objektid, päris kuulutusfotod. Korterid, eramajad ja droonivõtted üle Eesti – kliki fotol, et näha seda täissuuruses.</p>
+    </div>
+  </section>
+
+  <section class="works-section">
+    <div class="container">
+      <div class="works-grid" id="worksGrid"></div>
+      <p class="works-more">
+        <span data-et="Soovid näha ühe objekti fotosid tervikuna?" data-en="Want to see one property's photos as a full set?">Soovid näha ühe objekti fotosid tervikuna?</span>
+        <a href="/#pricing" data-et="Vaata paketinäiteid avalehel →" data-en="See package examples on the homepage →">Vaata paketinäiteid avalehel →</a>
+      </p>
+      <div class="works-cta">
+        <a href="/#contact" class="btn-primary" data-et="Broneeri pildistamine" data-en="Book a shoot">Broneeri pildistamine</a>
+        <span class="works-cta-note" data-et="Alates 85€ · pildid kätte 48h-ga" data-en="From 85€ · photos within 48h">Alates 85€ · pildid kätte 48h-ga</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>&copy; <span class="year"></span> Janar Lind. Kõik õigused kaitstud.</span>
+    <a href="https://lindjanar.ee">← Autofotograafia</a>
+  </div>
+</footer>
+
+<div class="cookie-banner" id="cookieBanner" hidden>
+  <p class="cookie-text">Kasutame küpsiseid, et oma veebilehte paremaks teha.</p>
+  <div class="cookie-actions">
+    <button type="button" class="cookie-btn cookie-btn--decline" id="cookieDecline">Ainult vajalikud</button>
+    <button type="button" class="cookie-btn cookie-btn--accept" id="cookieAccept">Nõustun</button>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto täissuuruses" hidden>
+  <button type="button" class="lightbox-close" aria-label="Sulge">&times;</button>
+  <button type="button" class="lightbox-prev" aria-label="Eelmine foto">&#8249;</button>
+  <img class="lightbox-img" src="" alt="" />
+  <button type="button" class="lightbox-next" aria-label="Järgmine foto">&#8250;</button>
+</div>
+
+<script src="script.js"></script>
+<script>
+/* ============================================================
+   PORTFOLIO WALL
+   Reuses the album files already on the site, so adding a shoot
+   costs no extra storage. To add one: process the photos to
+   <base>NN.webp (thumbnail) + <base>NN-full.webp (fullscreen),
+   then add one line below with the base path, count and alt text.
+   ============================================================ */
+(function () {
+  var SHOOTS = [
+    { id: 'assets/naidised/korter-1t-',      count: 36, alt: 'Ühetoalise korteri pildistamine' },
+    { id: 'assets/naidised/eramaja-vaike-',  count: 53, alt: 'Väiksema eramaja pildistamine' },
+    { id: 'assets/tood/s01-',                count: 32, alt: 'Korteri pildistamine Tartus' },
+    { id: 'assets/naidised/eramaja-kesk-',   count: 39, alt: 'Keskmise suurusega eramaja pildistamine' },
+    { id: 'assets/naidised/korter-3t-',      count: 22, alt: 'Kolmetoalise korteri pildistamine' },
+    { id: 'assets/naidised/eramaja-suur-',   count: 16, alt: 'Suurema eramaja pildistamine' },
+    { id: 'assets/naidised/korter-2t-',      count: 14, alt: 'Kahetoalise korteri pildistamine' }
+  ];
+
+  var grid = document.getElementById('worksGrid');
+  if (!grid) return;
+
+  // interleave shoots so the wall reads as a mixed portfolio, not blocks
+  var items = [];
+  var max = Math.max.apply(null, SHOOTS.map(function (s) { return s.count; }));
+  for (var i = 1; i <= max; i++) {
+    SHOOTS.forEach(function (s) {
+      if (i <= s.count) {
+        var n = String(i).padStart(2, '0');
+        items.push({ thumb: s.id + n + '.webp',
+                     full:  s.id + n + '-full.webp',
+                     alt:   s.alt + ' – foto ' + i });
+      }
+    });
+  }
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var io = 'IntersectionObserver' in window && !reduce
+    ? new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+        });
+      }, { rootMargin: '80px 0px' })
+    : null;
+
+  items.forEach(function (item, idx) {
+    var img = document.createElement('img');
+    img.src = item.thumb;
+    img.alt = item.alt;
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    img.className = 'works-tile';
+    img.style.setProperty('--d', (idx % 6) * 60 + 'ms');
+    img.addEventListener('click', function () {
+      if (window.LINDJANAR_openLightbox) {
+        window.LINDJANAR_openLightbox(items.map(function (it) {
+          return { src: it.full, alt: it.alt };
+        }), idx);
+      }
+    });
+    if (io) io.observe(img); else img.classList.add('is-in');
+    grid.appendChild(img);
+  });
+
+  // Safety net: tiles start invisible so they can fade in. If the observer
+  // never reports (unsupported, or a browser quirk), reveal everything so
+  // the wall can never end up blank.
+  if (io) {
+    setTimeout(function () {
+      if (!grid.querySelector('.works-tile.is-in')) {
+        io.disconnect();
+        grid.querySelectorAll('.works-tile').forEach(function (t) {
+          t.style.setProperty('--d', '0ms');
+          t.classList.add('is-in');
+        });
+      }
+    }, 1200);
+  }
+})();
+</script>
+</body>
+</html>
