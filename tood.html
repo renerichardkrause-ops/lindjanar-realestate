@@ -96,7 +96,16 @@
     { id: 'assets/naidised/korter-1t-',      count: 36,  alt: 'Ühetoalise korteri pildistamine' },
     { id: 'assets/naidised/nora-',           count: 104, alt: 'Nora uusarenduse pildistamine Tallinnas' },
     { id: 'assets/tood/s01-',                count: 32,  alt: 'Korteri pildistamine Tartus' },
-    { id: 'assets/tood/s02-',                count: 39,  alt: 'Korteri pildistamine Tartus' },
+    // Custom running order: lead with the living room and kitchen, then the
+    // bedroom and balcony, then the corridors. Technical detail shots last.
+    { id: 'assets/tood/s02-',                count: 39,  alt: 'Korteri pildistamine Tartus',
+      order: [10, 11, 12, 13, 14, 15,
+              17, 18, 19, 20, 21, 22,
+               1,  2,  3,  4,  9, 31,
+              16, 28,  5,  6,  7,  8,
+              23, 30, 32, 33, 34, 35,
+              36, 37, 38, 39, 24, 25,
+              26, 27, 29] },
     { id: 'assets/naidised/eramaja-kesk-',   count: 39,  alt: 'Keskmise suurusega eramaja pildistamine' },
     { id: 'assets/naidised/korter-3t-',      count: 22,  alt: 'Kolmetoalise korteri pildistamine' },
     { id: 'assets/naidised/korter-2t-',      count: 14,  alt: 'Kahetoalise korteri pildistamine' }
@@ -110,19 +119,25 @@
   var grid = document.getElementById('worksGrid');
   if (!grid) return;
 
+  // A shoot without an explicit `order` just runs 1..count.
+  SHOOTS.forEach(function (s) {
+    if (s.order) return;
+    s.order = [];
+    for (var i = 1; i <= s.count; i++) s.order.push(i);
+  });
+
   // Take CHUNK photos from each shoot in turn, then cycle back for the next
   // CHUNK, so the wall reads as blocks of one property rather than a shuffle.
   var items = [];
-  var max = Math.max.apply(null, SHOOTS.map(function (s) { return s.count; }));
-  for (var start = 1; start <= max; start += CHUNK) {
+  var max = Math.max.apply(null, SHOOTS.map(function (s) { return s.order.length; }));
+  for (var from = 0; from < max; from += CHUNK) {
     SHOOTS.forEach(function (s) {
-      var end = Math.min(start + CHUNK - 1, s.count);
-      for (var i = start; i <= end; i++) {
+      s.order.slice(from, from + CHUNK).forEach(function (i) {
         var n = String(i).padStart(2, '0');
         items.push({ thumb: s.id + n + '.webp',
                      full:  s.id + n + '-full.webp',
                      alt:   s.alt + ' – foto ' + i });
-      }
+      });
     });
   }
 
