@@ -93,25 +93,31 @@
    ============================================================ */
 (function () {
   var SHOOTS = [
-    { id: 'assets/naidised/korter-1t-',      count: 36, alt: 'Ühetoalise korteri pildistamine' },
-    { id: 'assets/naidised/eramaja-vaike-',  count: 53, alt: 'Väiksema eramaja pildistamine' },
-    { id: 'assets/tood/s01-',                count: 32, alt: 'Korteri pildistamine Tartus' },
-    { id: 'assets/tood/s02-',                count: 39, alt: 'Korteri pildistamine Tartus' },
-    { id: 'assets/naidised/eramaja-kesk-',   count: 39, alt: 'Keskmise suurusega eramaja pildistamine' },
-    { id: 'assets/naidised/korter-3t-',      count: 22, alt: 'Kolmetoalise korteri pildistamine' },
-    { id: 'assets/naidised/eramaja-suur-',   count: 62, alt: 'Suurema eramaja pildistamine' },
-    { id: 'assets/naidised/korter-2t-',      count: 14, alt: 'Kahetoalise korteri pildistamine' }
+    { id: 'assets/naidised/korter-1t-',      count: 36,  alt: 'Ühetoalise korteri pildistamine' },
+    { id: 'assets/naidised/nora-',           count: 104, alt: 'Nora uusarenduse pildistamine Tallinnas' },
+    { id: 'assets/tood/s01-',                count: 32,  alt: 'Korteri pildistamine Tartus' },
+    { id: 'assets/tood/s02-',                count: 39,  alt: 'Korteri pildistamine Tartus' },
+    { id: 'assets/naidised/eramaja-kesk-',   count: 39,  alt: 'Keskmise suurusega eramaja pildistamine' },
+    { id: 'assets/naidised/korter-3t-',      count: 22,  alt: 'Kolmetoalise korteri pildistamine' },
+    { id: 'assets/naidised/korter-2t-',      count: 14,  alt: 'Kahetoalise korteri pildistamine' }
   ];
+
+  // How many consecutive photos to show from one shoot before moving to the
+  // next. Rows are justified (variable tile widths), so this is a run in
+  // reading order rather than one literal visual row.
+  var CHUNK = 6;
 
   var grid = document.getElementById('worksGrid');
   if (!grid) return;
 
-  // interleave shoots so the wall reads as a mixed portfolio, not blocks
+  // Take CHUNK photos from each shoot in turn, then cycle back for the next
+  // CHUNK, so the wall reads as blocks of one property rather than a shuffle.
   var items = [];
   var max = Math.max.apply(null, SHOOTS.map(function (s) { return s.count; }));
-  for (var i = 1; i <= max; i++) {
+  for (var start = 1; start <= max; start += CHUNK) {
     SHOOTS.forEach(function (s) {
-      if (i <= s.count) {
+      var end = Math.min(start + CHUNK - 1, s.count);
+      for (var i = start; i <= end; i++) {
         var n = String(i).padStart(2, '0');
         items.push({ thumb: s.id + n + '.webp',
                      full:  s.id + n + '-full.webp',
