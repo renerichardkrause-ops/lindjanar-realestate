@@ -1,27 +1,28 @@
 #!/usr/bin/env python3
 """
-Build a LINDJANAR share card (Open Graph image, 1200x630).
+Build LINDJANAR share cards (Open Graph images, 1200x630).
 
-Usage:
-  python3 tools/og-card.py "Tehtud" "tööd" assets/naidised/nora-04.webp assets/og/tood.jpg \
-      "Kinnisvarafotograafia näited –" "korterid, eramajad ja droonifotod."
+  python3 tools/og-card.py            # rebuild every card in CARDS
 
-Fonts are the same ones the site loads from Google Fonts. Grab the two
-variable TTFs once and point FONTS at them:
+Layout: ivory panel on the left (wordmark, gold eyebrow, rule, serif title,
+subtext, domain), photo on the right. The photo is either one image or a
+2x3 mosaic when several are given.
+
+Fonts are the two the site already loads from Google Fonts. Fetch them once:
   ofl/cormorantgaramond/CormorantGaramond[wght].ttf
   ofl/dmsans/DMSans[opsz,wght].ttf
-from https://github.com/google/fonts
+from https://github.com/google/fonts and point LJ_FONTS at the directory.
 """
-import sys, os
+import os, sys
 from PIL import Image, ImageDraw, ImageFont
 
 FONTS = os.environ.get('LJ_FONTS', os.path.expanduser('~/.local/share/lj-fonts'))
-CG_FILE = 'CormorantGaramond[wght].ttf'
-DM_FILE = 'DMSans[opsz,wght].ttf'
+CG_FILE, DM_FILE = 'CormorantGaramond[wght].ttf', 'DMSans[opsz,wght].ttf'
 
-W, H = 1200, 630
+W, H, PW = 1200, 630, 548          # canvas, and ivory panel width
+PAD, MAXW = 76, 424                # left inset, usable text width
 IVORY = (247, 244, 239); GOLD = (184, 133, 74)
-INK = (28, 26, 23); DIM = (122, 114, 105); RULE = (212, 207, 198)
+INK = (28, 26, 23); DIM = (110, 103, 95); RULE = (212, 207, 198)
 
 def _f(name, size, variation):
     ft = ImageFont.truetype(os.path.join(FONTS, name), size)
@@ -41,34 +42,122 @@ def cover(path, box):
     im = Image.open(path).convert('RGB')
     bw, bh = box
     s = max(bw / im.width, bh / im.height)
-    im = im.resize((round(im.width * s), round(im.height * s)), Image.LANCZOS)
+    im = im.resize((max(1, round(im.width * s)), max(1, round(im.height * s))), Image.LANCZOS)
     return im.crop(((im.width - bw) // 2, (im.height - bh) // 2,
                     (im.width - bw) // 2 + bw, (im.height - bh) // 2 + bh))
 
-def card(line1, line2, photo, sub1, sub2, eyebrow='PORTFOOLIO'):
+def mosaic(paths, box, gut=6):
+    """2 columns x 3 rows. Falls back to a single cover for one image."""
+    bw, bh = box
+    if len(paths) == 1:
+        return cover(paths[0], box)
+    cols, rows = 2, 3
+    cw = (bw - gut * (cols - 1)) // cols
+    ch = (bh - gut * (rows - 1)) // rows
+    out = Image.new('RGB', box, IVORY)
+    for i, p in enumerate(paths[:cols * rows]):
+        x = (i % cols) * (cw + gut)
+        y = (i // cols) * (ch + gut)
+        # last row/col absorbs the rounding remainder so there is no ivory edge
+        w = bw - x if i % cols == cols - 1 else cw
+        h = bh - y if i // cols == rows - 1 else ch
+        out.paste(cover(p, (w, h)), (x, y))
+    return out
+
+TITLE_TOP, TITLE_ROOM, SUB_TOP = 222, 208, 452
+
+def _fit(lines, start=96, floor=44):
+    """Largest display size at which the title fits the panel, width and height."""
+    probe = ImageDraw.Draw(Image.new('RGB', (1, 1)))
+    size = start
+    while size > floor:
+        ft = CG(size)
+        fits_w = max(probe.textlength(l, font=ft) for l in lines) <= MAXW
+        fits_h = len(lines) * round(size * 1.02) <= TITLE_ROOM
+        if fits_w and fits_h:
+            return size
+        size -= 2
+    return floor
+
+def _wrap(text, font, width, maxlines=2):
+    probe = ImageDraw.Draw(Image.new('RGB', (1, 1)))
+    words, lines, cur = text.split(), [], ''
+    for w in words:
+        t = (cur + ' ' + w).strip()
+        if probe.textlength(t, font=font) <= width:
+            cur = t
+        else:
+            lines.append(cur); cur = w
+            if len(lines) == maxlines:
+                return lines
+    if cur:
+        lines.append(cur)
+    return lines[:maxlines]
+
+def card(lines, photos, sub, eyebrow='PORTFOOLIO'):
     im = Image.new('RGB', (W, H), IVORY)
+    im.paste(mosaic(photos, (W - PW, H)), (PW, 0))
     dr = ImageDraw.Draw(im)
-    PW = 548                                   # ivory panel width
-    im.paste(cover(photo, (W - PW, H)), (PW, 0))
     dr.line([(PW, 0), (PW, H)], fill=RULE, width=1)
-    x = 76
-    track(dr, (x, 66), 'LINDJANAR', DM(17, 'Bold'), INK, sp=4.4)
-    track(dr, (x, 120), eyebrow, DM(12, 'Medium'), GOLD, sp=3.2)
-    dr.line([(x, 196), (x + 56, 196)], fill=GOLD, width=2)
-    dr.text((x - 4, 222), line1, font=CG(96), fill=INK)
-    dr.text((x - 4, 318), line2, font=CG(96), fill=INK)
-    dr.text((x, 446), sub1, font=DM(19), fill=DIM)
-    dr.text((x, 474), sub2, font=DM(19), fill=DIM)
-    track(dr, (x, 536), 'KINNISVARA.LINDJANAR.EE', DM(13, 'Medium'), INK, sp=2.6)
+
+    track(dr, (PAD, 66), 'LINDJANAR', DM(17, 'Bold'), INK, sp=4.4)
+    track(dr, (PAD, 120), eyebrow, DM(12, 'Medium'), GOLD, sp=3.2)
+    dr.line([(PAD, 196), (PAD + 56, 196)], fill=GOLD, width=2)
+
+    size = _fit(lines)
+    step = round(size * 1.02)
+    subf = DM(22)                                   # subtext, readable at feed size
+    subl = _wrap(sub, subf, MAXW)
+    if ' '.join(subl) != ' '.join(sub.split()):
+        print(f'  ! subtext truncated, shorten it: {sub!r}', file=sys.stderr)
+    # Title block sits just under the rule; subtext is anchored so it can
+    # never collide with the domain line, whatever the title height.
+    y = TITLE_TOP + max(0, (TITLE_ROOM - len(lines) * step) // 2)
+    for l in lines:
+        dr.text((PAD - 4, y), l, font=CG(size), fill=INK); y += step
+    y = SUB_TOP
+    for l in subl:
+        dr.text((PAD, y), l, font=subf, fill=DIM); y += 30
+
+    track(dr, (PAD, 536), 'KINNISVARA.LINDJANAR.EE', DM(13, 'Medium'), INK, sp=2.6)
     return im
 
+N = 'assets/naidised/'
+CARDS = {
+ 'tood': (['Tehtud', 'tööd'], 'PORTFOOLIO',
+   [N+'nora-01.webp', N+'nora-27.webp', N+'korter-1t-04.webp',
+    N+'eramaja-kesk-06.webp', N+'eramaja-kesk-15.webp', N+'korter-3t-01.webp'],
+   'Valik töid kodudest, mille eripära ja emotsiooni jäädvustasime.'),
+ 'avaleht': (['Sinu kinnisvara', 'müüb meiega', 'kiiremini'], 'KINNISVARAFOTOGRAAFIA',
+   [N+'korter-1t-06.webp'],
+   'Professionaalsed kinnisvarafotod 48 tunniga, avalike hindadega.'),
+ 'kkk': (['Korduma kippuvad', 'küsimused'], 'KKK', [N+'nora-13.webp'],
+   'Hinnad, tähtajad, ettevalmistus ja broneerimine.'),
+ 'blogi': (['Blogi'], 'ARTIKLID', ['assets/blogi/paar-2-parast.webp'],
+   'Miks head fotod müüvad kiiremini ja kuidas kuulutus tööle panna.'),
+}
+REGIONS = {
+ 'tallinnas':   ('TALLINN',     N+'nora-100.webp',        'Täispakett: koristus, staging, fotograafia, droon ja video ühes tellimuses.'),
+ 'tartumaa':    ('TARTUMAA',    N+'eramaja-kesk-01.webp', None),
+ 'jogevamaa':   ('JÕGEVAMAA',   N+'korter-3t-01.webp',    None),
+ 'parnumaa':    ('PÄRNUMAA',    N+'nora-08.webp',         None),
+ 'polvamaa':    ('PÕLVAMAA',    N+'eramaja-kesk-15.webp', None),
+ 'valgamaa':    ('VALGAMAA',    N+'korter-1t-04.webp',    None),
+ 'viljandimaa': ('VILJANDIMAA', N+'nora-27.webp',         None),
+ 'vorumaa':     ('VÕRUMAA',     N+'eramaja-kesk-06.webp', None),
+ 'jarvamaa':    ('JÄRVAMAA',    N+'korter-2t-03.webp',    None),
+}
+DEFAULT_REGION_SUB = 'Korterid alates 85€, eramajad alates 109€, pildid käes 48 tunniga.'
+for slug, (eyebrow, photo, sub) in REGIONS.items():
+    CARDS[slug] = (['Kinnisvara', 'pildistamine'], eyebrow, [photo], sub or DEFAULT_REGION_SUB)
+
 if __name__ == '__main__':
-    a = sys.argv[1:]
-    if len(a) < 4:
-        sys.exit(__doc__)
-    line1, line2, photo, out = a[0], a[1], a[2], a[3]
-    sub1 = a[4] if len(a) > 4 else ''
-    sub2 = a[5] if len(a) > 5 else ''
-    card(line1, line2, photo, sub1, sub2).save(
-        out, 'JPEG', quality=90, optimize=True, progressive=True)
-    print(out, os.path.getsize(out) // 1024, 'KB')
+    os.makedirs('assets/og', exist_ok=True)
+    only = sys.argv[1:]
+    for name, (lines, eyebrow, photos, sub) in CARDS.items():
+        if only and name not in only:
+            continue
+        out = f'assets/og/{name}.jpg'
+        card(lines, photos, sub, eyebrow).save(
+            out, 'JPEG', quality=90, optimize=True, progressive=True)
+        print(f'{out:34s} {os.path.getsize(out)//1024:>4} KB')
