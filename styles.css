@@ -2678,6 +2678,7 @@ a  { color: inherit; text-decoration: none; }
   height: 240px;
   width: auto;
   flex-grow: 1;
+  aspect-ratio: auto 3 / 2; /* pre-load ratio hint – natural ratio wins once loaded */
   object-fit: cover;
   border-radius: var(--r);
   cursor: zoom-in;

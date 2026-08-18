@@ -28,6 +28,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Raleway:wght@600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
+
+<!-- First portfolio-wall tiles – keep in sync with SHOOTS in the script below -->
+<link rel="preload" as="image" href="assets/naidised/korter-1t-01.webp" fetchpriority="high" />
+<link rel="preload" as="image" href="assets/naidised/korter-1t-02.webp" fetchpriority="high" />
+<link rel="preload" as="image" href="assets/naidised/korter-1t-03.webp" fetchpriority="high" />
+<link rel="preload" as="image" href="assets/naidised/korter-1t-04.webp" fetchpriority="high" />
+<link rel="preload" as="image" href="assets/naidised/korter-1t-05.webp" />
+<link rel="preload" as="image" href="assets/naidised/korter-1t-06.webp" />
+<link rel="preload" as="image" href="assets/naidised/nora-01.webp" />
+<link rel="preload" as="image" href="assets/naidised/nora-02.webp" />
 </head>
 <body>
 
@@ -116,7 +126,10 @@
               26, 27, 29] },
     { id: 'assets/naidised/eramaja-kesk-',   count: 39,  alt: 'Keskmise suurusega eramaja pildistamine' },
     { id: 'assets/naidised/korter-3t-',      count: 22,  alt: 'Kolmetoalise korteri pildistamine' },
-    { id: 'assets/naidised/korter-2t-',      count: 14,  alt: 'Kahetoalise korteri pildistamine' },
+    // A few portrait/pano frames – ratio hint so rows lay out before load.
+    { id: 'assets/naidised/korter-2t-', count: 14, alt: 'Kahetoalise korteri pildistamine',
+      ratios: { 7: '533 / 800', 8: '640 / 800', 9: '533 / 800',
+                10: '533 / 800', 12: '640 / 800', 13: '800 / 450' } },
     // Näituse 22A – kept last in every cycle, so it shows after the others.
     { id: 'assets/tood/s01-',                count: 32,  alt: 'Korteri pildistamine Tartus' }
   ];
@@ -146,28 +159,45 @@
         var n = String(i).padStart(2, '0');
         items.push({ thumb: s.id + n + '.webp',
                      full:  s.id + n + '-full.webp',
-                     alt:   s.alt + ' – foto ' + i });
+                     alt:   s.alt + ' – foto ' + i,
+                     ratio: s.ratios && s.ratios[i] });
       });
     });
   }
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ioFired = false;
   var io = 'IntersectionObserver' in window && !reduce
     ? new IntersectionObserver(function (entries) {
+        ioFired = true;
         entries.forEach(function (e) {
           if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
         });
       }, { rootMargin: '80px 0px' })
     : null;
 
+  // The opening tiles are above the fold on every screen, so they load
+  // eagerly and fade in one by one instead of waiting for the observer.
+  var FIRST = 16;
+  var firstWave = [];
+
   items.forEach(function (item, idx) {
     var img = document.createElement('img');
-    img.src = item.thumb;
     img.alt = item.alt;
-    img.loading = 'lazy';
-    img.decoding = 'async';
     img.className = 'works-tile';
-    img.style.setProperty('--d', (idx % 6) * 60 + 'ms');
+    img.decoding = 'async';
+    if (idx < FIRST) {
+      img.loading = 'eager';
+      if (idx < 8) img.fetchPriority = 'high';
+      img.style.setProperty('--d', idx * 70 + 'ms');
+    } else {
+      img.loading = 'lazy';
+      img.style.setProperty('--d', (idx % 6) * 60 + 'ms');
+    }
+    if (item.ratio) img.style.aspectRatio = 'auto ' + item.ratio;
+    // src goes on last – some Chrome versions fetch eagerly when it is set
+    // before loading='lazy'.
+    img.src = item.thumb;
     img.addEventListener('click', function () {
       if (window.LINDJANAR_openLightbox) {
         window.LINDJANAR_openLightbox(items.map(function (it) {
@@ -175,16 +205,31 @@
         }), idx);
       }
     });
-    if (io) io.observe(img); else img.classList.add('is-in');
+    if (idx < FIRST) firstWave.push(img);
+    else if (io) io.observe(img);
+    else img.classList.add('is-in');
     grid.appendChild(img);
   });
 
+  // First wave: fade the opening tiles in one by one as soon as the
+  // first photo has pixels (or after 350ms, whichever comes first).
+  var reveal = function () {
+    requestAnimationFrame(function () { requestAnimationFrame(function () {
+      firstWave.forEach(function (t) { t.classList.add('is-in'); });
+    }); });
+  };
+  if (firstWave[0] && firstWave[0].decode) {
+    var done = false, go = function () { if (!done) { done = true; reveal(); } };
+    firstWave[0].decode().then(go, go);
+    setTimeout(go, 350);
+  } else { reveal(); }
+
   // Safety net: tiles start invisible so they can fade in. If the observer
-  // never reports (unsupported, or a browser quirk), reveal everything so
-  // the wall can never end up blank.
+  // never reports at all (a browser quirk), reveal everything so the rest
+  // of the wall can never end up blank.
   if (io) {
     setTimeout(function () {
-      if (!grid.querySelector('.works-tile.is-in')) {
+      if (!ioFired) {
         io.disconnect();
         grid.querySelectorAll('.works-tile').forEach(function (t) {
           t.style.setProperty('--d', '0ms');
