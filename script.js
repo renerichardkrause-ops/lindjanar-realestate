@@ -37,6 +37,116 @@ window.toggleLanguage = toggleLanguage;
 applyLanguage(localStorage.getItem('lang') || 'et');
 
 // ============================================================
+// Mobile menu – injected burger + slide-down panel (≤640px)
+//
+//   The desktop .nav is hidden below 640px and the header markup is
+//   duplicated across 14 pages, so the button and the panel are built
+//   here from whatever links the page's own .nav already contains –
+//   one source of truth, nothing to keep in sync by hand.
+//
+//   The links are cloneNode() copies, so they keep their href and their
+//   data-et / data-en attributes: applyLanguage() finds them in the DOM
+//   like any other translated element and swaps the menu text too.
+// ============================================================
+(function () {
+  const header = document.querySelector('.site-header');
+  const inner  = header && header.querySelector('.header-inner');
+  const nav    = header && header.querySelector('.nav');
+  if (!header || !inner || !nav) return;
+
+  const links = nav.querySelectorAll('a');
+  if (!links.length) return;
+
+  // ── Burger button (CSS keeps it hidden above 640px) ──
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'nav-toggle';
+  btn.id = 'navToggle';
+  btn.setAttribute('aria-controls', 'navPanel');
+  btn.setAttribute('aria-expanded', 'false');
+  btn.setAttribute('aria-label', 'Ava menüü');
+  btn.innerHTML = '<span class="nav-toggle-bars" aria-hidden="true">' +
+                  '<span></span><span></span><span></span></span>';
+  inner.appendChild(btn);
+
+  // ── Panel: backdrop + a copy of the nav links ──
+  const drawer = document.createElement('div');
+  drawer.className = 'nav-drawer';
+  drawer.id = 'navPanel';
+
+  const backdrop = document.createElement('div');
+  backdrop.className = 'nav-drawer-backdrop';
+  drawer.appendChild(backdrop);
+
+  const panel = document.createElement('nav');
+  panel.className = 'nav-drawer-panel';
+  panel.setAttribute('aria-label', 'Peamenüü');
+  links.forEach(function (a) { panel.appendChild(a.cloneNode(true)); });
+  drawer.appendChild(panel);
+
+  // Mirror the dark header variant onto the panel (it lives on <body>,
+  // so it cannot inherit .site-header--dark through a descendant rule).
+  if (header.classList.contains('site-header--dark')) {
+    drawer.classList.add('nav-drawer--dark');
+  }
+  document.body.appendChild(drawer);
+
+  // ── Open / close ──
+  const lb      = document.getElementById('lightbox');
+  const overlay = document.getElementById('galleryOverlay');
+  let open = false;
+
+  function setOpen(state) {
+    open = state;
+    drawer.classList.toggle('is-open', state);
+    btn.setAttribute('aria-expanded', state ? 'true' : 'false');
+    btn.setAttribute('aria-label', state ? 'Sulge menüü' : 'Ava menüü');
+    if (state) {
+      document.body.style.overflow = 'hidden';
+      const first = panel.querySelector('a');
+      if (first) first.focus();
+    } else {
+      // same guard the lightbox uses: only release the scroll lock when
+      // nothing else still needs it
+      if ((!lb || lb.hidden) && (!overlay || overlay.hidden)) {
+        document.body.style.overflow = '';
+      }
+    }
+  }
+
+  function close(refocus) {
+    if (!open) return;
+    setOpen(false);
+    if (refocus) btn.focus();
+  }
+
+  btn.addEventListener('click', function () {
+    if (open) close(true); else setOpen(true);
+  });
+
+  backdrop.addEventListener('click', function () { close(true); });
+
+  // Any link closes the panel – same-page #anchors never navigate, so it
+  // would otherwise stay parked over the section it just scrolled to.
+  panel.addEventListener('click', function (e) {
+    if (e.target.closest('a')) close(false);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape' || !open) return;
+    // the lightbox and the gallery grid own Escape while they are up
+    if ((lb && !lb.hidden) || (overlay && !overlay.hidden)) return;
+    close(true);
+  });
+
+  // Rotating to landscape / resizing past the breakpoint would strand an
+  // open panel behind the desktop nav.
+  window.addEventListener('resize', function () {
+    if (open && window.innerWidth > 640) close(false);
+  });
+})();
+
+// ============================================================
 // Gallery carousel — auto-advance + manual arrows + native swipe
 //   Slides are built from assets/galerii/gallery-NN.jpg using the
 //   data-count on #galleryTrack. Pauses on hover/touch and when the
