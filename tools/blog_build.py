@@ -1,0 +1,402 @@
+#!/usr/bin/env python3
+"""Build the LINDJANAR blog.
+
+Every post lives in blog-src/<slug>.html as front matter + article body.
+This script wraps each one in the shared page shell (analytics, Meta pixel,
+fonts, header, footer, cookie banner) and writes blogi/<slug>.html, then
+regenerates blogi/index.html and the blog part of sitemap.xml.
+
+The generated files are committed like any other file – GitHub Pages still
+serves plain static HTML and nothing about the deploy changes.
+
+    python3 tools/blog_build.py
+"""
+import os
+import re
+import sys
+import html
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SRC = os.path.join(ROOT, 'blog-src')
+OUT = os.path.join(ROOT, 'blogi')
+SITE = 'https://kinnisvara.lindjanar.ee'
+
+MONTHS = ['jaanuar', 'veebruar', 'märts', 'aprill', 'mai', 'juuni', 'juuli',
+          'august', 'september', 'oktoober', 'november', 'detsember']
+
+
+def et_date(iso):
+    y, m, d = iso.split('-')
+    return '%d. %s %s' % (int(d), MONTHS[int(m) - 1], y)
+
+
+# ---------------------------------------------------------------- front matter
+def parse(path):
+    raw = open(path, encoding='utf-8').read()
+    if not raw.startswith('---'):
+        sys.exit('%s: missing front matter' % path)
+    _, fm, body = raw.split('---', 2)
+    meta = {}
+    for line in fm.strip().splitlines():
+        if not line.strip() or line.strip().startswith('#'):
+            continue
+        k, v = line.split(':', 1)
+        meta[k.strip()] = v.strip()
+    return meta, body.strip()
+
+
+# ---------------------------------------------------------------- shared parts
+def tracking():
+    """The consent-gated GA4 + Meta pixel block, byte-identical to the rest
+    of the site. Kept in one place so a pixel change is a one-line edit."""
+    return open(os.path.join(ROOT, 'tools', 'blog_tracking.html'),
+                encoding='utf-8').read().rstrip()
+
+
+HEADER = '''<header class="site-header">
+  <div class="header-inner">
+    <a href="../" class="logo">LINDJANAR</a>
+    <nav class="nav">
+      <a href="../#pricing">Hinnad</a>
+      <a href="../tood.html">Tööd</a>
+      <a href="../#process">Protsess</a>
+      <a href="../#agency">Kinnisvarabüroodele</a>
+      <a href="./">Blogi</a>
+      <a href="../kkk.html">KKK</a>
+      <a href="../#contact">Kontakt</a>
+    </nav>
+  </div>
+</header>'''
+
+FOOTER = '''<footer class="site-footer">
+  <div class="footer-inner">
+    <span>&copy; <span class="year"></span> Janar Lind. Kõik õigused kaitstud.</span>
+    <a href="https://lindjanar.ee">← Autofotograafia</a>
+  </div>
+</footer>
+
+<div class="cookie-banner" id="cookieBanner" hidden>
+  <p class="cookie-text">Kasutame küpsiseid, et oma veebilehte paremaks teha.</p>
+  <div class="cookie-actions">
+    <button type="button" class="cookie-btn cookie-btn--decline" id="cookieDecline">Ainult vajalikud</button>
+    <button type="button" class="cookie-btn cookie-btn--accept" id="cookieAccept">Nõustun</button>
+  </div>
+</div>
+
+<script src="../script.js"></script>'''
+
+FONTS = '''<link rel="preload" href="../assets/fonts/cabinet-grotesk-regular.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Raleway:wght@600&display=swap" rel="stylesheet" />'''
+
+
+# ---------------------------------------------------------------- page builder
+def build_post(meta, body, posts):
+    slug = meta['slug']
+    url = '%s/blogi/%s' % (SITE, slug)
+    og = '%s/assets/og/%s' % (SITE, meta.get('og', 'blogi.jpg'))
+    title = meta['title']
+    desc = meta['description']
+    share = meta.get('share', desc)
+
+    # Related posts – three others from the same cluster, then fill from the
+    # rest. Internal links are the cheapest SEO there is, so every post gets
+    # some.
+    rel = [p for p in posts
+           if p['slug'] != slug and p.get('cluster') == meta.get('cluster')]
+    rel += [p for p in posts
+            if p['slug'] != slug and p not in rel]
+    rel = rel[:3]
+    related = ''
+    if rel:
+        items = '\n'.join(
+            '        <li><a href="%s">%s</a></li>' % (p['slug'], html.escape(p['title']))
+            for p in rel)
+        related = '''
+    <aside class="article-related">
+      <h2>Loe ka</h2>
+      <ul>
+%s
+      </ul>
+    </aside>
+''' % items
+
+    schema_img = meta.get('schema_image', 'assets/og/' + meta.get('og', 'blogi.jpg'))
+    jsonld = '''<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": %s,
+  "description": %s,
+  "datePublished": "%s",
+  "dateModified": "%s",
+  "inLanguage": "et",
+  "author": { "@type": "Person", "name": "Janar Lind", "url": "%s/" },
+  "publisher": { "@type": "Organization", "name": "LINDJANAR Kinnisvarafotograafia", "url": "%s/" },
+  "mainEntityOfPage": "%s",
+  "image": "%s/%s"
+}
+</script>''' % (jsonstr(title), jsonstr(desc), meta['date'],
+                meta.get('updated', meta['date']), SITE, SITE, url, SITE, schema_img)
+
+    faq = meta.get('faq_json')
+    faq_block = ''
+    if faq:
+        faq_block = '\n' + open(os.path.join(SRC, faq), encoding='utf-8').read().rstrip()
+
+    page = '''<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>%(title)s | LINDJANAR blogi</title>
+<meta name="description" content="%(desc)s" />
+<link rel="canonical" href="%(url)s" />
+<link rel="icon" href="../favicon.ico" sizes="any" />
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="%(title)s" />
+<meta property="og:description" content="%(share)s" />
+<meta property="og:url" content="%(url)s" />
+<meta property="og:image" content="%(og)s" />
+<meta property="og:image:alt" content="%(ogalt)s" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="LINDJANAR" />
+<meta property="og:locale" content="et_EE" />
+<meta property="article:published_time" content="%(date)s" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="%(title)s" />
+<meta name="twitter:description" content="%(share)s" />
+<meta name="twitter:image" content="%(og)s" />
+
+%(jsonld)s%(faq)s
+
+%(tracking)s
+
+%(fonts)s
+</head>
+<body>
+
+%(header)s
+
+<main>
+  <article class="article">
+    <a href="./" class="back-to-blog">← Blogi</a>
+    <p class="article-meta">%(etdate)s · Janar Lind · %(read)s min lugemist</p>
+    <h1>%(title)s</h1>
+
+%(body)s
+%(related)s  </article>
+</main>
+
+%(footer)s
+</body>
+</html>
+''' % {
+        'title': html.escape(title, quote=True),
+        'desc': html.escape(desc, quote=True),
+        'share': html.escape(share, quote=True),
+        'ogalt': html.escape(meta.get('ogalt', title), quote=True),
+        'url': url, 'og': og, 'date': meta['date'],
+        'etdate': et_date(meta['date']),
+        'read': readtime(body),
+        'jsonld': jsonld, 'faq': faq_block,
+        'tracking': tracking(), 'fonts': FONTS,
+        'header': HEADER, 'footer': FOOTER,
+        'body': indent(add_dims(body), 4), 'related': related,
+    }
+    return page
+
+
+def jsonstr(s):
+    return '"' + s.replace('\\', '\\\\').replace('"', '\\"') + '"'
+
+
+def readtime(body):
+    words = len(re.sub(r'<[^>]+>', ' ', body).split())
+    return max(2, round(words / 190))
+
+
+IMG = re.compile(r'<img ([^>]*?)src="\.\./([^"]+)"([^>]*?)/?>')
+
+
+def add_dims(body):
+    """Stamp real width/height on every local <img> so the browser reserves
+    the right box before the file arrives – no layout shift while reading."""
+    from PIL import Image
+
+    def rep(m):
+        pre, path, post = m.group(1), m.group(2), m.group(3)
+        whole = m.group(0)
+        if 'width=' in whole:
+            return whole
+        full = os.path.join(ROOT, path)
+        if not os.path.exists(full):
+            sys.exit('missing image: %s' % path)
+        w, h = Image.open(full).size
+        return '<img %ssrc="../%s" width="%d" height="%d"%s/>' % (pre, path, w, h, post)
+
+    return IMG.sub(rep, body)
+
+
+def indent(text, n):
+    pad = ' ' * n
+    return '\n'.join(pad + l if l.strip() else l for l in text.splitlines())
+
+
+# ---------------------------------------------------------------- blog index
+def build_index(posts):
+    cards = []
+    for p in posts:
+        cards.append('''        <a class="post-card" href="%s">
+          <img class="post-card-thumb" src="../%s" alt="%s" width="1000" height="667" loading="lazy" />
+          <div class="post-card-body">
+            <time datetime="%s">%s</time>
+            <h2>%s</h2>
+            <p>%s</p>
+          </div>
+        </a>''' % (p['slug'], p['thumb'], html.escape(p.get('thumbalt', p['title']), quote=True),
+                   p['date'], et_date(p['date']),
+                   html.escape(p['title']), html.escape(p['card'])))
+
+    page = '''<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Blogi – kinnisvarafotograafiast ausalt | LINDJANAR</title>
+<meta name="description" content="Artiklid kinnisvarafotograafiast ja kuulutuse tegemisest: mis müüb, mis mitte, ja mida vältida. Nõuanded nii oma kodu müüjale kui maaklerile." />
+<link rel="canonical" href="%(site)s/blogi/" />
+<link rel="icon" href="../favicon.ico" sizes="any" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Blogi – kinnisvarafotograafiast ausalt | LINDJANAR" />
+<meta property="og:description" content="Artiklid kinnisvarafotograafiast ja kuulutuse tegemisest: mis müüb, mis mitte, ja mida vältida." />
+<meta property="og:url" content="%(site)s/blogi/" />
+<meta property="og:image" content="%(site)s/assets/og/blogi.jpg" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Blogi – kinnisvarafotograafiast ausalt – LINDJANAR" />
+<meta property="og:site_name" content="LINDJANAR" />
+<meta property="og:locale" content="et_EE" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="%(site)s/assets/og/blogi.jpg" />
+<meta name="twitter:description" content="Artiklid kinnisvarafotograafiast ja kuulutuse tegemisest: mis müüb, mis mitte, ja mida vältida." />
+<meta name="twitter:title" content="Blogi – kinnisvarafotograafiast ausalt | LINDJANAR" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "LINDJANAR kinnisvarafotograafia blogi",
+  "url": "%(site)s/blogi/",
+  "inLanguage": "et",
+  "publisher": { "@type": "Organization", "name": "LINDJANAR Kinnisvarafotograafia", "url": "%(site)s/" }
+}
+</script>
+
+%(tracking)s
+
+%(fonts)s
+</head>
+<body>
+
+%(header)s
+
+<main>
+  <section class="blog-header">
+    <div class="container">
+      <h1>Blogi</h1>
+      <p>Kinnisvarafotograafiast ausalt: mis müüb, mis mitte, ja mida numbrid selle kohta ütlevad.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="post-list">
+
+%(cards)s
+
+      </div>
+    </div>
+  </section>
+</main>
+
+%(footer)s
+</body>
+</html>
+''' % {'site': SITE, 'tracking': tracking(), 'fonts': FONTS,
+       'header': HEADER, 'footer': FOOTER, 'cards': '\n\n'.join(cards)}
+    return page
+
+
+# ---------------------------------------------------------------- sitemap
+def build_sitemap(posts):
+    path = os.path.join(ROOT, 'sitemap.xml')
+    xml = open(path, encoding='utf-8').read()
+    # Drop every existing /blogi/ entry, then re-add from the manifest.
+    xml = re.sub(r'  <url>\s*<loc>[^<]*/blogi/[^<]*</loc>.*?</url>\n', '', xml,
+                 flags=re.S)
+    entries = ['''  <url>
+    <loc>%s/blogi/</loc>
+    <lastmod>%s</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+''' % (SITE, posts[0]['date'])]
+    for p in posts:
+        entries.append('''  <url>
+    <loc>%s/blogi/%s</loc>
+    <lastmod>%s</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+''' % (SITE, p['slug'], p.get('updated', p['date'])))
+    xml = xml.replace('</urlset>', ''.join(entries) + '</urlset>')
+    open(path, 'w', encoding='utf-8').write(xml)
+
+
+# ---------------------------------------------------------------- main
+def check(page, slug):
+    """House rules, enforced at build time: en dashes only, and no Cyrillic
+    or Greek look-alikes hiding inside Estonian words."""
+    import unicodedata
+    if '\u2014' in page:
+        sys.exit('%s: em dash found – use – instead' % slug)
+    for i, ch in enumerate(page):
+        if ord(ch) < 128:
+            continue
+        name = unicodedata.name(ch, '')
+        if name.startswith(('CYRILLIC', 'GREEK')):
+            sys.exit('%s: %r (%s) in %r' % (slug, ch, name, page[i - 40:i + 20]))
+
+
+def main():
+    files = sorted(f for f in os.listdir(SRC) if f.endswith('.html')
+                   and not f.startswith('_'))
+    posts = []
+    for f in files:
+        meta, body = parse(os.path.join(SRC, f))
+        meta['_body'] = body
+        meta['card'] = meta.get('card', meta['description'])
+        posts.append(meta)
+    posts.sort(key=lambda p: (p['date'], p['slug']), reverse=True)
+
+    for p in posts:
+        page = build_post(p, p['_body'], posts)
+        check(page, p['slug'])
+        open(os.path.join(OUT, p['slug']), 'w', encoding='utf-8').write(page)
+
+    open(os.path.join(OUT, 'index.html'), 'w', encoding='utf-8').write(
+        build_index(posts))
+    build_sitemap(posts)
+    print('built %d posts + index + sitemap' % len(posts))
+
+
+if __name__ == '__main__':
+    main()

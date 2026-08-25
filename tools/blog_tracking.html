@@ -1,0 +1,92 @@
+<!-- Google tag: same consent-gated setup as the front page -->
+<script>
+  window.GA4_ID = 'G-0GGRQ9LCRE';
+  window.ADS_ID = 'AW-XXXXXXXXXX';
+  window.ADS_CONTACT_LABEL = 'AW-XXXXXXXXXX/XXXXXXXXXXXXXXXXX';
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { dataLayer.push(arguments); };
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    wait_for_update: 500
+  });
+  gtag('set', 'url_passthrough', true);
+  gtag('set', 'ads_data_redaction', true);
+  try {
+    if (localStorage.getItem('cookie-consent') === 'granted') {
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
+        analytics_storage: 'granted'
+      });
+    }
+  } catch (e) {}
+  (function () {
+    var ids = [];
+    if (window.GA4_ID && window.GA4_ID.indexOf('XXXX') === -1) ids.push(window.GA4_ID);
+    if (window.ADS_ID && window.ADS_ID.indexOf('XXXX') === -1) ids.push(window.ADS_ID);
+    if (!ids.length) return;
+    gtag('js', new Date());
+    ids.forEach(function (id) { gtag('config', id); });
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ids[0];
+    document.head.appendChild(s);
+  })();
+</script>
+<!-- Meta Pixel: same consent-gated setup as the front page -->
+<script>
+  window.META_PIXEL_ID = '1317354163706077';
+  window.CAPI_ENDPOINT = 'https://lindjanar-capi.lindjanar.workers.dev';
+  (function () {
+    if (!window.META_PIXEL_ID || window.META_PIXEL_ID.indexOf('XXXX') !== -1) return;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('consent', 'revoke');
+    fbq('init', window.META_PIXEL_ID);
+    function cookie(name) {
+      var m = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+      return m ? m.pop() : '';
+    }
+    window.fbTrack = function (name, params, userData) {
+      var id = Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+      if (typeof fbq === 'function') fbq('track', name, params || {}, { eventID: id });
+      if (!window.CAPI_ENDPOINT) return;
+      var fbc = cookie('_fbc');
+      if (!fbc) {
+        var m = location.search.match(/[?&]fbclid=([^&]+)/);
+        if (m) fbc = 'fb.1.' + Date.now() + '.' + m[1];
+      }
+      try {
+        fetch(window.CAPI_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            event_name: name,
+            event_id: id,
+            event_source_url: location.href,
+            fbp: cookie('_fbp'),
+            fbc: fbc,
+            user_data: userData || {}
+          }),
+          keepalive: true
+        });
+      } catch (e) {}
+    };
+    try {
+      if (localStorage.getItem('cookie-consent') === 'granted') {
+        fbq('consent', 'grant');
+        window.fbTrack('PageView');
+      }
+    } catch (e) {}
+  })();
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+  src="https://www.facebook.com/tr?id=1317354163706077&ev=PageView&noscript=1" /></noscript>

@@ -151,6 +151,75 @@ DEFAULT_REGION_SUB = 'Korterid alates 85€, eramajad alates 109€, pildid käe
 for slug, (eyebrow, photo, sub) in REGIONS.items():
     CARDS[slug] = (['Kinnisvara', 'pildistamine'], eyebrow, [photo], sub or DEFAULT_REGION_SUB)
 
+B = 'assets/blogi/'
+T = 'assets/tood/'
+# Blog share cards. Keep titles to 2-3 short lines and subtext to one
+# sentence – the generator warns on stderr if either overflows the panel.
+BLOG = {
+ 'blogi-vead':          (['Levinumad vead', 'kodu', 'pildistamisel'], 'BLOGI',
+                         [B+'paar-2-parast.webp'],
+                         'Vastuvalgus, uksest tehtud kaader ja kaldu seinad.'),
+ 'blogi-ettevalmistus': (['Kodu müügiks', 'ettevalmistus'], 'KONTROLLNIMEKIRI',
+                         [N+'korter-1t-15.webp'],
+                         'Ruumipõhine nimekiri, mille saab ühe õhtuga läbi käia.'),
+ 'blogi-ise-muua':      (['Kuidas müüa', 'korterit ilma', 'maaklerita'], 'JUHEND',
+                         [N+'korter-3t-02.webp'],
+                         'Hinnast notarini, samm-sammult.'),
+ 'blogi-korter':        (['Korteri', 'pildistamine', 'linnas'], 'BLOGI',
+                         [N+'korter-1t-03.webp'],
+                         'Mida väikeses ruumis teisiti teha.'),
+ 'blogi-eramaja':       (['Eramaja', 'pildistamine'], 'BLOGI',
+                         [N+'eramaja-kesk-10.webp'],
+                         'Väliskaader otsustab: nurk, kellaaeg, ettevalmistus.'),
+ 'blogi-telefon':       (['Telefon', 'vs kaamera'], 'BLOGI',
+                         [B+'paar-3-parast.webp'],
+                         'Kus telefon kinnisvarafotol hätta jääb.'),
+ 'blogi-esimene-foto':  (['Esimene foto', 'otsustab'], 'BLOGI',
+                         [N+'korter-3t-01.webp'],
+                         'Kuidas valida kuulutuse peafoto.'),
+ 'blogi-mitu-fotot':    (['Mitu fotot', 'kuulutusele'], 'BLOGI',
+                         [N+'nora-10.webp'],
+                         'Kui palju kaadreid ja millises järjekorras.'),
+ 'blogi-kuulutus':      (['Kuulutuse', 'tekst'], 'BLOGI',
+                         [N+'korter-3t-05.webp'],
+                         'Mida kirjutada ja mida kindlasti mitte.'),
+ 'blogi-valgus':        (['Millal kodu', 'pildistada'], 'VALGUS JA AASTAAEG',
+                         [N+'korter-1t-08.webp'],
+                         'Kellaaeg, ilm ja aastaaeg Eesti valguses.'),
+ 'blogi-hind':          (['Kinnisvarafoto', 'hind'], 'BLOGI',
+                         [N+'nora-13.webp'],
+                         'Mis hinda mõjutab ja kuidas pakkumisi võrrelda.'),
+ 'blogi-droon':         (['Droonifotod', 'kinnisvaras'], 'BLOGI',
+                         [N+'eramaja-kesk-02.webp'],
+                         'Millal tasub, millal mitte, ja mis on reeglid.'),
+ 'blogi-staging':       (['Virtuaalne', 'staging'], 'BLOGI',
+                         [N+'nora-02.webp'],
+                         'Mis see on ja kus jookseb aususe piir.'),
+ 'blogi-tuhi':          (['Tühja kodu', 'pildistamine'], 'BLOGI',
+                         [T+'s02-09.webp'],
+                         'Miks tühi ruum tundub väiksem, kui ta on.'),
+ 'blogi-uusarendus':    (['Uusarenduse', 'pildistamine'], 'ARENDAJALE',
+                         [N+'nora-95.webp'],
+                         'Näidiskorter, üldalad ja üks komplekt kogu majale.'),
+ 'blogi-uur':           (['Üürikorteri', 'pildistamine'], 'BLOGI',
+                         [T+'s02-12.webp'],
+                         'Kas tasub? Arvutus, mis muudab pildi.'),
+ 'blogi-suvila':        (['Suvila ja', 'maakodu'], 'BLOGI',
+                         [N+'eramaja-vaike-21.webp'],
+                         'Krunt müüb, mitte maja.'),
+ 'blogi-maakler':       (['Mida maakler', 'fotograafilt', 'ootab'], 'MAAKLERILE',
+                         [N+'korter-2t-01.webp'],
+                         'Tähtaeg, ettearvatavus ja ühtlane stiil.'),
+ 'blogi-esindusleping': (['Kuidas fotod', 'lepingu', 'võidavad'], 'MAAKLERILE',
+                         [N+'nora-01.webp'],
+                         'Müüja valib maakleri enne, kui näeb tema tööd.'),
+ 'blogi-portfoolio':    (['Ühtlane', 'portfoolio'], 'MAAKLERILE',
+                         [N+'nora-10.webp', N+'nora-27.webp', N+'korter-3t-01.webp',
+                          N+'korter-1t-04.webp', N+'eramaja-kesk-15.webp', N+'korter-2t-01.webp'],
+                         'Miks kolmkümmend objekti peavad ühte nägu olema.'),
+}
+CARDS.update(BLOG)
+
 if __name__ == '__main__':
     os.makedirs('assets/og', exist_ok=True)
     only = sys.argv[1:]

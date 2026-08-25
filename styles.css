@@ -1040,6 +1040,137 @@ a  { color: inherit; text-decoration: none; }
 }
 .back-to-blog:hover { color: var(--accent); }
 
+/* ── ARTIKLI KOMPONENDID — building blocks the blog posts use ──
+   Kept deliberately plain: an ivory card, a hairline border and the gold
+   accent, so a post reads like the rest of the site rather than a widget
+   catalogue. */
+
+/* Opening paragraph – slightly larger, sets the tone before the first h2. */
+.article .article-lead { font-size: 1.09rem; line-height: 1.7; color: var(--fg); }
+
+/* "Lühivastus" – the short answer, up top. Readers who only want the
+   takeaway get it in four seconds; search engines get a clean snippet. */
+.article-key {
+  margin: 0 0 2rem;
+  padding: 1.25rem 1.4rem;
+  background: var(--bg-alt);
+  border-left: 2px solid var(--gold);
+  border-radius: var(--r);
+}
+.article .article-key-label {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0 0 0.5rem;
+}
+.article-key p { margin: 0; font-size: 0.97rem; line-height: 1.7; }
+
+/* A tip / warning aside inside the flow of the text. */
+.article-tip {
+  margin: 1.8rem 0;
+  padding: 1.1rem 1.3rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: var(--bg);
+}
+.article-tip p { margin: 0; font-size: 0.93rem; line-height: 1.7; }
+.article-tip strong { color: var(--accent); }
+
+/* Checklist – the list style used by the preparation guides. */
+.article ul.article-check { list-style: none; margin-left: 0; }
+.article ul.article-check li {
+  position: relative;
+  padding-left: 1.6rem;
+  margin-bottom: 0.55rem;
+}
+.article ul.article-check li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.5rem;
+  height: 0.28rem;
+  border-left: 1.5px solid var(--gold);
+  border-bottom: 1.5px solid var(--gold);
+  transform: rotate(-45deg);
+}
+
+/* Numbered mistakes / steps, with the numeral set in the display face. */
+.article ol.article-steps { list-style: none; margin-left: 0; counter-reset: st; }
+.article ol.article-steps > li {
+  position: relative;
+  padding-left: 2.6rem;
+  margin-bottom: 1.4rem;
+  counter-increment: st;
+}
+.article ol.article-steps > li::before {
+  content: counter(st);
+  position: absolute;
+  left: 0;
+  top: -0.15em;
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  line-height: 1;
+  color: var(--gold);
+}
+.article ol.article-steps > li strong { display: block; margin-bottom: 0.15rem; }
+
+/* Comparison table. Scrolls inside itself on phones instead of pushing
+   the page sideways. */
+.article-table { margin: 1.8rem 0; overflow-x: auto; }
+.article-table table { width: 100%; border-collapse: collapse; min-width: 480px; }
+.article-table th, .article-table td {
+  padding: 0.65rem 0.8rem;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.article-table th {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  font-weight: 500;
+}
+.article-table tr:last-child td { border-bottom: 0; }
+
+/* Internal links out to sibling posts – the cheapest SEO there is. */
+.article-related {
+  margin-top: 3rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--border);
+}
+.article-related h2 {
+  font-family: var(--font-body) !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0 0 0.8rem !important;
+}
+.article-related ul { list-style: none; margin: 0; }
+.article-related li { margin-bottom: 0.5rem; }
+.article-related a {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+}
+.article-related a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* Two photos side by side (not a before/after pair – just a comparison). */
+.article-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+.article-duo img { width: 100%; height: auto; display: block; border-radius: var(--r); border: 1px solid var(--border); }
+@media (max-width: 560px) {
+  .article-duo { grid-template-columns: 1fr; }
+}
+
 /* ── ARVUSTUSED — Google reviews marquee (under the hero) ──
    Track holds two identical groups; the keyframe slides the track by
    exactly one group's width (-50%), so the loop is seamless. Spacing
