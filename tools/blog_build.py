@@ -9,7 +9,13 @@ regenerates blogi/index.html and the blog part of sitemap.xml.
 The generated files are committed like any other file – GitHub Pages still
 serves plain static HTML and nothing about the deploy changes.
 
-    python3 tools/blog_build.py
+A post goes live when its date arrives. Anything dated in the future is a
+scheduled post: no page, no index card, no sitemap entry, and any link
+pointing at it is quietly unwrapped to plain text so nothing 404s. Rerun the
+build on the day and the post – and every link to it – appears.
+
+    python3 tools/blog_build.py              # publish everything dated today or earlier
+    python3 tools/blog_build.py 2026-09-04   # pretend it is that day (dry run of a future state)
 """
 import os
 import re
@@ -93,7 +99,7 @@ FONTS = '''<link rel="preload" href="../assets/fonts/cabinet-grotesk-regular.wof
 
 
 # ---------------------------------------------------------------- page builder
-def build_post(meta, body, posts):
+def build_post(meta, body, posts, known):
     slug = meta['slug']
     url = '%s/blogi/%s' % (SITE, slug)
     og = '%s/assets/og/%s' % (SITE, meta.get('og', 'blogi.jpg'))
@@ -207,7 +213,8 @@ def build_post(meta, body, posts):
         'jsonld': jsonld, 'faq': faq_block,
         'tracking': tracking(), 'fonts': FONTS,
         'header': HEADER, 'footer': FOOTER,
-        'body': indent(add_dims(body), 4), 'related': related,
+        'body': indent(add_dims(resolve_links(body, {p['slug'] for p in posts}, known, slug)), 4),
+        'related': related,
     }
     return page
 
@@ -241,6 +248,43 @@ def add_dims(body):
         return '<img %ssrc="../%s" width="%d" height="%d"%s/>' % (pre, path, w, h, post)
 
     return IMG.sub(rep, body)
+
+
+ALINK = re.compile(r'<a href="([a-z0-9-]+)\.html"[^>]*>(.*?)</a>', re.S)
+
+
+XREF = re.compile(r'\s*<span class="xref">(.*?)</span>', re.S)
+EMPTY_P = re.compile(r'<p[^>]*>\s*</p>\n?')
+
+
+def resolve_links(body, live, known, slug):
+    """Posts are written as if every post already exists. Here we reconcile
+    that with what is actually published.
+
+    A sentence whose only job is to point at another post is wrapped in
+    <span class="xref"> in the source. If its target is not live yet the whole
+    sentence goes – "Sellest kirjutasime eraldi." reads like a mistake once the
+    link is gone. A link sitting inside ordinary prose just loses its anchor,
+    because the sentence still says something without it. Both come back on
+    their own the day the target publishes."""
+    def xref(m):
+        inner = m.group(1)
+        for t in re.findall(r'href="([a-z0-9-]+)\.html"', inner):
+            if t + '.html' not in known:
+                sys.exit('%s: xref to unknown post %s.html' % (slug, t))
+            if t + '.html' not in live:
+                return ''
+        return ' ' + inner
+
+    def plain(m):
+        target, text = m.group(1), m.group(2)
+        if target + '.html' not in known:
+            sys.exit('%s: links to unknown post %s.html' % (slug, target))
+        return m.group(0) if target + '.html' in live else text
+
+    body = XREF.sub(xref, body)
+    body = ALINK.sub(plain, body)
+    return EMPTY_P.sub('', body)
 
 
 def indent(text, n):
@@ -377,25 +421,46 @@ def check(page, slug):
 
 
 def main():
+    today = sys.argv[1] if len(sys.argv) > 1 else _today()
     files = sorted(f for f in os.listdir(SRC) if f.endswith('.html')
                    and not f.startswith('_'))
-    posts = []
+    everything = []
     for f in files:
         meta, body = parse(os.path.join(SRC, f))
         meta['_body'] = body
         meta['card'] = meta.get('card', meta['description'])
-        posts.append(meta)
+        everything.append(meta)
+    known = {p['slug'] for p in everything}
+
+    # A post is live once its date arrives. Everything else is scheduled and
+    # is left out of the build entirely.
+    posts = [p for p in everything if p['date'] <= today]
+    later = [p for p in everything if p['date'] > today]
     posts.sort(key=lambda p: (p['date'], p['slug']), reverse=True)
+    later.sort(key=lambda p: p['date'])
+
+    stale = set(os.listdir(OUT)) - {'index.html'} - {p['slug'] for p in posts}
+    for f in sorted(stale):
+        os.remove(os.path.join(OUT, f))
+        print('unpublished %s (scheduled for later)' % f)
 
     for p in posts:
-        page = build_post(p, p['_body'], posts)
+        page = build_post(p, p['_body'], posts, known)
         check(page, p['slug'])
         open(os.path.join(OUT, p['slug']), 'w', encoding='utf-8').write(page)
 
     open(os.path.join(OUT, 'index.html'), 'w', encoding='utf-8').write(
         build_index(posts))
     build_sitemap(posts)
-    print('built %d posts + index + sitemap' % len(posts))
+    print('built %d posts + index + sitemap  (as of %s)' % (len(posts), today))
+    if later:
+        print('scheduled: %d more, next is %s on %s'
+              % (len(later), later[0]['slug'], later[0]['date']))
+
+
+def _today():
+    import datetime
+    return datetime.date.today().isoformat()
 
 
 if __name__ == '__main__':
