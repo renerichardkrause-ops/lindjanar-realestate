@@ -2928,3 +2928,337 @@ a  { color: inherit; text-decoration: none; }
   line-height: 1.6;
   color: var(--fg-muted);
 }
+
+/* ── ÄRIKINNISVARA — /arikinnisvara.html ──
+   The only page on the site that is not ivory. Navy and cream, with the
+   brand gold lifted a shade so it still reads on a dark ground. Everything
+   is scoped to .aripind-page so no other page can inherit it. */
+.site-header--navy {
+  background: rgba(9, 18, 31, 0.92);
+  border-bottom: 1px solid rgba(242, 237, 227, 0.12);
+}
+.site-header--navy .logo,
+.site-header--navy .nav a { color: #f2ede3; }
+.site-header--navy .nav a:hover { color: #c9964f; }
+.site-header--navy .nav-toggle { color: #f2ede3; }
+.site-header--navy .nav-toggle:hover { color: #c9964f; }
+
+.aripind-page {
+  --nv:       #0d1a2b;
+  --nv-lift:  #14243a;
+  --nv-deep:  #091320;
+  --cr:       #f2ede3;
+  --cr-dim:   rgba(242, 237, 227, 0.68);
+  --cr-mute:  rgba(242, 237, 227, 0.42);
+  --nv-line:  rgba(242, 237, 227, 0.14);
+  --au:       #c9964f;
+  background: var(--nv);
+  color: var(--cr);
+}
+.aripind-page section { padding: 5.5rem 0; }
+.aripind-page h1, .aripind-page h2, .aripind-page h3 {
+  font-family: 'Cabinet Grotesk', var(--font-body);
+  font-weight: 400;
+  color: var(--cr);
+}
+.aripind-page p { color: var(--cr-dim); }
+.ap-eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--au);
+  margin-bottom: 1.1rem;
+}
+
+/* ── hero ── */
+.ap-hero { padding-top: 8rem !important; }
+.ap-hero h1 {
+  font-size: clamp(2.1rem, 5vw, 3.7rem);
+  line-height: 1.08;
+  max-width: 17ch;
+  margin: 0 0 1.2rem;
+}
+.ap-hero .ap-lead {
+  font-size: 1.06rem;
+  line-height: 1.7;
+  max-width: 60ch;
+  margin: 0 0 2.75rem;
+}
+
+/* The film is the pitch, so it gets the widest box on the page. */
+.ap-film { margin: 0; }
+.ap-film video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: 1px solid var(--nv-line);
+  border-radius: var(--r);
+}
+.ap-film figcaption {
+  margin-top: 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--cr-mute);
+}
+.ap-film figcaption strong { color: var(--cr-dim); font-weight: 500; }
+
+/* ── the count, and the wall that proves it ── */
+.ap-proof { background: var(--nv-deep); }
+.ap-proof-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+.aripind-page .ap-count {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 11vw, 8.5rem);
+  line-height: 0.85;
+  color: var(--au);
+  font-variant-numeric: lining-nums;
+}
+.ap-count span {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cr-mute);
+  margin-top: 0.9rem;
+}
+.ap-proof-head h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); margin: 0 0 0.9rem; }
+.ap-proof-head p { max-width: 56ch; margin: 0 0 0.8rem; }
+
+.ap-wall {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: 4px;
+}
+.ap-wall img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  display: block;
+  opacity: 0.72;
+  transition: opacity 0.25s ease;
+}
+.ap-wall:hover img { opacity: 0.4; }
+.ap-wall img:hover { opacity: 1; }
+.aripind-page .ap-wall-note {
+  margin-top: 1.5rem;
+  font-size: 0.82rem;
+  color: var(--cr-mute);
+}
+
+/* ── what the film carries that a still cannot ── */
+.ap-why h2 { font-size: clamp(1.6rem, 3.2vw, 2.3rem); margin: 0 0 2.5rem; max-width: 20ch; }
+.ap-why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--nv-line);
+  border: 1px solid var(--nv-line);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.ap-why-card { background: var(--nv); padding: 2rem 2rem 2.1rem; }
+.ap-why-card h3 { font-size: 1.1rem; margin: 0 0 0.5rem; }
+.ap-why-card p { font-size: 0.9rem; line-height: 1.7; margin: 0; }
+
+/* ── the rooms themselves ── */
+.ap-space { margin-bottom: 3.5rem; }
+.ap-space:last-child { margin-bottom: 0; }
+.ap-space-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding-bottom: 0.8rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--nv-line);
+}
+.ap-space-head h3 { font-size: 1.25rem; margin: 0; }
+.ap-space-head span { font-size: 0.75rem; color: var(--cr-mute); }
+.ap-grid { display: grid; gap: 0.75rem; }
+.ap-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.ap-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.ap-grid img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--r);
+  border: 1px solid var(--nv-line);
+}
+
+/* ── deliverables ── */
+.ap-deliver { background: var(--nv-lift); }
+.ap-deliver h2 { font-size: clamp(1.6rem, 3.2vw, 2.3rem); margin: 0 0 2rem; }
+.ap-list { list-style: none; margin: 0; padding: 0; max-width: 62ch; }
+.ap-list li {
+  position: relative;
+  padding-left: 1.8rem;
+  margin-bottom: 0.9rem;
+  color: var(--cr-dim);
+  line-height: 1.65;
+}
+.ap-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.55rem;
+  height: 0.3rem;
+  border-left: 1.5px solid var(--au);
+  border-bottom: 1.5px solid var(--au);
+  transform: rotate(-45deg);
+}
+.ap-list strong { color: var(--cr); font-weight: 500; }
+
+/* ── quote ── */
+.ap-quote-box {
+  border: 1px solid var(--nv-line);
+  border-left: 2px solid var(--au);
+  border-radius: var(--r);
+  padding: 2.5rem 2.75rem;
+  max-width: 760px;
+}
+.ap-quote-box h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); margin: 0 0 0.9rem; }
+.ap-quote-box > p { max-width: 58ch; }
+.ap-need {
+  list-style: none;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.9rem 2rem;
+}
+.ap-need li {
+  font-size: 0.9rem;
+  color: var(--cr-dim);
+  padding-left: 1.6rem;
+  position: relative;
+  line-height: 1.55;
+}
+.ap-need li::before {
+  content: counter(apn, decimal-leading-zero);
+  counter-increment: apn;
+  position: absolute;
+  left: 0;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--au);
+  top: 0.15em;
+}
+.ap-need { counter-reset: apn; }
+
+/* ── closing ── */
+.ap-cta { background: var(--nv-deep); text-align: center; }
+.ap-cta h2 { font-size: clamp(1.7rem, 3.6vw, 2.5rem); margin: 0 auto 1rem; max-width: 18ch; }
+.ap-cta p { max-width: 52ch; margin: 0 auto 2rem; }
+.ap-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.ap-btn {
+  display: inline-block;
+  padding: 0.95rem 2rem;
+  border-radius: var(--r);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: opacity 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.ap-btn--gold { background: var(--au); color: #0d1a2b; }
+.ap-btn--gold:hover { opacity: 0.88; }
+.ap-btn--ghost { border: 1px solid var(--nv-line); color: var(--cr); }
+.ap-btn--ghost:hover { border-color: var(--au); color: var(--au); }
+
+@media (max-width: 860px) {
+  .aripind-page section { padding: 3.75rem 0; }
+  .ap-hero { padding-top: 6.5rem !important; }
+  .ap-proof-head { grid-template-columns: 1fr; gap: 1.25rem; }
+  .ap-why-grid { grid-template-columns: 1fr; }
+  .ap-grid--3 { grid-template-columns: repeat(2, 1fr); }
+  .ap-need { grid-template-columns: 1fr; }
+  .ap-quote-box { padding: 1.75rem 1.5rem; }
+  .ap-wall { grid-template-columns: repeat(auto-fill, minmax(68px, 1fr)); gap: 3px; }
+}
+@media (max-width: 520px) {
+  .ap-grid--2, .ap-grid--3 { grid-template-columns: 1fr; }
+}
+
+/* ── ÄRIKINNISVARA TEASER — the one dark band on the ivory homepage ── */
+.commercial-strip { padding: 0 0 5rem; }
+.commercial-card {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: stretch;
+  background: #0d1a2b;
+  border-radius: var(--r);
+  overflow: hidden;
+  text-decoration: none;
+  color: #f2ede3;
+}
+.commercial-media { position: relative; display: block; line-height: 0; }
+.commercial-media img {
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  object-fit: cover;
+  display: block;
+  opacity: 0.82;
+  transition: opacity 0.3s ease;
+}
+.commercial-card:hover .commercial-media img { opacity: 1; }
+/* A play glyph drawn in CSS – the strip links to the page, not the file. */
+.commercial-play {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 62px; height: 62px;
+  margin: -31px 0 0 -31px;
+  border: 1px solid rgba(242,237,227,0.75);
+  border-radius: 50%;
+  background: rgba(13,26,43,0.35);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+.commercial-play::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  margin: -8px 0 0 -4px;
+  border-left: 14px solid #f2ede3;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+}
+.commercial-card:hover .commercial-play {
+  background: rgba(201,150,79,0.9);
+  border-color: #c9964f;
+}
+.commercial-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 2.5rem 2.75rem;
+  justify-content: center;
+}
+.commercial-body .section-tag { color: #c9964f; }
+.commercial-title {
+  font-family: 'Cabinet Grotesk', var(--font-body);
+  font-size: 1.5rem;
+  line-height: 1.22;
+  margin-top: 0.35rem;
+}
+.commercial-text { font-size: 0.9rem; color: rgba(242,237,227,0.68); line-height: 1.65; }
+.commercial-link { font-size: 0.85rem; color: #c9964f; margin-top: 0.6rem; }
+
+@media (max-width: 780px) {
+  .commercial-card { grid-template-columns: 1fr; }
+  .commercial-body { padding: 1.75rem 1.5rem 2rem; }
+  .commercial-title { font-size: 1.25rem; }
+}

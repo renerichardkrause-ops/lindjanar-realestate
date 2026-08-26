@@ -220,6 +220,13 @@ BLOG = {
 }
 CARDS.update(BLOG)
 
+A = 'assets/aripind/'
+CARDS['arikinnisvara'] = (
+    ['Ärikinnisvara', 'pildistamine', 'ja filmimine'], 'ÄRIPIND',
+    [A+'ap-01.webp'],
+    'Ülevaatevideo ja fotod büroo-, lao- ja tootmispinnast.')
+
+
 if __name__ == '__main__':
     os.makedirs('assets/og', exist_ok=True)
     only = sys.argv[1:]
