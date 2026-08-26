@@ -65,8 +65,8 @@ HEADER = '''<header class="site-header">
     <nav class="nav">
       <a href="../#pricing">Hinnad</a>
       <a href="../tood.html">Tööd</a>
-      <a href="../#process">Protsess</a>
-      <a href="../#agency">Kinnisvarabüroodele</a>
+      <a href="../arikinnisvara.html">Äripinnad</a>
+      <a href="../#agency">Maakleritele</a>
       <a href="./">Blogi</a>
       <a href="../kkk.html">KKK</a>
       <a href="../#contact">Kontakt</a>
