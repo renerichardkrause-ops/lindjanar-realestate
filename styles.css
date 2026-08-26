@@ -3334,3 +3334,53 @@ a  { color: inherit; text-decoration: none; }
 /* One word carries the emphasis in the ärikinnisvara headline. Cabinet
    Grotesk has no bold cut here, so lean on colour instead of weight. */
 .ap-hero h1 strong { font-weight: inherit; color: var(--au); }
+
+/* ── MIKS MITTE KÕIGE ODAVAM — the price-justification block ── */
+.roi-section { padding: 0 0 5rem; }
+.roi-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  counter-reset: roi;
+}
+.roi-steps li {
+  background: var(--bg);
+  padding: 2rem 1.9rem 2.1rem;
+  counter-increment: roi;
+}
+.roi-steps li::before {
+  content: counter(roi);
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  line-height: 1;
+  color: var(--gold);
+  margin-bottom: 0.7rem;
+}
+.roi-steps h3 {
+  font-family: 'Cabinet Grotesk', var(--font-body);
+  font-weight: 400;
+  font-size: 1.08rem;
+  margin: 0 0 0.45rem;
+}
+.roi-steps p { font-size: 0.88rem; color: var(--fg-dim); margin: 0; line-height: 1.65; }
+.roi-close {
+  max-width: 68ch;
+  margin: 2.25rem auto 0;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--fg-dim);
+}
+.roi-close strong { color: var(--fg); font-weight: 500; }
+
+@media (max-width: 860px) {
+  .roi-steps { grid-template-columns: 1fr; }
+  .roi-close { text-align: left; }
+}
