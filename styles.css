@@ -3384,3 +3384,13 @@ a  { color: inherit; text-decoration: none; }
   .roi-steps { grid-template-columns: 1fr; }
   .roi-close { text-align: left; }
 }
+
+/* The agency plans are quoted per client now, so the price slot carries a
+   word rather than a number – the 2.2rem lining-figure size is far too big
+   for that. */
+.agency-plan-price--quote {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
