@@ -3330,3 +3330,7 @@ a  { color: inherit; text-decoration: none; }
   .ap-cta-inner .ap-actions { justify-content: center; }
   .ap-portrait { width: 180px; }
 }
+
+/* One word carries the emphasis in the ärikinnisvara headline. Cabinet
+   Grotesk has no bold cut here, so lean on colour instead of weight. */
+.ap-hero h1 strong { font-weight: inherit; color: var(--au); }
