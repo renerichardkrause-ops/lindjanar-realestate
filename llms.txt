@@ -36,6 +36,23 @@
 - Pildid optimeeritud Eesti portaalidele: KV.ee, City24, Kinnisvara24
 - Virtuaalne staging ja hämarikuvõtted – teenused, mida Eestis pakub vähe tegijaid
 - Ärikinnisvaras ülevaatevideo, mitte ainult fotogalerii
+- Kallimate korterite puhul flambient-meetod: välk ja olemasolev valgus eraldi
+  kaadritena, mis pärast kokku pannakse. Aknast paistab päris vaade, mitte valge
+  laik, seinavärvid on õiged ja ruum ei ole kollane. Kiiret tööd tegevad
+  fotograafid seda enamasti ei tee. (Flambient: flash and ambient frames blended
+  in post – true window views, accurate wall colour, no yellow cast.)
+- Hinnang Google'is: 5,0 (9 arvustust)
+
+## Miks mitte kõige odavam (Why not the cheapest)
+
+150 000 € korteri puhul on kogu pildistamine 0,06% tehingust. Vahe odavaima ja
+korraliku pakkumise vahel on umbes 30 eurot, ja see 30 eurot töötab kolmes kohas:
+rohkem klikke portaalis; hinda ei pea kuu aja pärast alandama, et objekt liikuma
+saada; ja kui huvilisi on mitu, oled läbirääkimistes sina see, kes valib. Kui
+sellest tuleb kasvõi 1000 € parem lõpphind, on 30-eurone vahe ümardamisviga.
+(On a €150,000 apartment the shoot is 0.06% of the transaction; the ~€30 gap
+between the cheapest offer and a good one pays back in clicks, in not having to
+cut the asking price, and in negotiating leverage.)
 
 ## Kontakt (Contact)
 
