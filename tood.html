@@ -159,6 +159,7 @@
       s.order.slice(from, from + CHUNK).forEach(function (i) {
         var n = String(i).padStart(2, '0');
         items.push({ thumb: s.id + n + '.webp',
+                     mid:   s.id + n + '-mid.webp',
                      full:  s.id + n + '-full.webp',
                      alt:   s.alt + ' – foto ' + i,
                      ratio: s.ratios && s.ratios[i] });
@@ -196,8 +197,15 @@
       img.style.setProperty('--d', (idx % 6) * 60 + 'ms');
     }
     if (item.ratio) img.style.aspectRatio = 'auto ' + item.ratio;
-    // src goes on last – some Chrome versions fetch eagerly when it is set
-    // before loading='lazy'.
+    // Retina screens pull the -mid twin, which is generated at exactly twice
+    // the thumbnail's width. Tiles are height-constrained (flex rows), so
+    // their laid-out width varies too much for a sensible sizes attribute –
+    // density descriptors say what we actually mean: 2x screens get the 2x
+    // file. A 700-800px tile on a 2x display throws away most of what the
+    // camera saw.
+    // src and srcset go on last – some Chrome versions fetch eagerly when
+    // they are set before loading='lazy'.
+    img.srcset = item.thumb + ' 1x, ' + item.mid + ' 2x';
     img.src = item.thumb;
     img.addEventListener('click', function () {
       if (window.LINDJANAR_openLightbox) {
