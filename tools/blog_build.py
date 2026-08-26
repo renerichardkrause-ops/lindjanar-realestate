@@ -469,6 +469,67 @@ def build_sitemap(posts):
     open(path, 'w', encoding='utf-8').write(xml)
 
 
+# ---------------------------------------------------------------- llms.txt
+LLMS_START = '<!-- LEHED:START – genereerib tools/blog_build.py, käsitsi ära muuda -->'
+LLMS_END = '<!-- LEHED:END -->'
+
+# Static pages, in the order a reader would want them. Blog posts are appended
+# from the manifest, so a new post cannot go missing from this file.
+LLMS_PAGES = [
+    ('Avaleht ja hinnakiri', '/', 'teenused, hinnad, protsess, kontakt'),
+    ('Tehtud tööd', '/tood.html', 'portfoolio: korterid, eramajad, uusarendused'),
+    ('Ärikinnisvara pildistamine ja filmimine', '/arikinnisvara.html',
+     'büroo-, lao- ja tootmispind; ülevaatevideo ja fotod; hind objekti järgi'),
+    ('KKK', '/kkk.html', 'korduma kippuvad küsimused'),
+    ('Blogi', '/blogi/', 'artiklid kinnisvarafotograafiast'),
+]
+LLMS_AREAS = [
+    ('Tartumaa', '/kinnisvara-pildistamine-tartumaa.html'),
+    ('Tallinn – premium eramajad ja arhitektuur', '/kinnisvara-pildistamine-tallinnas.html'),
+    ('Pärnumaa', '/kinnisvara-pildistamine-parnumaa.html'),
+    ('Jõgevamaa', '/kinnisvara-pildistamine-jogevamaa.html'),
+    ('Viljandimaa', '/kinnisvara-pildistamine-viljandimaa.html'),
+    ('Valgamaa', '/kinnisvara-pildistamine-valgamaa.html'),
+    ('Põlvamaa', '/kinnisvara-pildistamine-polvamaa.html'),
+    ('Võrumaa', '/kinnisvara-pildistamine-vorumaa.html'),
+    ('Järvamaa', '/kinnisvara-pildistamine-jarvamaa.html'),
+]
+
+
+def build_llms(posts):
+    """Regenerate the page list inside llms.txt. The prose above the markers is
+    hand-written; only the index of pages is generated, so a new blog post or a
+    new service page cannot quietly go missing from the file that tells AI
+    assistants what this business does."""
+    out = ['## Lehed (Pages)', '']
+    for name, path, note in LLMS_PAGES:
+        out.append('- [%s](%s%s): %s' % (name, SITE, path, note))
+    out.append('')
+    out.append('## Piirkonnad (Service areas)')
+    out.append('')
+    for name, path in LLMS_AREAS:
+        out.append('- [%s](%s%s)' % (name, SITE, path))
+    out.append('')
+    out.append('## Artiklid (Articles)')
+    out.append('')
+    for p in posts:
+        out.append('- [%s](%s/blogi/%s): %s' % (p['title'], SITE, p['slug'], p['card']))
+    return '\n'.join(out)
+
+
+def inject_llms(posts):
+    path = os.path.join(ROOT, 'llms.txt')
+    s = open(path, encoding='utf-8').read()
+    if LLMS_START not in s or LLMS_END not in s:
+        sys.exit('llms.txt: LEHED:START / LEHED:END markers missing')
+    out = (s[:s.index(LLMS_START)] + LLMS_START + '\n\n' + build_llms(posts)
+           + '\n\n' + s[s.index(LLMS_END):])
+    if out == s:
+        return False
+    open(path, 'w', encoding='utf-8').write(out)
+    return True
+
+
 # ---------------------------------------------------------------- main
 def check(page, slug):
     """House rules, enforced at build time: en dashes only, and no Cyrillic
@@ -517,6 +578,7 @@ def main():
         build_index(posts))
     build_sitemap(posts)
     inject_home(posts)
+    inject_llms(posts)
     print('built %d posts + index + sitemap  (as of %s)' % (len(posts), today))
     if later:
         print('scheduled: %d more, next is %s on %s'

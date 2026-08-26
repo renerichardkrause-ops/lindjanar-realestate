@@ -2,23 +2,29 @@
 
 > Professionaalne kinnisvarafotograafia ja videograafia üle Eesti. Avalikud hinnad,
 > pildid käes 48 tunniga, droonifotod sertifitseeritud droonipiloodilt, virtuaalne
-> staging. Baas Tartus. / Professional real estate photography and videography
-> across Estonia. Published pricing, 48-hour delivery, drone photos by a certified
-> drone pilot, virtual staging. Based in Tartu.
+> staging. Ärikinnisvarale foto ja ülevaatevideo. Baas Tartus. / Professional real
+> estate photography and videography across Estonia. Published pricing, 48-hour
+> delivery, drone photos by a certified drone pilot, virtual staging. Photography
+> and walkthrough film for commercial property. Based in Tartu.
 
 ## Teenused ja hinnad (Services and prices)
 
-- Korteri pildistamine (apartment shoot): Põhi €85 (stuudio/1–2 tuba, 15–20 fotot),
-  Standard €95 (3–4 tuba, 25–35 fotot), Premium €249 (5+ tuba, 40+ fotot, droon ja
-  virtuaalne staging kaasas)
-- Eramaja pildistamine (house shoot): Põhi €109 (20–30 fotot), Standard €129
-  (30–40 fotot), Premium €329 (45+ fotot, droon, hämarikuvõtted, Listing Reel kaasas)
+- Korteri pildistamine (apartment shoot): Põhi €85 (stuudio/1–2 tuba, 25–30 fotot),
+  Standard €95 (3–4 tuba, 35–45 fotot), Premium €249 (5+ tuba, 50+ fotot, droon
+  välisvõtetele ja virtuaalne staging kahele ruumile kaasas)
+- Eramaja pildistamine (house shoot): Põhi €109 (kuni 99 m², 30–40 fotot),
+  Standard €129 (100–149 m², 40–50 fotot), Premium €329 (150–200 m², 55+ fotot,
+  droon, hämarikuvõtted ja Listing Reel kaasas). Üle 200 m² – eraldi pakkumine.
+- Ärikinnisvara (commercial property): büroo-, lao- ja tootmispind. Foto ja
+  1–3-minutiline ülevaatevideo. Hind objekti järgi – pakkumiseks on vaja aadressi,
+  suurust, hoone tüüpi ja korruseplaane. (Priced per property, quote on request.)
 - Lisad (add-ons): droonifotod +€59, virtuaalne staging +€39/tuba, hämarikuvõtted
-  +€59, Listing Reel (30–60 s video sotsiaalmeediasse) €150
-- Kinnisvarabüroodele (agency retainers): €777/kuu (foto, 6 objekti) või €1554/kuu
-  (foto + Listing Reel, 6 objekti)
+  +€59, Listing Reel (30–60 s vertikaalne video) alates €150
+- Kinnisvarabüroodele (agency retainers): €777/kuu (foto, kuni 6 objekti) või
+  €1554/kuu (foto + Listing Reel, kuni 6 objekti)
+- Soovitusprogramm: 10% igast õnnestunud pildistamisest
 - Transport: €0,20/km edasi-tagasi; teenused alates 170€ on transporditasuta
-- 48h garantii: pildid on käes 48 tunniga (Premium korteripaketil 72h)
+- Tähtaeg: pildid on käes 48 tunniga (korteri Premium-paketil 72h)
 
 ## Miks LINDJANAR (Why LINDJANAR)
 
@@ -29,6 +35,7 @@
   certified drone pilot)
 - Pildid optimeeritud Eesti portaalidele: KV.ee, City24, Kinnisvara24
 - Virtuaalne staging ja hämarikuvõtted – teenused, mida Eestis pakub vähe tegijaid
+- Ärikinnisvaras ülevaatevideo, mitte ainult fotogalerii
 
 ## Kontakt (Contact)
 
@@ -37,17 +44,37 @@
 - Telefon: +372 5305 3253
 - Autofotograafia (automotive photography by the same photographer): https://lindjanar.ee
 
+<!-- LEHED:START – genereerib tools/blog_build.py, käsitsi ära muuda -->
+
 ## Lehed (Pages)
 
 - [Avaleht ja hinnakiri](https://kinnisvara.lindjanar.ee/): teenused, hinnad, protsess, kontakt
+- [Tehtud tööd](https://kinnisvara.lindjanar.ee/tood.html): portfoolio: korterid, eramajad, uusarendused
+- [Ärikinnisvara pildistamine ja filmimine](https://kinnisvara.lindjanar.ee/arikinnisvara.html): büroo-, lao- ja tootmispind; ülevaatevideo ja fotod; hind objekti järgi
 - [KKK](https://kinnisvara.lindjanar.ee/kkk.html): korduma kippuvad küsimused
 - [Blogi](https://kinnisvara.lindjanar.ee/blogi/): artiklid kinnisvarafotograafiast
-- Piirkonnad (service areas): [Tartumaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-tartumaa.html),
-  [Jõgevamaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-jogevamaa.html),
-  [Viljandimaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-viljandimaa.html),
-  [Pärnumaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-parnumaa.html),
-  [Valgamaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-valgamaa.html),
-  [Põlvamaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-polvamaa.html),
-  [Võrumaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-vorumaa.html),
-  [Järvamaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-jarvamaa.html),
-  [Tallinn – premium eramajad ja arhitektuur](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-tallinnas.html)
+
+## Piirkonnad (Service areas)
+
+- [Tartumaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-tartumaa.html)
+- [Tallinn – premium eramajad ja arhitektuur](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-tallinnas.html)
+- [Pärnumaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-parnumaa.html)
+- [Jõgevamaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-jogevamaa.html)
+- [Viljandimaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-viljandimaa.html)
+- [Valgamaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-valgamaa.html)
+- [Põlvamaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-polvamaa.html)
+- [Võrumaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-vorumaa.html)
+- [Järvamaa](https://kinnisvara.lindjanar.ee/kinnisvara-pildistamine-jarvamaa.html)
+
+## Artiklid (Articles)
+
+- [Mitu fotot kuulutusele panna ja mis järjekorras](https://kinnisvara.lindjanar.ee/blogi/mitu-fotot-kuulutusele.html): Liiga vähe jätab küsimused õhku, liiga palju sarnaseid väsitab. Kui palju kaadreid ja mis järjekorras.
+- [12 viga, mida kodu pildistamisel tehakse](https://kinnisvara.lindjanar.ee/blogi/levinumad-vead-kodu-pildistamisel.html): Vastuvalgus, uksest tehtud kaader, kaldu seinad ja lahtine WC-kaas – 12 viga ja see, mida nende asemel teha.
+- [Kodu müügiks ettevalmistamine: ruumipõhine kontrollnimekiri](https://kinnisvara.lindjanar.ee/blogi/kodu-muugiks-ettevalmistamine-kontrollnimekiri.html): Köök, elutuba, magamistuba, vannituba, esik ja õu – konkreetne nimekiri, mille saab ühe õhtuga läbi käia.
+- [Kuidas müüa korterit ilma maaklerita](https://kinnisvara.lindjanar.ee/blogi/kuidas-muua-korterit-ilma-maaklerita.html): Hinnast notarini samm-sammult. Ja aus vastus küsimusele, millal maaklerit siiski võtta tasub.
+- [Korteri pildistamine linnas: mida väikeses ruumis teisiti teha](https://kinnisvara.lindjanar.ee/blogi/korteri-pildistamine-vead-ja-nipid.html): Kitsas esik, väike vannituba ja tuba, kust ei saa sammu tagasi astuda. Mida korteri puhul teisiti teha.
+- [Eramaja pildistamine: väliskaader otsustab](https://kinnisvara.lindjanar.ee/blogi/eramaja-pildistamine-vead-ja-nipid.html): Maja müümisel teeb suurima töö ära välisfoto. Millise nurga alt, mis kellaajal ja mida õuest ära viia.
+- [Esimene foto otsustab: kuidas valida kuulutuse peafoto](https://kinnisvara.lindjanar.ee/blogi/kuulutuse-esimene-foto.html): Portaalis otsustab esimene pilt, kas kuulutus üldse avatakse. Kuidas see kaader valida.
+- [Kas professionaalne kinnisvarafoto tasub end ära?](https://kinnisvara.lindjanar.ee/blogi/kas-professionaalne-kinnisvarafoto-tasub-end-ara.html): Kuni 32% kiirem müük ja tuhandeid eurosid kõrgem lõpphind – mida uuringud päriselt näitavad, ja arvutus Eesti numbritega.
+
+<!-- LEHED:END -->
