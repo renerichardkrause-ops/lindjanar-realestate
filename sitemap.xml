@@ -80,9 +80,15 @@
   </url>
   <url>
     <loc>https://kinnisvara.lindjanar.ee/blogi/</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kinnisvara.lindjanar.ee/blogi/tuhja-korteri-pildistamine.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://kinnisvara.lindjanar.ee/blogi/mitu-fotot-kuulutusele.html</loc>
