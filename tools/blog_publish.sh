@@ -35,7 +35,7 @@ python3 tools/blog_build.py
 
 # Exactly what the build writes: the post pages and index, the sitemap, and
 # the generated blog section inside index.html.
-git add blogi sitemap.xml index.html
+git add blogi sitemap.xml index.html llms.txt
 
 if git diff --cached --quiet; then
   echo "nothing due today – no commit"

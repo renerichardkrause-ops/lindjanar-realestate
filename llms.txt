@@ -87,6 +87,8 @@ cut the asking price, and in negotiating leverage.)
 
 ## Artiklid (Articles)
 
+- [Mis on virtuaalne staging ja millal see on aus](https://kinnisvara.lindjanar.ee/blogi/virtuaalne-staging.html): Tühja ruumi digitaalne sisustamine – millal see aitab, millal eksitab ja mida kuulutuses märkida.
+- [Kuidas pildistada tühja kodu](https://kinnisvara.lindjanar.ee/blogi/tuhja-korteri-pildistamine.html): Tühi korter tundub fotol väiksem, kui ta on. Kaadrinurgad, valgus, mõõdupuud ja staging.
 - [Mitu fotot kuulutusele panna ja mis järjekorras](https://kinnisvara.lindjanar.ee/blogi/mitu-fotot-kuulutusele.html): Liiga vähe jätab küsimused õhku, liiga palju sarnaseid väsitab. Kui palju kaadreid ja mis järjekorras.
 - [12 viga, mida kodu pildistamisel tehakse](https://kinnisvara.lindjanar.ee/blogi/levinumad-vead-kodu-pildistamisel.html): Vastuvalgus, uksest tehtud kaader, kaldu seinad ja lahtine WC-kaas – 12 viga ja see, mida nende asemel teha.
 - [Kodu müügiks ettevalmistamine: ruumipõhine kontrollnimekiri](https://kinnisvara.lindjanar.ee/blogi/kodu-muugiks-ettevalmistamine-kontrollnimekiri.html): Köök, elutuba, magamistuba, vannituba, esik ja õu – konkreetne nimekiri, mille saab ühe õhtuga läbi käia.
