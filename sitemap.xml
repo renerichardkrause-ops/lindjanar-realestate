@@ -80,9 +80,15 @@
   </url>
   <url>
     <loc>https://kinnisvara.lindjanar.ee/blogi/</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kinnisvara.lindjanar.ee/blogi/droonifotod-kinnisvaras.html</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://kinnisvara.lindjanar.ee/blogi/virtuaalne-staging.html</loc>
