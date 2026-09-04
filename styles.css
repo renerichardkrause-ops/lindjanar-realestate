@@ -3796,3 +3796,34 @@ a  { color: inherit; text-decoration: none; }
   .card-total { flex-direction: column; align-items: flex-start; }
   .card-total-was { text-align: left; }
 }
+
+/* ── BLOG HERO – one lead image under the title, news-style. Breaks out of
+   the 680px text column to ~900px so it reads as a picture, not a figure. */
+.article-hero {
+  position: relative;
+  left: 50%;
+  width: min(100vw - 2rem, 900px);
+  transform: translateX(-50%);
+  margin: 0.25rem 0 2.5rem;
+}
+.article-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+}
+.article-hero figcaption {
+  margin-top: 0.7rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--fg-muted);
+  text-align: center;
+}
+@media (max-width: 640px) {
+  .article-hero { width: 100%; left: auto; transform: none; margin-bottom: 2rem; }
+  .article-hero img { aspect-ratio: 4 / 3; }
+}

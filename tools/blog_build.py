@@ -99,6 +99,29 @@ FONTS = '''<link rel="preload" href="../assets/fonts/cabinet-grotesk-regular.wof
 
 
 # ---------------------------------------------------------------- page builder
+def hero_block(meta):
+    """Optional lead image under the title, the way news articles open.
+
+    Frontmatter: hero (path from site root, 1000px wide), optional hero_full
+    (1800px twin for srcset), heroalt, herocap. Loads eagerly – it is the
+    first thing on screen, so lazy-loading it would only delay the paint."""
+    hero = meta.get('hero')
+    if not hero:
+        return ''
+    alt = html.escape(meta.get('heroalt', meta['title']), quote=True)
+    full = meta.get('hero_full')
+    srcset = ''
+    if full:
+        srcset = ' srcset="../%s 1000w, ../%s 1800w" sizes="(max-width: 960px) 100vw, 900px"' % (hero, full)
+    cap = meta.get('herocap')
+    capblock = '\n      <figcaption>%s</figcaption>' % html.escape(cap, quote=False) if cap else ''
+    return '''
+    <figure class="article-hero">
+      <img src="../%s"%s alt="%s" width="1000" height="667" fetchpriority="high" decoding="async" />%s
+    </figure>
+''' % (hero, srcset, alt, capblock)
+
+
 def build_post(meta, body, posts, known):
     slug = meta['slug']
     url = '%s/blogi/%s' % (SITE, slug)
@@ -194,7 +217,7 @@ def build_post(meta, body, posts, known):
     <a href="./" class="back-to-blog">← Blogi</a>
     <p class="article-meta">%(etdate)s · Janar Lind · %(read)s min lugemist</p>
     <h1>%(title)s</h1>
-
+%(hero)s
 %(body)s
 %(related)s  </article>
 </main>
@@ -210,6 +233,7 @@ def build_post(meta, body, posts, known):
         'url': url, 'og': og, 'date': meta['date'],
         'etdate': et_date(meta['date']),
         'read': readtime(body),
+        'hero': hero_block(meta),
         'jsonld': jsonld, 'faq': faq_block,
         'tracking': tracking(), 'fonts': FONTS,
         'header': HEADER, 'footer': FOOTER,
