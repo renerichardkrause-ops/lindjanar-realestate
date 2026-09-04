@@ -65,7 +65,8 @@
       { "@type": "Offer", "name": "Droonifotod (lisa)", "price": "59", "priceCurrency": "EUR" },
       { "@type": "Offer", "name": "Virtuaalne staging (tuba)", "price": "39", "priceCurrency": "EUR" },
       { "@type": "Offer", "name": "Hämarikuvõtted (lisa majavõttele)", "price": "59", "priceCurrency": "EUR" },
-      { "@type": "Offer", "name": "Listing Reel (30–60 s video)", "price": "150", "priceCurrency": "EUR" }
+      { "@type": "Offer", "name": "Listing Reel (30–60 s video)", "price": "150", "priceCurrency": "EUR" },
+      { "@type": "Offer", "name": "Kodu tutvustusvideo (1–3 min video drooniga)", "priceCurrency": "EUR", "priceSpecification": { "@type": "PriceSpecification", "minPrice": "240", "maxPrice": "350", "priceCurrency": "EUR" } }
     ]
   }
 }
@@ -708,9 +709,6 @@
 
 
   <!-- ============================================================
-       LISTING REEL LISA
-       ============================================================ -->
-  <!-- ============================================================
        MIKS MITTE KÕIGE ODAVAM – the argument that has to sit right
        after the price list, where the reader is comparing 85€ to 60€
        ============================================================ -->
@@ -741,35 +739,97 @@
     </div>
   </section>
 
-  <section class="addon-section">
+  <!-- ============================================================
+       LISATEENUSED – three upsells, each shown with the real thing:
+       the Reel plays in a phone, the home tour plays wide, the drone
+       row crossfades three aerials. Teasers are 1–2 MB muted loops
+       that only load when the row scrolls near; the full films open
+       in the overlay at the bottom of the page.
+       ============================================================ -->
+  <section class="upsell-section" id="lisad">
     <div class="container">
-      <div class="addon-card">
-        <div class="promo-ribbon" data-promo-until="2026-07-26T21:00:00+03:00" aria-hidden="true"><span><b>–20%</b><small>20.–26.07</small></span></div>
-        <div class="addon-eyebrow" data-et="Lisateenus" data-en="Add-on service">Lisateenus</div>
-        <div class="addon-body">
-          <h3 data-et="Listing Reel" data-en="Listing Reel">Listing Reel</h3>
-          <p data-et="30–60 sekundiline lühivideo kinnisvara turundamiseks sotsiaalmeedias. Instagram Reels, Facebook, TikTok. Tõstab kuulutuse nähtavust oluliselt." data-en="A 30–60 second short video for marketing on social media. Instagram Reels, Facebook, TikTok. Significantly boosts listing visibility.">30–60 sekundiline lühivideo kinnisvara turundamiseks sotsiaalmeedias. Instagram Reels, Facebook, TikTok. Tõstab kuulutuse nähtavust oluliselt.</p>
-        </div>
-        <div class="addon-price-col">
-          <span class="addon-from" data-et="alates" data-en="from">alates</span>
-          <span class="addon-price">€150</span>
-          <a href="#contact" class="btn-outline" data-et="Lisa broneeringusse" data-en="Add to booking">Lisa broneeringusse</a>
-        </div>
+      <div class="section-header">
+        <span class="section-tag" data-et="Lisateenused" data-en="Add-on services">Lisateenused</span>
+        <h2 data-et="Foto näitab ruumi. Video ja droon näitavad tervikut." data-en="Photos show the rooms. Video and drone show the whole.">Foto näitab ruumi. Video ja droon näitavad tervikut.</h2>
+        <p data-et="Kolm lisa, mille saab panna iga pildistamise juurde. Kõik näited siin on meie enda tööd." data-en="Three add-ons that go with any shoot. Every example here is our own work.">Kolm lisa, mille saab panna iga pildistamise juurde. Kõik näited siin on meie enda tööd.</p>
       </div>
 
-      <div class="addon-card">
-        <div class="promo-ribbon" data-promo-until="2026-07-26T21:00:00+03:00" aria-hidden="true"><span><b>–20%</b><small>20.–26.07</small></span></div>
-        <div class="addon-eyebrow" data-et="Lisateenus" data-en="Add-on service">Lisateenus</div>
-        <div class="addon-body">
+      <!-- 1 · LISTING REEL -->
+      <article class="upsell-row upsell-row--reel">
+        <div class="upsell-media">
+          <button type="button" class="upsell-phone" data-video-open="reel" aria-label="Vaata Listing Reeli näidet heliga">
+            <video class="upsell-teaser" data-src="assets/lisad/reel-teaser.mp4" poster="assets/lisad/reel-teaser-poster.webp" width="540" height="960" muted loop playsinline preload="none" aria-hidden="true"></video>
+            <span class="upsell-play" aria-hidden="true"></span>
+            <span class="upsell-media-tag" data-et="Näide · Pikk 40, Nina küla" data-en="Example · Pikk 40, Nina village">Näide · Pikk 40, Nina küla</span>
+          </button>
+        </div>
+        <div class="upsell-body">
+          <span class="upsell-eyebrow" data-et="Sotsiaalmeediasse" data-en="For social media">Sotsiaalmeediasse</span>
+          <h3 data-et="Listing Reel" data-en="Listing Reel">Listing Reel</h3>
+          <p data-et="30–60 sekundiline vertikaalne video Instagrami, Facebooki ja TikToki jaoks. Annab objektist liikuva ülevaate ja tõstab kuulutuse nähtavust seal, kus ostjad iga päev kerivad." data-en="A 30–60 second vertical video for Instagram, Facebook and TikTok. A moving overview of the property that boosts visibility where buyers scroll every day.">30–60 sekundiline vertikaalne video Instagrami, Facebooki ja TikToki jaoks. Annab objektist liikuva ülevaate ja tõstab kuulutuse nähtavust seal, kus ostjad iga päev kerivad.</p>
+          <div class="upsell-price-row">
+            <span class="upsell-price"><small data-et="alates" data-en="from">alates</small>€150</span>
+            <span class="upsell-price-note" data-et="Filmime samal päeval fotodega." data-en="Filmed on the same day as the photos.">Filmime samal päeval fotodega.</span>
+          </div>
+          <div class="upsell-actions">
+            <a href="#contact" class="btn-primary" data-et="Lisa broneeringusse" data-en="Add to booking">Lisa broneeringusse</a>
+            <button type="button" class="btn-outline" data-video-open="reel" data-et="Vaata näidet heliga" data-en="Watch with sound">Vaata näidet heliga</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 · KODU TUTVUSTUSVIDEO -->
+      <article class="upsell-row upsell-row--video">
+        <div class="upsell-media">
+          <button type="button" class="upsell-wide" data-video-open="kuslapuu" aria-label="Vaata kodu tutvustusvideo näidet">
+            <video class="upsell-teaser" data-src="assets/lisad/video-teaser.mp4" poster="assets/lisad/video-teaser-poster.webp" width="960" height="540" muted loop playsinline preload="none" aria-hidden="true"></video>
+            <span class="upsell-play" aria-hidden="true"></span>
+            <span class="upsell-media-tag" data-et="Näide · Kuslapuu, Valgamaa · 42 s" data-en="Example · Kuslapuu, Valga County · 42 s">Näide · Kuslapuu, Valgamaa · 42 s</span>
+          </button>
+          <button type="button" class="upsell-alt" data-video-open="nolvatee">
+            <img src="assets/lisad/nolvatee-poster.webp" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+            <span data-et="Teine näide: ridaelamu Nõlvateel" data-en="Second example: a row house on Nõlvatee">Teine näide: ridaelamu Nõlvateel</span>
+          </button>
+        </div>
+        <div class="upsell-body">
+          <span class="upsell-eyebrow" data-et="Kuulutusse ja kodulehele" data-en="For the listing and your site">Kuulutusse ja kodulehele</span>
+          <h3 data-et="Kodu tutvustusvideo" data-en="Home tour video">Kodu tutvustusvideo</h3>
+          <p data-et="1–3-minutiline horisontaalne video: droonivõtted, sissepääs, ruumide jada ja krunt. Suuremale majale ja kallimale objektile, mida ostja tahab enne kohaletulekut korra läbi käia." data-en="A 1–3 minute horizontal video: drone footage, the approach, the flow of the rooms and the plot. For larger homes and pricier properties a buyer wants to walk through before coming to see.">1–3-minutiline horisontaalne video: droonivõtted, sissepääs, ruumide jada ja krunt. Suuremale majale ja kallimale objektile, mida ostja tahab enne kohaletulekut korra läbi käia.</p>
+          <div class="upsell-price-row">
+            <span class="upsell-price">€240<em>–350</em></span>
+            <span class="upsell-price-note" data-et="Hind sõltub video pikkusest, droonivõtete mahust ja objekti suurusest." data-en="The price depends on the video length, the amount of drone footage and the size of the property.">Hind sõltub video pikkusest, droonivõtete mahust ja objekti suurusest.</span>
+          </div>
+          <div class="upsell-actions">
+            <a href="#contact" class="btn-primary" data-et="Küsi pakkumist" data-en="Ask for a quote">Küsi pakkumist</a>
+            <button type="button" class="btn-outline" data-video-open="kuslapuu" data-et="Vaata täispikka näidet" data-en="Watch the full example">Vaata täispikka näidet</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 · DROONIFOTOD -->
+      <article class="upsell-row upsell-row--drone">
+        <div class="upsell-media">
+          <div class="upsell-fade" aria-label="Droonifotode näited">
+            <img src="assets/naidised/eramaja-kesk-03.webp" srcset="assets/naidised/eramaja-kesk-03.webp 800w, assets/naidised/eramaja-kesk-03-full.webp 1600w" sizes="(max-width: 900px) 100vw, 55vw" alt="Droonifoto tasakatusega eramajast ja krundist" width="800" height="533" loading="lazy" decoding="async" />
+            <img src="assets/naidised/eramaja-aespa-01.webp" srcset="assets/naidised/eramaja-aespa-01.webp 800w, assets/naidised/eramaja-aespa-01-full.webp 2560w" sizes="(max-width: 900px) 100vw, 55vw" alt="Droonifoto eramajast männimetsa vahel Aespal" width="800" height="533" loading="lazy" decoding="async" />
+            <img src="assets/naidised/eramaja-vaike-04.webp" srcset="assets/naidised/eramaja-vaike-04.webp 800w, assets/naidised/eramaja-vaike-04-full.webp 2560w" sizes="(max-width: 900px) 100vw, 55vw" alt="Droonifoto maakodust ja seda ümbritsevast krundist" width="800" height="533" loading="lazy" decoding="async" />
+            <span class="upsell-media-tag" data-et="Näited · Tartumaa, Aespa, Valgamaa" data-en="Examples · Tartu County, Aespa, Valga County">Näited · Tartumaa, Aespa, Valgamaa</span>
+          </div>
+        </div>
+        <div class="upsell-body">
+          <span class="upsell-eyebrow" data-et="Igale pildistamisele" data-en="For any shoot">Igale pildistamisele</span>
           <h3 data-et="Droonifotod" data-en="Drone photos">Droonifotod</h3>
-          <p data-et="Välis- ja õhuvõtted majast ja krundist. Lisatav igale korteri- või majavõttele. Sertifitseeritud droonipiloot." data-en="Exterior and aerial shots of the house and plot. Add to any apartment or house shoot. Certified drone pilot.">Välis- ja õhuvõtted majast ja krundist. Lisatav igale korteri- või majavõttele. Sertifitseeritud droonipiloot.</p>
+          <p data-et="Välis- ja õhuvõtted majast, krundist ja ümbrusest. Näitab asukohta, naabreid ja krundi tegelikku suurust, mida maapinnalt ei näe. Sertifitseeritud droonipiloot, luba lennuks olemas." data-en="Exterior and aerial shots of the house, the plot and the surroundings. Shows the location, the neighbours and the true size of the plot, which you cannot see from the ground. Certified drone pilot.">Välis- ja õhuvõtted majast, krundist ja ümbrusest. Näitab asukohta, naabreid ja krundi tegelikku suurust, mida maapinnalt ei näe. Sertifitseeritud droonipiloot, luba lennuks olemas.</p>
+          <div class="upsell-price-row">
+            <span class="upsell-price"><small data-et="lisa" data-en="add-on">lisa</small>€59</span>
+            <span class="upsell-price-note" data-et="Premium eramaja paketis juba sees." data-en="Already included in the Premium house package.">Premium eramaja paketis juba sees.</span>
+          </div>
+          <div class="upsell-actions">
+            <a href="#contact" class="btn-primary" data-et="Lisa broneeringusse" data-en="Add to booking">Lisa broneeringusse</a>
+            <a href="/tood.html" class="btn-outline" data-et="Vaata rohkem droonifotosid" data-en="See more drone photos">Vaata rohkem droonifotosid</a>
+          </div>
         </div>
-        <div class="addon-price-col">
-          <span class="addon-from" data-et="lisa" data-en="add-on">lisa</span>
-          <span class="addon-price">€59</span>
-          <a href="#contact" class="btn-outline" data-et="Lisa broneeringusse" data-en="Add to booking">Lisa broneeringusse</a>
-        </div>
-      </div>
+      </article>
     </div>
   </section>
 
@@ -1046,6 +1106,7 @@
             <option value="house-premium" data-et="Eramaja – Premium (€329)" data-en="House – Premium (€329)">Eramaja – Premium (€329)</option>
             <option value="agency" data-et="Kinnisvarabüroopakett" data-en="Agency retainer">Kinnisvarabüroo pakett</option>
             <option value="reel" data-et="Listing Reel lisa" data-en="Listing Reel add-on">Listing Reel lisa</option>
+            <option value="video" data-et="Kodu tutvustusvideo (240–350€)" data-en="Home tour video (240–350€)">Kodu tutvustusvideo (240–350€)</option>
             <option value="other" data-et="Muu / küsin" data-en="Other / question">Muu / küsin</option>
           </select>
           <textarea name="message"
@@ -1099,5 +1160,94 @@
 </div>
 
 <script src="script.js"></script>
+<!-- Video overlay for the Lisateenused examples. Sources are swapped by
+     the buttons' data-video-open value; the Reel plays 9:16, tours 16:9. -->
+<div class="reel-overlay" id="mediaOverlay" hidden>
+  <button type="button" class="reel-overlay-close" aria-label="Sulge video">&times;</button>
+  <video id="mediaOverlayVideo" controls playsinline preload="none" width="1920" height="1080" aria-label="Video näide"></video>
+  <button type="button" class="reel-overlay-unmute" id="mediaUnmute" hidden><span data-et="Heli sisse" data-en="Turn sound on">Heli sisse</span></button>
+  <div class="reel-overlay-switch" id="mediaSwitch" hidden>
+    <button type="button" data-video-open="kuslapuu" data-et="Kuslapuu, Valgamaa" data-en="Kuslapuu, Valga County">Kuslapuu, Valgamaa</button>
+    <button type="button" data-video-open="nolvatee" data-et="Ridaelamu Nõlvateel" data-en="Row house on Nõlvatee">Ridaelamu Nõlvateel</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var SOURCES = {
+    reel:     { src: 'assets/lisad/reel-teaser.mp4',   full: 'assets/premium/ylevaatevideo.mp4', poster: 'assets/lisad/reel-teaser-poster.webp', wide: false, loop: true },
+    kuslapuu: { full: 'assets/lisad/kuslapuu-full.mp4', poster: 'assets/lisad/kuslapuu-poster.webp', wide: true, loop: false },
+    nolvatee: { full: 'assets/lisad/nolvatee-full.mp4', poster: 'assets/lisad/nolvatee-poster.webp', wide: true, loop: false }
+  };
+  var overlay = document.getElementById('mediaOverlay');
+  var video = document.getElementById('mediaOverlayVideo');
+  var unmuteBtn = document.getElementById('mediaUnmute');
+  var switcher = document.getElementById('mediaSwitch');
+  var closeBtn = overlay.querySelector('.reel-overlay-close');
+
+  function openMedia(key) {
+    var s = SOURCES[key];
+    if (!s) return;
+    overlay.classList.toggle('reel-overlay--wide', s.wide);
+    switcher.hidden = !s.wide;
+    switcher.querySelectorAll('button').forEach(function (b) {
+      b.setAttribute('aria-current', b.getAttribute('data-video-open') === key ? 'true' : 'false');
+    });
+    if (video.getAttribute('src') !== s.full) {
+      video.setAttribute('src', s.full);
+      video.setAttribute('poster', s.poster);
+      video.loop = !!s.loop;
+      video.load();
+    }
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    video.muted = false;
+    video.volume = 1;
+    var p = video.play();
+    if (p && p.catch) {
+      p.catch(function () {
+        video.muted = true;
+        unmuteBtn.hidden = false;
+        video.play();
+      });
+    }
+    if (typeof window.gtag === 'function') window.gtag('event', 'video_example_open', { example: key });
+  }
+  function closeMedia() {
+    video.pause();
+    overlay.hidden = true;
+    unmuteBtn.hidden = true;
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-video-open]');
+    if (btn) { e.preventDefault(); openMedia(btn.getAttribute('data-video-open')); }
+  });
+  unmuteBtn.addEventListener('click', function () { video.muted = false; unmuteBtn.hidden = true; });
+  closeBtn.addEventListener('click', closeMedia);
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) closeMedia(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !overlay.hidden) closeMedia(); });
+
+  // Teaser loops: attach the source and play only when the row is near the
+  // viewport, pause when it leaves. Respects reduced-motion and Save-Data.
+  var teasers = document.querySelectorAll('.upsell-teaser');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var saveData = navigator.connection && navigator.connection.saveData;
+  if (teasers.length && !reduce && !saveData && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var v = en.target;
+        if (en.isIntersecting) {
+          if (!v.getAttribute('src')) { v.setAttribute('src', v.getAttribute('data-src')); v.load(); }
+          var pp = v.play(); if (pp && pp.catch) pp.catch(function () {});
+        } else if (v.getAttribute('src')) {
+          v.pause();
+        }
+      });
+    }, { rootMargin: '200px 0px' });
+    teasers.forEach(function (v) { io.observe(v); });
+  }
+})();
+</script>
 </body>
 </html>
