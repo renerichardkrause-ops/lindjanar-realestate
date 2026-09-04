@@ -3639,3 +3639,160 @@ a  { color: inherit; text-decoration: none; }
   .upsell-fade img { animation: none; }
   .upsell-fade img:first-child { opacity: 1; }
 }
+
+/* ── PRICING CARDS v2 – photo header, priced add-ons, Premium as a receipt ──
+   Põhi and Standard open with a photo and list the add-ons with prices so the
+   reader already knows the parts when the Premium card shows them bundled. */
+.pricing-grid--media { grid-template-columns: 1fr 1fr 1.45fr; align-items: stretch; }
+.pricing-card--media { padding: 0; overflow: hidden; }
+.pricing-card--media .card-media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--bg-alt);
+}
+.pricing-card--bundle .card-media { aspect-ratio: 16 / 7; }
+.pricing-card--media .card-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.card-media-tag {
+  position: absolute;
+  left: 1.5rem; bottom: 1rem;
+  padding: 0.28rem 0.7rem;
+  background: var(--gold);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.pricing-card--media .card-body { display: flex; flex-direction: column; flex: 1; padding: 1.75rem 2rem 2rem; }
+.pricing-card--media .card-badge { top: 0; }
+.pricing-card--media .card-tier { margin-bottom: 0.4rem; }
+.pricing-card--media .card-price { font-size: 2.6rem; }
+.pricing-card--media .card-desc { margin-bottom: 0.15rem; }
+.pricing-card--media .card-desc:not(:has(+ .card-size)) { margin-bottom: 1.25rem; }
+.pricing-card--media .card-size { margin-bottom: 1.25rem; }
+.pricing-card--media .card-features { flex: 0 0 auto; margin-bottom: 1.25rem; }
+
+.card-addons-h {
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0 0 0.35rem;
+  padding-top: 0.5rem;
+}
+.card-addons { list-style: none; margin: 0 0 1.5rem; padding: 0; flex: 1; }
+.card-addons li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.38rem 0;
+  border-bottom: 1px dashed var(--border);
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  color: var(--fg-muted);
+}
+.card-addons li:last-child { border-bottom: none; }
+.card-addons li b {
+  font-family: var(--font-price);
+  font-weight: 600;
+  font-feature-settings: 'lnum' 1;
+  color: var(--fg-dim);
+  white-space: nowrap;
+}
+.pricing-card.featured .card-addons-h { color: rgba(247, 244, 239, 0.4); }
+.pricing-card.featured .card-addons li { color: rgba(247, 244, 239, 0.55); border-bottom-color: rgba(247, 244, 239, 0.12); }
+.pricing-card.featured .card-addons li b { color: rgba(247, 244, 239, 0.8); }
+
+/* the Premium receipt */
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0 0 0.25rem;
+}
+.card-items { list-style: none; margin: 0 0 1rem; padding: 0; flex: 1; }
+.card-items li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-body);
+  font-size: 0.83rem;
+  color: var(--fg-dim);
+}
+.card-items li > span:first-child { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
+.card-items li small { font-size: 0.68rem; color: var(--fg-muted); line-height: 1.4; }
+.card-items li b {
+  font-family: var(--font-price);
+  font-weight: 600;
+  font-feature-settings: 'lnum' 1;
+  color: var(--fg);
+  white-space: nowrap;
+}
+.card-items li s { color: var(--fg-muted); font-weight: 400; margin-right: 0.4rem; }
+.card-pill {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.12rem 0.4rem;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  vertical-align: 0.1rem;
+}
+.card-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  padding: 1rem 0 1.5rem;
+}
+.card-total-lbl {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.card-total-sub { display: block; margin-top: 0.3rem; font-family: var(--font-body); font-size: 0.72rem; color: var(--fg-muted); }
+.card-total .card-price { margin: 0; }
+.card-total-was { display: block; margin-top: 0.3rem; text-align: right; font-family: var(--font-body); font-size: 0.72rem; color: var(--fg-muted); white-space: nowrap; }
+
+/* Phone: one card per row, full width, no sideways scroll. This overrides
+   the older 240px horizontal strip, which cannot hold a receipt. */
+@media (max-width: 960px) {
+  .pricing-grid--media {
+    grid-template-columns: 1fr;
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    gap: 1.25rem;
+    overflow: visible;
+    padding-top: 0.75rem;
+    padding-bottom: 0;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .pricing-card--media { padding: 0; }
+  .pricing-card--media .card-body { padding: 1.5rem 1.5rem 1.75rem; }
+  .pricing-card--media .card-price { font-size: 2.4rem; }
+  .pricing-card--media .card-features li { white-space: normal; }
+  .pricing-card--bundle .card-media { aspect-ratio: 16 / 9; }
+}
+@media (max-width: 400px) {
+  .card-items li { flex-wrap: wrap; }
+  .card-total { flex-direction: column; align-items: flex-start; }
+  .card-total-was { text-align: left; }
+}
