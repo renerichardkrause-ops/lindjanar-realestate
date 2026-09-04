@@ -98,6 +98,23 @@ FONTS = '''<link rel="preload" href="../assets/fonts/cabinet-grotesk-regular.wof
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Raleway:wght@600&display=swap" rel="stylesheet" />'''
 
 
+# Author card under every post's closing CTA. A face and a direct line are
+# what a reader who has just finished a 3-minute article needs to act.
+AUTHOR = '''
+    <aside class="article-author">
+      <img src="../assets/janar/janar-avatar.webp" alt="Janar Lind, kinnisvarafotograaf" width="240" height="240" loading="lazy" decoding="async" />
+      <div class="article-author-body">
+        <p class="article-author-name">Janar Lind</p>
+        <p class="article-author-role">Kinnisvarafotograaf ja sertifitseeritud droonipiloot. Tartust pärit, pildistan üle Eesti.</p>
+        <p class="article-author-contact">
+          <a href="tel:+37253053253">+372 5305 3253</a>
+          <a href="mailto:hello@lindjanar.ee">hello@lindjanar.ee</a>
+        </p>
+      </div>
+    </aside>
+'''
+
+
 # ---------------------------------------------------------------- page builder
 def hero_block(meta):
     """Optional lead image under the title, the way news articles open.
@@ -219,7 +236,7 @@ def build_post(meta, body, posts, known):
     <h1>%(title)s</h1>
 %(hero)s
 %(body)s
-%(related)s  </article>
+%(author)s%(related)s  </article>
 </main>
 
 %(footer)s
@@ -234,6 +251,7 @@ def build_post(meta, body, posts, known):
         'etdate': et_date(meta['date']),
         'read': readtime(body),
         'hero': hero_block(meta),
+        'author': AUTHOR,
         'jsonld': jsonld, 'faq': faq_block,
         'tracking': tracking(), 'fonts': FONTS,
         'header': HEADER, 'footer': FOOTER,

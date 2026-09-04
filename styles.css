@@ -3827,3 +3827,50 @@ a  { color: inherit; text-decoration: none; }
   .article-hero { width: 100%; left: auto; transform: none; margin-bottom: 2rem; }
   .article-hero img { aspect-ratio: 4 / 3; }
 }
+
+/* ── BLOG AUTHOR CARD – sits under the closing CTA on every post ── */
+.article-author {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+}
+.article-author img {
+  flex-shrink: 0;
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+}
+.article-author-body { min-width: 0; }
+.article .article-author-name {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0 0 0.3rem;
+}
+.article .article-author-role {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--fg-dim);
+  margin: 0 0 0.6rem;
+}
+.article .article-author-contact { display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; margin: 0; }
+.article .article-author-contact a {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+}
+.article .article-author-contact a:hover { border-bottom-color: var(--accent); }
+@media (max-width: 480px) {
+  .article-author { gap: 1rem; padding: 1.25rem; }
+  .article-author img { width: 64px; height: 64px; }
+}
