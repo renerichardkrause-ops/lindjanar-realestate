@@ -80,9 +80,27 @@
   </url>
   <url>
     <loc>https://kinnisvara.lindjanar.ee/blogi/</loc>
-    <lastmod>2026-09-04</lastmod>
+    <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kinnisvara.lindjanar.ee/blogi/suvila-ja-maakodu-pildistamine.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kinnisvara.lindjanar.ee/blogi/fotod-ja-muugiesindusleping.html</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kinnisvara.lindjanar.ee/blogi/mida-maakler-fotograafilt-ootab.html</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://kinnisvara.lindjanar.ee/blogi/maakleri-portfoolio-uhtlane-kvaliteet.html</loc>
