@@ -3879,3 +3879,6 @@ a  { color: inherit; text-decoration: none; }
    small zoom hint on the room photos. */
 .ap-wall img, .ap-grid img { cursor: zoom-in; }
 .ap-grid img:focus-visible, .ap-wall img:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* Anchored sections land below the sticky header, not under it. */
+main > section[id] { scroll-margin-top: 4.5rem; }
