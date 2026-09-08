@@ -3874,3 +3874,8 @@ a  { color: inherit; text-decoration: none; }
   .article-author { gap: 1rem; padding: 1.25rem; }
   .article-author img { width: 64px; height: 64px; }
 }
+
+/* Äripinnad: every photo opens full-size, so say so with the cursor and a
+   small zoom hint on the room photos. */
+.ap-wall img, .ap-grid img { cursor: zoom-in; }
+.ap-grid img:focus-visible, .ap-wall img:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }

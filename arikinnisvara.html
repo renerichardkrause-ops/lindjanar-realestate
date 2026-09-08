@@ -247,7 +247,7 @@
         <img src="assets/aripind/wall-53.webp" alt="" width="320" height="213" loading="lazy" />
         <img src="assets/aripind/wall-54.webp" alt="" width="320" height="213" loading="lazy" />
       </div>
-      <p class="ap-wall-note">Valik samast pildistamisest. Terve komplekt on 186 fotot &ndash; ja neid ei ole liiga palju, nad on lihtsalt teiseks otstarbeks. Pildid on vajalikud, et huviline näeks igat ruumi detailselt. Video on hea just selleks, et anda kogu kinnistust ja hoonest ülevaade.</p>
+      <p class="ap-wall-note"><strong>Klõpsa ükskõik millisel fotol, et näha seda täissuuruses.</strong> Valik samast pildistamisest. Terve komplekt on 186 fotot &ndash; ja neid ei ole liiga palju, nad on lihtsalt teiseks otstarbeks. Pildid on vajalikud, et huviline näeks igat ruumi detailselt. Video on hea just selleks, et anda kogu kinnistust ja hoonest ülevaade.</p>
     </div>
   </section>
 
@@ -481,6 +481,37 @@
   </div>
 </div>
 
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto täissuuruses" hidden>
+  <button type="button" class="lightbox-close" aria-label="Sulge">&times;</button>
+  <button type="button" class="lightbox-prev" aria-label="Eelmine foto">&#8249;</button>
+  <img class="lightbox-img" src="" alt="Kinnisvarafoto täissuuruses" />
+  <button type="button" class="lightbox-next" aria-label="Järgmine foto">&#8250;</button>
+</div>
+
 <script src="script.js"></script>
+<script>
+// Every photo on this page opens full-size. Two collections: the 54-photo
+// wall and the 24 room photos, each browsed with the arrows in page order.
+(function () {
+  function wire(selector) {
+    var imgs = Array.prototype.slice.call(document.querySelectorAll(selector));
+    if (!imgs.length) return;
+    var list = imgs.map(function (im) {
+      return { src: im.getAttribute('src').replace(/\.webp$/, '-full.webp'),
+               alt: im.alt || 'Ärihoone foto täissuuruses' };
+    });
+    imgs.forEach(function (im, i) {
+      im.setAttribute('tabindex', '0');
+      im.setAttribute('role', 'button');
+      im.addEventListener('click', function () { window.LINDJANAR_openLightbox(list, i); });
+      im.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.LINDJANAR_openLightbox(list, i); }
+      });
+    });
+  }
+  wire('.ap-wall img');
+  wire('.ap-grid img');
+})();
+</script>
 </body>
 </html>
