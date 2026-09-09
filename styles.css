@@ -3882,3 +3882,155 @@ a  { color: inherit; text-decoration: none; }
 
 /* Anchored sections land below the sticky header, not under it. */
 main > section[id] { scroll-margin-top: 4.5rem; }
+
+/* ══════════════════════════════════════════════════════════════════
+   PHONE LAYOUT – measured 2026-09-09 at 390×844: the page was 28 screens
+   and prices started at screen 7. Everything below is phone-only.
+   ══════════════════════════════════════════════════════════════════ */
+.swipe-hint { display: none; }
+.mob-more { display: none; }
+.mob-bar { display: none; }
+
+/* Pricing cards: one card in view, thumb through the rest. Full-bleed so
+   the next card peeks in from the right edge. */
+@media (max-width: 960px) {
+  .pricing-grid--media {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: min(82vw, 340px);
+    gap: 0.9rem;
+    max-width: none;
+    margin: 0 calc(50% - 50vw);
+    padding: 0.75rem 1.25rem 0.5rem;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 1.25rem;
+    scrollbar-width: none;
+  }
+  .pricing-grid--media::-webkit-scrollbar { display: none; }
+  .pricing-grid--media .pricing-card { scroll-snap-align: start; }
+  .pricing-grid--media::after { content: ""; width: 0.25rem; }   /* right-edge breathing room */
+  .swipe-hint {
+    display: block;
+    margin: 0.25rem 0 0;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  /* 1 · Order: prices right after the trust strip; the blog and the
+     before/after story move below the fold of decision. */
+  main { display: flex; flex-direction: column; }
+  main > .hero                 { order: 1; }
+  main > .reviews-strip        { order: 2; }
+  main > .stats-section        { order: 3; }
+  main > #pricing              { order: 4; }
+  main > .pricing-section.alt-bg { order: 5; }
+  main > .roi-section          { order: 6; }
+  main > .upsell-section       { order: 7; }
+  main > .commercial-strip     { order: 8; }
+  main > .process-section      { order: 9; }
+  main > .photographer-section { order: 10; }
+  main > .agency-section       { order: 11; }
+  main > .travel-section       { order: 12; }
+  main > .referral-section     { order: 13; }
+  main > .bna-section          { order: 14; }
+  main > .blog-home            { order: 15; }
+  main > .contact-section      { order: 16; }
+
+  /* 2 · Section gaps sized for a phone */
+  .process-section, .agency-section, .referral-section, .contact-section,
+  .bna-section, .photographer-section { padding: 3.25rem 0; }
+  .pricing-section { padding: 3.25rem 0 2.5rem; }
+  .upsell-section  { padding: 3.25rem 0; }
+  .roi-section, .commercial-strip, .blog-home { padding-bottom: 3.25rem; }
+  .section-header { margin-bottom: 1.75rem; }
+
+  /* 3 · Example albums: a swipe strip instead of three stacked covers */
+  .example-albums .album-grid {
+    display: flex;
+    gap: 0.75rem;
+    max-width: none;
+    margin: 0 calc(50% - 50vw);
+    padding: 0 1.25rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 1.25rem;
+    scrollbar-width: none;
+  }
+  .example-albums .album-grid::-webkit-scrollbar { display: none; }
+  .example-albums .album-card { flex: 0 0 62vw; scroll-snap-align: start; }
+
+  /* 4 · Blog: two posts, then the link to all of them */
+  .blog-home .post-grid .post-card:nth-child(n+3) { display: none; }
+
+  /* 5 · Long story blocks collapse behind a button */
+  .mob-more {
+    display: block;
+    width: 100%;
+    margin: 0.25rem 0 0;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border);
+    background: none;
+    color: var(--accent);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .mob-more[hidden] { display: none; }
+  .bna-section:not(.is-open) .bna-pains,
+  .bna-section:not(.is-open) .bna-story { display: none; }
+  .referral-section:not(.is-open) .referral-layout { display: none; }
+
+  /* 6 · Lisateenused: smaller phone mock-up */
+  .upsell-row--reel .upsell-media { padding: 1.5rem 1rem; }
+  .upsell-phone { width: 200px; }
+
+  /* 7 · Action bar at the thumb */
+  .mob-bar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 250;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem calc(0.6rem + env(safe-area-inset-bottom));
+    background: rgba(247, 244, 239, 0.96);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid var(--border);
+  }
+  .mob-bar[hidden] { display: none; }
+  .mob-bar a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.9rem;
+    padding: 0 1.1rem;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border-radius: var(--r);
+    text-decoration: none;
+  }
+  .mob-bar-call { border: 1px solid var(--border); color: var(--fg); background: var(--bg); }
+  .mob-bar-book { background: var(--accent); color: var(--accent-fg); }
+  body:has(.mob-bar:not([hidden])) .site-footer { padding-bottom: 5rem; }
+}
+@media (max-width: 640px) {
+  .upsell-row { padding: 2rem 0; gap: 1.25rem; }
+  .upsell-body p { margin-bottom: 1.1rem; }
+  .upsell-price-row { margin-bottom: 1.1rem; }
+  .upsell-alt { margin-top: 0.6rem; }
+  .roi-steps li { padding-bottom: 0.5rem; }
+}

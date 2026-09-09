@@ -498,6 +498,7 @@
       </div>
       <p class="bna-caption" data-et="Päris korter, päris kuulutusfotod. Kliki fotol, et näha suurelt." data-en="A real apartment, real listing photos. Click a photo to view it full size.">Päris korter, päris kuulutusfotod. Kliki fotol, et näha suurelt.</p>
 
+      <button type="button" class="mob-more" data-mob-more="#enne-parast" data-et="Loe edasi – miks telefonifoto müüb halvemini" data-en="Read on – why phone photos sell worse">Loe edasi – miks telefonifoto müüb halvemini</button>
       <div class="bna-pains">
         <div class="bna-pain">
           <h3 data-et="Müüjale" data-en="For sellers">Müüjale</h3>
@@ -595,6 +596,7 @@
         </div>
 
       </div>
+      <p class="swipe-hint" aria-hidden="true" data-et="Libista, et näha kõiki pakette →" data-en="Swipe to see all packages →">Libista, et näha kõiki pakette →</p>
 
       <div class="example-albums">
         <p class="example-label"><span data-et="Korterite pildistamise näited" data-en="Apartment photography examples">Korterite pildistamise näited</span></p>
@@ -710,6 +712,7 @@
         </div>
 
       </div>
+      <p class="swipe-hint" aria-hidden="true" data-et="Libista, et näha kõiki pakette →" data-en="Swipe to see all packages →">Libista, et näha kõiki pakette →</p>
 
       <p class="pricing-footnote" data-et="Eluruumi pind ruutmeetrites. Premium video pikkus lepitakse kokku objekti järgi; pikema video hinnastame eraldi." data-en="Living area in square metres. The Premium video length is agreed per property; a longer film is quoted separately.">Eluruumi pind ruutmeetrites. Premium video pikkus lepitakse kokku objekti järgi; pikema video hinnastame eraldi.</p>
 
@@ -1043,6 +1046,7 @@
            data-en="The program is for real-estate professionals – agents, valuators, partners and our past clients. Refer Lindjanar and earn a reward for every successful shoot.">Programm on mõeldud kinnisvaraspetsialistidele – maakleritele, hindajatele ja koostööpartneritele – ning meie senistele klientidele. Soovita Lindjanarit ja teeni tasu iga õnnestunud pildistamise eest.</p>
       </div>
 
+      <button type="button" class="mob-more" data-mob-more="#referral" data-et="Kuidas see käib" data-en="How it works">Kuidas see käib</button>
       <div class="referral-layout">
         <div class="referral-intro">
           <div class="referral-rewards">
@@ -1203,7 +1207,53 @@
   </div>
 </div>
 
+<!-- Phone-only action bar: the contact form is 20+ screens down, so the two
+     things a phone visitor actually does live at the thumb. -->
+<div class="mob-bar" id="mobBar" hidden>
+  <a href="tel:+37253053253" class="mob-bar-call"><span data-et="Helista" data-en="Call">Helista</span></a>
+  <a href="#contact" class="mob-bar-book"><span data-et="Broneeri pildistamine" data-en="Book a shoot">Broneeri pildistamine</span></a>
+</div>
+
 <script src="script.js"></script>
+<script>
+(function () {
+  // "Loe edasi" toggles – phone only; the CSS hides the long blocks until opened.
+  document.querySelectorAll('[data-mob-more]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var t = document.querySelector(btn.getAttribute('data-mob-more'));
+      if (t) t.classList.add('is-open');
+      btn.hidden = true;
+    });
+  });
+  // Action bar: show after the hero, hide while the contact form or the
+  // cookie banner is on screen.
+  var bar = document.getElementById('mobBar');
+  var hero = document.querySelector('.hero');
+  var contact = document.getElementById('contact');
+  var cookie = document.getElementById('cookieBanner');
+  if (!bar || !hero || !contact) return;
+  function update() {
+    var phone = window.matchMedia('(max-width: 640px)').matches;
+    var cookieUp = cookie && !cookie.hidden;
+    var vh = window.innerHeight;
+    var pastHero = hero.getBoundingClientRect().bottom < vh * 0.4;
+    var c = contact.getBoundingClientRect();
+    var atContact = (c.top < vh && c.bottom > 0) ||
+      window.scrollY + vh >= document.documentElement.scrollHeight - 120;
+    bar.hidden = !(phone && pastHero && !atContact && !cookieUp);
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  if (cookie) new MutationObserver(update).observe(cookie, { attributes: true, attributeFilter: ['hidden'] });
+  window.addEventListener('load', update);
+  window.addEventListener('hashchange', update);
+  update();
+  setTimeout(update, 400);
+  bar.querySelector('.mob-bar-book').addEventListener('click', function () {
+    if (typeof window.gtag === 'function') window.gtag('event', 'mob_bar_book');
+  });
+})();
+</script>
 <!-- Video overlay for the Lisateenused examples. Sources are swapped by
      the buttons' data-video-open value; the Reel plays 9:16, tours 16:9. -->
 <div class="reel-overlay" id="mediaOverlay" hidden>
