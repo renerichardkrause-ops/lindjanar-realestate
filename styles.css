@@ -4157,3 +4157,23 @@ html.st-lock, html.st-lock body { overflow: hidden; }
   .team-member .photographer-figure { flex: none; max-width: 220px; }
   .st-total { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
 }
+
+/* päringuvorm as a dialog on desktop; launch card inline in #contact */
+.st-launch { display: grid; gap: 0.6rem; }
+.st-launch-q { font-family: var(--font-display); font-weight: 300; font-size: 1.6rem; line-height: 1.15; margin: 0 0 0.4rem; color: var(--fg); }
+.st-launch-opts { display: grid; gap: 0.6rem; }
+.st-launch .st-opt { background: #fff; }
+.st-launch noscript p { margin: 0.5rem 0 0.25rem; font-size: 0.9rem; }
+.st-sheet-body .stepper { min-height: 0; }
+@media (min-width: 641px) {
+  .st-sheet { display: grid; place-items: center; padding: 2rem; }
+  .st-sheet[hidden] { display: none; }
+  .st-sheet-panel {
+    position: relative; width: min(640px, 100%); max-height: 88vh;
+    border-radius: var(--r); padding: 1.25rem 1.5rem 1.5rem;
+    transform: translateY(16px); opacity: 0; transition: transform .28s cubic-bezier(.22,.61,.36,1), opacity .28s;
+  }
+  .st-sheet-panel::before { display: none; }
+  .st-sheet.open .st-sheet-panel { transform: none; opacity: 1; }
+  .st-sheet-body .stepper { border: 0; background: transparent; padding: 0.5rem 0 0; }
+}

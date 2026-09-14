@@ -984,7 +984,7 @@
           </figure>
           <div class="photographer-text">
             <p class="photographer-claim" data-et="Kõik, mis ei ole kaamera taga, on minu töö." data-en="Everything that isn't behind the camera is my job.">Kõik, mis ei ole kaamera taga, on minu töö.</p>
-            <p class="photographer-bio" data-et="Olen Richard. Seitse aastat kinnisvaras, sealhulgas üle 600 üürikorteri portfelli müügi juhtimine. Vastan päringutele, lepin ajad kokku ja ütlen ausalt, kas sinu kodu vajab fotograafi, maaklerit või mõlemat." data-en="I'm Richard. Seven years in real estate, including leading the sales of a 600+ rental-apartment portfolio. I answer the enquiries, agree the times, and tell you honestly whether your home needs a photographer, an agent, or both.">Olen Richard. Seitse aastat kinnisvaras, sealhulgas üle 600 üürikorteri portfelli müügi juhtimine. Vastan päringutele, lepin ajad kokku ja ütlen ausalt, kas sinu kodu vajab fotograafi, maaklerit või mõlemat.</p>
+            <p class="photographer-bio" data-et="Olen Richard. Seitse aastat kinnisvaras, sealhulgas üle 600 üürikorteri portfelli müügi ja käibe juhtimine. Vastan päringutele, lepin ajad kokku ja ütlen ausalt, kas sinu kodu vajab fotograafi, maaklerit või mõlemat." data-en="I'm Richard. Seven years in real estate, including leading sales and revenue for a 600+ rental-apartment portfolio. I answer the enquiries, agree the times, and tell you honestly whether your home needs a photographer, an agent, or both.">Olen Richard. Seitse aastat kinnisvaras, sealhulgas üle 600 üürikorteri portfelli müügi ja käibe juhtimine. Vastan päringutele, lepin ajad kokku ja ütlen ausalt, kas sinu kodu vajab fotograafi, maaklerit või mõlemat.</p>
             <ul class="photographer-facts">
               <li><strong data-et="Olen näinud maaklereid tööl." data-en="I've watched agents work.">Olen näinud maaklereid tööl.</strong> <span data-et="Seitsme aastaga on kõrvalt näha olnud kümnete maaklerite tööeetika ja -stiil – kes vastab, kes kaob, kes müüb. Sellest ka meie soovitused." data-en="Seven years of watching dozens of agents up close – who answers, who disappears, who sells. That's where our recommendations come from.">Seitsme aastaga on kõrvalt näha olnud kümnete maaklerite tööeetika ja -stiil – kes vastab, kes kaob, kes müüb. Sellest ka meie soovitused.</span></li>
               <li><strong data-et="Vastan 24 tunni jooksul." data-en="I reply within 24 hours.">Vastan 24 tunni jooksul.</strong> <span data-et="Iga päring saab vastuse ühe ööpäevaga – enamasti palju kiiremini. Sina ei pea kunagi mõtlema, mis edasi saab." data-en="Every enquiry gets an answer within a day – usually much faster. You never have to wonder what happens next.">Iga päring saab vastuse ühe ööpäevaga – enamasti palju kiiremini. Sina ei pea kunagi mõtlema, mis edasi saab.</span></li>
@@ -1156,7 +1156,14 @@
           </ul>
         </div>
 
-        <div class="stepper" id="stepper">
+        <div class="st-launch">
+          <p class="st-launch-q" data-et="Mis objektiga on tegu?" data-en="What are we photographing?">Mis objektiga on tegu?</p>
+          <div class="st-launch-opts">
+            <button type="button" class="st-opt" data-stepper-path="korter" data-stepper-from="contact"><b data-et="Korter" data-en="Apartment">Korter</b><small data-et="ka ridaelamu või boks" data-en="terraced house or maisonette too">ka ridaelamu või boks</small></button>
+            <button type="button" class="st-opt" data-stepper-path="eramaja" data-stepper-from="contact"><b data-et="Eramaja" data-en="House">Eramaja</b><small data-et="maja, suvila, villa" data-en="house, summer home, villa">maja, suvila, villa</small></button>
+            <button type="button" class="st-opt" data-stepper-path="aripind" data-stepper-from="contact"><b data-et="Äripind" data-en="Commercial">Äripind</b><small data-et="büroo, kauplus, ladu" data-en="office, retail, warehouse">büroo, kauplus, ladu</small></button>
+            <button type="button" class="st-opt" data-stepper-path="maakler" data-stepper-from="contact"><b data-et="Ei tea veel, kas müüa ise või maakleriga" data-en="Not sure yet – sell myself or with an agent?">Ei tea veel, kas müüa ise või maakleriga</b><small data-et="aitame otsustada – Richard helistab" data-en="we help you decide – Richard calls">aitame otsustada – Richard helistab</small></button>
+          </div>
           <noscript>
             <p data-et="Vorm vajab JavaScripti. Kirjuta meile: " data-en="The form needs JavaScript. Email us: ">Vorm vajab JavaScripti. Kirjuta meile: </p>
             <a href="mailto:hello@lindjanar.ee">hello@lindjanar.ee</a>
@@ -1213,12 +1220,12 @@
   <a href="tel:+37253053253" class="mob-bar-call"><span data-et="Helista" data-en="Call">Helista</span></a>
   <a href="#contact" class="mob-bar-book"><span data-et="Broneeri pildistamine" data-en="Book a shoot">Broneeri pildistamine</span></a>
 </div>
-<!-- Phone bottom sheet: the stepper (#stepper) is moved in here when the
-     action bar's "Broneeri" is tapped, and moved back on close. -->
+<!-- Päringuvorm dialog: centred on desktop, bottom sheet on phones. Opened by
+     any Broneeri link / data-stepper-path button; never opens by itself. -->
 <div class="st-sheet" id="stepperSheet" hidden>
   <div class="st-sheet-panel" role="dialog" aria-modal="true" aria-label="Päring">
     <button type="button" class="st-sheet-close" data-sheet-close aria-label="Sulge">&times;</button>
-    <div class="st-sheet-body"></div>
+    <div class="st-sheet-body"><div class="stepper" id="stepper"></div></div>
   </div>
 </div>
 

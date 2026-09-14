@@ -86,7 +86,7 @@
         { v: 'vordlen', b: T('Pole varem maakleriga koostööd teinud. Keda üldse usaldada saaksin?', 'Never worked with an agent. Who could I even trust?') }
       ], set: function (v) { S.stage = v; } });
     } else if (S.object) {
-      list.push({ id: 'when', q: T('Kus ja millal?', 'Where and when?'), hint: T('Aadress ja umbkaudne aeg.', 'Address and a rough time.'),
+      list.push({ id: 'when', q: T('Kus ja millal?', 'Where and when?'), hint: '',
         fields: [{ n: 'address', l: T('Objekti aadress', 'Property address'), ph: T('Tänav, maja, asula', 'Street, number, town') }],
         chips: { n: 'when', l: T('Millal', 'When'), opts: [T('Sel nädalal', 'This week'), T('Järgmisel nädalal', 'Next week'), T('Pole kiire', 'No hurry'), T('Kokkuleppel', 'To be agreed')] } });
     }
@@ -256,39 +256,44 @@
   });
   root.addEventListener('keydown', function (e) {
     if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && e.target.tagName !== 'BUTTON') { e.preventDefault(); go('next'); }
-    if (e.key === 'Escape') { if (sheet && sheet.classList.contains('open')) closeSheet(); else go('back'); }
+    if (e.key === 'Escape' && idx > 0) { e.stopPropagation(); go('back'); }
   });
   // language toggle re-renders in the other language
   document.querySelectorAll('[data-lang-toggle], .lang-toggle, #langToggle').forEach(function (b) { b.addEventListener('click', function () { setTimeout(function () { render('silent'); }, 0); }); });
 
-  // ---- deep-link / CTA: any element with data-stepper-path opens the form on that path ----
-  function startPath(v) { S = {}; steps()[0].set(v); save(); idx = 1; history = [0]; render('fwd'); }
-  document.addEventListener('click', function (e) {
-    var a = e.target.closest('[data-stepper-path]'); if (!a) return;
-    e.preventDefault(); startPath(a.getAttribute('data-stepper-path'));
-    if (window.matchMedia('(max-width: 640px)').matches) openSheet(); else document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-    ph('form_cta', { path: a.getAttribute('data-stepper-path'), from: a.getAttribute('data-stepper-from') || 'link' });
-  });
-
-  // ---- phone bottom sheet: move the same form in and out ----
+  // ---- the form lives in a dialog (#stepperSheet): centred on desktop,
+  //      bottom sheet on phones. Nothing opens it by itself – only a tap. ----
   var sheet = document.getElementById('stepperSheet');
-  var home = root.parentNode;
-  function openSheet() {
-    if (!sheet) return;
-    sheet.querySelector('.st-sheet-body').appendChild(root);
-    sheet.hidden = false; requestAnimationFrame(function () { sheet.classList.add('open'); });
+  var lastFocus = null;
+  function openSheet(from) {
+    if (!sheet || !sheet.hidden) return;
+    lastFocus = document.activeElement;
+    sheet.hidden = false;
+    requestAnimationFrame(function () { sheet.classList.add('open'); });
     document.documentElement.classList.add('st-lock');
-    ph('form_sheet_open');
+    var f = root.querySelector('input,textarea,.st-opt'); if (f && window.matchMedia('(min-width: 900px)').matches) f.focus();
+    ph('form_open', { from: from || 'cta', path: S.object || null });
   }
   function closeSheet() {
-    if (!sheet) return;
+    if (!sheet || sheet.hidden) return;
     sheet.classList.remove('open'); document.documentElement.classList.remove('st-lock');
-    setTimeout(function () { sheet.hidden = true; home.appendChild(root); }, 320);
+    setTimeout(function () { sheet.hidden = true; if (lastFocus && lastFocus.focus) lastFocus.focus(); }, 320);
   }
+  function startPath(v) { S = {}; steps()[0].set(v); save(); idx = 1; history = [0]; render('fwd'); }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('[data-stepper-path]');
+    if (a) { e.preventDefault(); startPath(a.getAttribute('data-stepper-path')); openSheet(a.getAttribute('data-stepper-from') || 'path-cta'); return; }
+    var o = e.target.closest('[data-stepper-open]');
+    if (o) { e.preventDefault(); openSheet(o.getAttribute('data-stepper-from') || 'open-cta'); return; }
+    // every existing "Broneeri" link pointing at #contact opens the dialog instead of scrolling
+    var l = e.target.closest('a[href="#contact"]');
+    if (l && !l.closest('#contact')) { e.preventDefault(); openSheet(l.className || 'link'); }
+  });
   if (sheet) {
     sheet.addEventListener('click', function (e) { if (e.target === sheet || e.target.closest('[data-sheet-close]')) closeSheet(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !sheet.hidden) closeSheet(); });
     var bookBtn = document.querySelector('.mob-bar-book');
-    if (bookBtn) bookBtn.addEventListener('click', function (e) { e.preventDefault(); openSheet(); });
+    if (bookBtn) bookBtn.addEventListener('click', function (e) { e.preventDefault(); openSheet('mob-bar'); });
   }
 
   // resume at the first unanswered step, so a reload or a scroll-away
