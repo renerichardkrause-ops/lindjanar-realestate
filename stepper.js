@@ -280,7 +280,17 @@
     setTimeout(function () { sheet.hidden = true; if (lastFocus && lastFocus.focus) lastFocus.focus(); }, 320);
   }
   function startPath(v) { S = {}; steps()[0].set(v); save(); idx = 1; history = [0]; render('fwd'); }
+  // pricing-card Broneeri: object + size (+ need for Premium) already answered ->
+  // open on the add-on question, or on "Kus ja millal?" when the bundle is chosen
+  function startPreset(str) {
+    var parts = str.split(':'); S = {};
+    steps()[0].set(parts[0]); if (parts[1]) S.size = parts[1]; if (parts[2]) S.need = parts[2]; save();
+    var list = steps(); var target = list.findIndex(function (st) { return st.id === (parts[2] ? 'when' : 'need'); });
+    idx = target > 0 ? target : 1; history = []; for (var j = 0; j < idx; j++) history.push(j); render('fwd');
+  }
   document.addEventListener('click', function (e) {
+    var pz = e.target.closest('[data-stepper-preset]');
+    if (pz) { e.preventDefault(); startPreset(pz.getAttribute('data-stepper-preset')); openSheet(pz.getAttribute('data-stepper-from') || 'pricing'); return; }
     var a = e.target.closest('[data-stepper-path]');
     if (a) { e.preventDefault(); startPath(a.getAttribute('data-stepper-path')); openSheet(a.getAttribute('data-stepper-from') || 'path-cta'); return; }
     var o = e.target.closest('[data-stepper-open]');
