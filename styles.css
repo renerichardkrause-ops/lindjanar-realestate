@@ -4186,3 +4186,25 @@ html.st-lock, html.st-lock body { overflow: hidden; }
   .st-sheet.open .st-sheet-panel { transform: none; opacity: 1; }
   .st-sheet-body .stepper { border: 0; background: transparent; padding: 0.5rem 0 0; }
 }
+
+/* stepper: anchor card, badges, reasoning line, itemised sum, sources */
+.st-opt { position: relative; }
+.st-opt--anchor { background: var(--bg-alt); border-style: dashed; }
+.st-badge { position: absolute; top: 0.8rem; right: 0.9rem; font-family: var(--font-price); font-feature-settings: 'lnum'; font-weight: 600; font-size: 0.76rem; color: #3d7a4a; background: rgba(61,122,74,0.09); border: 1px solid rgba(61,122,74,0.25); padding: 3px 8px; border-radius: 999px; }
+.st-why { display: block; color: var(--fg); font-size: 0.82rem; margin-top: 0.3rem; border-left: 2px solid var(--gold); padding-left: 0.6rem; line-height: 1.45; }
+.st-sum-line { color: var(--fg-muted); font-weight: 400; font-size: 0.8rem; margin-right: 0.5rem; }
+.st-src { color: var(--fg-muted); font-size: 0.72rem; margin: 0.6rem 0 0; line-height: 1.45; }
+.st-opt b { padding-right: 7rem; }
+@media (max-width: 640px) { .st-badge { position: static; display: inline-block; margin-bottom: 0.3rem; } .st-opt b { padding-right: 0; } }
+
+/* hinnaankur before #pricing */
+.anchor-section { padding: 3.5rem 0 0; }
+.anchor-box { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1.75rem; align-items: center; background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 1.5rem 1.75rem; max-width: 860px; margin: 0 auto; }
+.anchor-num { font-family: var(--font-price); font-feature-settings: 'lnum'; font-variant-numeric: lining-nums tabular-nums; font-weight: 600; font-size: 2.2rem; line-height: 1; }
+.anchor-num--loss { color: #8a4a3a; }
+.anchor-num--gain { color: var(--gold); }
+.anchor-from { font-family: var(--font-body); font-weight: 400; font-size: 0.8rem; color: var(--fg-dim); margin-right: 0.5rem; }
+.anchor-label { font-family: var(--font-body); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-dim); margin-top: 0.4rem; }
+.anchor-side p { margin: 0.4rem 0 0; font-size: 0.85rem; color: var(--fg-dim); }
+.anchor-vs { font-family: var(--font-display); font-style: italic; color: var(--fg-muted); font-size: 1.4rem; }
+@media (max-width: 640px) { .anchor-box { grid-template-columns: 1fr; gap: 1.1rem; } .anchor-vs { display: none; } .anchor-section { padding-top: 2.5rem; } }

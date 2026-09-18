@@ -35,7 +35,7 @@
       '100-149': { lbl: ['100–149 m²', '100–149 m²'], foto: 129, tier: ['Standard', 'Standard'], fotos: ['40–50 fotot', '40–50 photos'], video: 320 },
       '150+':    { lbl: ['150–200 m²', '150–200 m²'], foto: 149, tier: ['Premium', 'Premium'], fotos: ['55+ fotot', '55+ photos'], video: 350, premium: 583, eraldi: 658 }
     },
-    droon: 59
+    droon: 59, reel: 150
   };
   var L = function (pair) { return pair[lang() === 'en' ? 1 : 0]; };
 
@@ -64,15 +64,20 @@
       if (S.size) {
         var t = tiers[S.size];
         var all = t.premium ? t.premium : t.foto + P.droon + t.video;
+        var droneWhy = S.object === 'korter'
+          ? T('Ostja ostab ka maja ja naabruse, mitte ainult toad. Hoone õhust lööb silmakõrguselt tehtud pildi alati – sealt tulevad ka vaatamised.', 'Buyers buy the building and the neighbourhood too, not just the rooms. The building from the air beats an eye-level shot every time – that is where the views come from.')
+          : T('Eramaja väärtus on tihti seinte taga – krunt, piirid, ümbrus. Droon näitab seda ühe pildiga.', 'A house’s value is often outside the walls – plot, boundaries, surroundings. A drone shows it in one picture.');
         list.push({ id: 'need', q: T('Mida vajad?', 'What do you need?'),
           hint: S.size === '150+' ? T('Üle 200 m² ja villad hindame eraldi.', 'Over 200 m² and villas are quoted separately.') : T('Paketi hinnad.', 'Package prices.'),
           after: T('Transpordikulu 0,20 €/km lisandub.', 'Travel is added at 0.20 €/km.'),
+          sources: T('+94 %: rikkaliku meediaga kuulutuste vaatamised, remarkvisions.com · +403 %: videoga kuulutuste päringud, NAR. USA andmed. 2 000–5 000 €: maakleritasu suurusjärk.', '+94 %: views on rich-media listings, remarkvisions.com · +403 %: enquiries on listings with video, NAR. US data. 2 000–5 000 €: typical agent fee range.'),
           opts: [
-            { v: 'foto',       b: T('Fotod', 'Photos'), s: L(t.fotos) + T(' · käes 48 h', ' · delivered in 48 h'), price: eur(t.foto) },
-            { v: 'foto-droon', b: T('Fotod + droonifotod', 'Photos + drone photos'), s: S.object === 'korter' ? T('hoone ja ümbrus õhust', 'the building and surroundings from the air') : T('maja ja krunt õhust', 'the house and plot from the air'), price: eur(t.foto + P.droon) },
-            { v: 'koik',       b: T('Kõik koos', 'Everything'), s: T('fotod + droon + kodu tutvustusvideo', 'photos + drone + home tour video') + (t.premium ? T(' + Listing Reel poole hinnaga', ' + Listing Reel at half price') : ''), price: (t.premium ? '' : T('alates ', 'from ')) + eur(all), strike: t.eraldi ? eur(t.eraldi) : null },
-            { v: 'soovita',    b: T('Ei tea – soovita', 'Not sure – advise me'), s: T('ütleme, mis sellele objektile vajalik oleks – vastavalt sellele, kui kiire müügiga on', 'we tell you what this property needs – depending on how fast it has to sell') }
-          ], set: function (v) { S.need = v; } });
+            { v: 'maakler', anchor: true, b: T('Maakler', 'An agent'), s: T('teeb kõik algusest lõpuni – hinnastamine, kuulutus, näitamised, tehing', 'handles everything start to finish – pricing, listing, viewings, the deal'), why: T('Kui kaldud maakleri poole, aitame valida õige – Richard helistab.', 'Leaning towards an agent? We help you pick the right one – Richard calls.'), price: '2\u00a0000–5\u00a0000 €' },
+            { v: 'koik', badge: T('+403 % päringuid', '+403 % enquiries'), b: T('Kõik koos', 'Everything'), s: T('fotod + droonifotod + Listing Reel', 'photos + drone photos + Listing Reel'), sum: eur(t.foto) + ' + ' + eur(P.droon) + ' + ' + eur(P.reel), price: T('alates ', 'from ') + eur(t.foto + P.droon + P.reel) },
+            { v: 'foto-droon', badge: T('+94 % vaatamisi', '+94 % views'), b: T('Fotod + droonifotod', 'Photos + drone photos'), s: S.object === 'korter' ? T('hoone ja ümbrus õhust', 'the building and surroundings from the air') : T('maja ja krunt õhust', 'the house and plot from the air'), why: droneWhy, sum: eur(t.foto) + ' + ' + eur(P.droon), price: eur(t.foto + P.droon) },
+            { v: 'foto', b: T('Fotod', 'Photos'), s: L(t.fotos) + T(' · käes 48 h', ' · delivered in 48 h'), price: eur(t.foto) },
+            { v: 'soovita', b: T('Ei tea – soovita', 'Not sure – advise me'), s: T('ütleme, mis sellele objektile vajalik oleks – vastavalt sellele, kui kiire müügiga on', 'we tell you what this property needs – depending on how fast it has to sell') }
+          ], set: function (v) { if (v === 'maakler') { var keep = { name: S.name, phone: S.phone, email: S.email }; S = keep; S.object = 'maakler'; save(); return 'jump'; } S.need = v; } });
       }
     }
     if (S.object === 'aripind') list.push({ id: 'aripind', q: T('Kirjelda paari sõnaga.', 'Describe it in a few words.'), hint: T('Äripinnad hindame eraldi – mis pind, kus, kui suur.', 'Commercial spaces are quoted individually – what, where, how big.'),
@@ -111,10 +116,10 @@
     var t = P[S.object][S.size];
     if (S.need === 'foto') return { n: t.foto, prefix: '' };
     if (S.need === 'foto-droon') return { n: t.foto + P.droon, prefix: '' };
-    if (S.need === 'koik') return t.premium ? { n: t.premium, prefix: '' } : { n: t.foto + P.droon + t.video, prefix: T('alates ', 'from ') };
+    if (S.need === 'koik') return { n: t.foto + P.droon + P.reel, prefix: T('alates ', 'from ') };
     return null;
   }
-  var NEED_LBL = function () { return { 'foto': T('Fotod', 'Photos'), 'foto-droon': T('Fotod + droonifotod', 'Photos + drone photos'), 'koik': T('Fotod + droon + video', 'Photos + drone + video'), 'soovita': T('soovitus meilt', 'our recommendation') }; };
+  var NEED_LBL = function () { return { 'foto': T('Fotod', 'Photos'), 'foto-droon': T('Fotod + droonifotod', 'Photos + drone photos'), 'koik': T('Fotod + droon + Listing Reel', 'Photos + drone + Listing Reel'), 'soovita': T('soovitus meilt', 'our recommendation') }; };
   var STAGE_LBL = function () { return { motlen: T('Pole veel kindel, mis teed pidi minna', 'Not sure which way to go'), hind: T('Tahan teada, mis mu kodu väärt on', 'Wants to know the home’s value'), vordlen: T('Pole varem maakleriga koostööd teinud', 'Never worked with an agent') }; };
 
   // ---- render ----
@@ -132,10 +137,10 @@
       var first = S.name ? esc(S.name.split(' ')[0]) : '';
       h += '<div class="st-done">✓</div><p class="st-q">' + T('Aitäh', 'Thank you') + (first ? ', ' + first : '') + '.</p>';
       h += '<p class="st-hint st-hint--lg">' + (S.object === 'maakler'
-        ? T('Richard võtab ühendust 24 h jooksul. Viisteist minutit, ja räägime rahulikult läbi, kumb tee sulle mõistlik on.', 'Richard will be in touch within 24 h. Fifteen minutes, and we calmly talk through which route makes sense for you.')
+        ? T('Richard võtab ühendust esimesel võimalusel. Viisteist minutit, ja räägime rahulikult läbi, kumb tee sulle mõistlik on.', 'Richard will be in touch as soon as we can. Fifteen minutes, and we calmly talk through which route makes sense for you.')
         : S.object === 'aripind'
-        ? T('Richard võtab ühendust 24 h jooksul ja saadab pakkumise.', 'Richard will be in touch within 24 h with a quote.')
-        : T('Kinnitus on su e-postis. Richard võtab ühendust 24 h jooksul ja saate aja kokku leppida.', 'A confirmation is in your inbox. Richard will be in touch within 24 h to agree a time.')) + '</p>';
+        ? T('Richard võtab ühendust esimesel võimalusel ja saadab pakkumise.', 'Richard will be in touch as soon as we can with a quote.')
+        : T('Kinnitus on su e-postis. Richard võtab ühendust esimesel võimalusel ja saate aja kokku leppida.', 'A confirmation is in your inbox. Richard will be in touch as soon as we can to agree a time.')) + '</p>';
       if (S.object === 'korter' || S.object === 'eramaja') h += '<p class="st-promise"><i></i>' + T('Vahepeal: ', 'Meanwhile: ') + '<a href="/tood.html">' + T('vaata näiteid', 'see examples') + '</a> ' + T('või', 'or') + ' <a href="/blogi/kodu-ettevalmistus-pildistamiseks.html">' + T('loe, kuidas kodu pildistamiseks ette valmistada', 'read how to prepare a home for the shoot') + '</a>.</p>';
       h += '<button type="button" class="st-next st-next--ghost" data-reset>' + T('Uus päring', 'New enquiry') + '</button>';
     } else {
@@ -143,10 +148,13 @@
       if (st.opts) {
         var cur = S[st.id === 'object' ? 'object' : st.id];
         h += '<div class="st-opts">' + st.opts.map(function (o) {
-          return '<button type="button" class="st-opt' + (cur === o.v ? ' sel' : '') + '" data-v="' + o.v + '"><b>' + o.b + '</b>' + (o.s ? '<small>' + o.s + '</small>' : '') +
-            (o.price ? '<span class="st-price">' + (o.strike ? '<s>' + o.strike + '</s>' : '') + o.price + '</span>' : '') + '</button>';
+          return '<button type="button" class="st-opt' + (cur === o.v ? ' sel' : '') + (o.anchor ? ' st-opt--anchor' : '') + '" data-v="' + o.v + '">' +
+            (o.badge ? '<span class="st-badge">' + o.badge + '</span>' : '') + '<b>' + o.b + '</b>' + (o.s ? '<small>' + o.s + '</small>' : '') +
+            (o.why ? '<span class="st-why">' + o.why + '</span>' : '') +
+            (o.price ? '<span class="st-price">' + (o.sum ? '<span class="st-sum-line">' + o.sum + '</span>' : '') + o.price + '</span>' : '') + '</button>';
         }).join('') + '</div>';
         if (st.after) h += '<p class="st-hint st-after">' + st.after + '</p>';
+        if (st.sources) h += '<p class="st-src">' + st.sources + '</p>';
       }
       if (st.fields) {
         h += st.fields.map(function (f) {
@@ -175,10 +183,10 @@
         else if (S.object !== 'maakler') h += '<div class="st-total"><small>' + T('Hind pakkumisega, objekti järgi', 'Priced by quote, per property') + '</small><b>' + T('pakkumine', 'quote') + '</b></div>';
         h += '</div>';
         h += '<p class="st-promise"><i></i>' + (S.object === 'maakler'
-          ? T('Richard võtab ühendust 24 h jooksul. 15-minutiline vestlus, tasuta ja kohustusteta.', 'Richard will be in touch within 24 h. A 15-minute conversation, free and without obligation.')
+          ? T('Richard võtab ühendust esimesel võimalusel. 15-minutiline vestlus, tasuta ja kohustusteta.', 'Richard will be in touch as soon as we can. A 15-minute conversation, free and without obligation.')
           : S.object === 'aripind'
-          ? T('Richard võtab ühendust 24 h jooksul ja saadab pakkumise.', 'Richard will be in touch within 24 h with a quote.')
-          : T('Richard võtab ühendust 24 h jooksul ja saate aja kokku leppida. Kui on kiire, helista: ', 'Richard will be in touch within 24 h to agree a time. In a hurry? Call ') + '<a href="tel:+37253053253">+372 5305 3253</a>.') + '</p>';
+          ? T('Richard võtab ühendust esimesel võimalusel ja saadab pakkumise.', 'Richard will be in touch as soon as we can with a quote.')
+          : T('Richard võtab ühendust esimesel võimalusel ja saate aja kokku leppida. Kui on kiire, helista: ', 'Richard will be in touch as soon as we can to agree a time. In a hurry? Call ') + '<a href="tel:+37253053253">+372 5305 3253</a>.') + '</p>';
         h += '<p class="st-err" data-err role="alert"></p>';
       }
       if (!st.opts || st.summary) h += '<button type="button" class="st-next" data-next' + (sending ? ' disabled' : '') + '>' + (st.summary ? (sending ? T('Saadan…', 'Sending…') : T('Saada päring', 'Send enquiry')) : T('Edasi', 'Next')) + '</button>' + (st.summary ? '' : '<span class="st-kbd">Enter ↵</span>');
@@ -247,7 +255,9 @@
 
   root.addEventListener('click', function (e) {
     var o = e.target.closest('.st-opt');
-    if (o) { steps()[idx].set(o.dataset.v); save(); root.querySelectorAll('.st-opt').forEach(function (x) { x.classList.toggle('sel', x === o); }); setTimeout(function () { go('next'); }, 140); return; }
+    if (o) { var r = steps()[idx].set(o.dataset.v); save(); root.querySelectorAll('.st-opt').forEach(function (x) { x.classList.toggle('sel', x === o); });
+      if (r === 'jump') { ph('form_anchor_to_agent', {}); setTimeout(function () { history = [0]; idx = 1; render('fwd'); }, 140); return; }
+      setTimeout(function () { go('next'); }, 140); return; }
     var c = e.target.closest('.st-chip');
     if (c) { S[c.dataset.chip] = c.dataset.c; save(); root.querySelectorAll('[data-chip="' + c.dataset.chip + '"]').forEach(function (x) { x.classList.toggle('sel', x === c); }); return; }
     if (e.target.closest('[data-next]')) go('next');
