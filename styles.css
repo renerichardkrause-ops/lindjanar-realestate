@@ -417,73 +417,85 @@ a  { color: inherit; text-decoration: none; }
 
 /* ── STATS ── */
 .stats-section {
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  background: var(--bg-alt);
+  padding: 3.75rem 0 2.5rem;
 }
 
 .stats-claim-wrap {
-  padding: 3.5rem 2rem 0;
+  padding: 0 2rem;
   max-width: var(--max);
   margin: 0 auto;
 }
 
+/* the claim sits centred above the tiles, like the mockup */
 .stats-claim {
   font-family: 'Cabinet Grotesk', var(--font-body);
-  font-size: clamp(1.45rem, 3vw, 2.4rem);
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
   font-style: normal;
   font-weight: 400;
   color: var(--fg);
-  line-height: 1.3;
-  max-width: 720px;
-  padding-bottom: 3rem;
-  border-bottom: 1px solid var(--border);
+  line-height: 1.25;
+  text-align: center;
+  max-width: 26ch;
+  margin: 0 auto 2.4rem;
+  text-wrap: balance;
 }
 
 .stats-row {
-  display: flex;
-  max-width: var(--max);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 0 2rem;
 }
 
+/* one tile: number / label / sentence, all centred */
 .stat {
-  flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
-  padding: 2.5rem 2rem;
+  text-align: center;
+  gap: 0;
+  padding: 0;
 }
-.stat:first-child { padding-left: 0; }
-.stat:last-child  { padding-right: 0; }
-
-.stat-rule {
-  width: 1px;
-  align-self: stretch;
-  background: var(--border);
-}
+.stat-rule { display: none; }
 
 .stat-num {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(3rem, 5vw, 5rem);
-  font-weight: 300;
-  font-style: italic;
-  font-variation-settings: 'opsz' 144;
-  color: var(--fg);
+  font-family: var(--font-price);
+  font-feature-settings: 'lnum';
+  font-variant-numeric: lining-nums tabular-nums;
+  font-size: 2.4rem;
+  font-weight: 600;
+  font-style: normal;
+  color: var(--accent);
   line-height: 1;
-  flex-shrink: 0;
+  white-space: nowrap;
 }
+.stat:first-child .stat-num { color: var(--gold); }
+.stat-num--range { font-size: 2.4rem; }
 
-/* Range numbers (e.g. "€3–10k") are longer — scale down so they sit
-   neatly in the column next to the single-token stats. */
-.stat-num--range { font-size: clamp(1.9rem, 3vw, 2.9rem); }
+.stat-meta { flex: 1; }
+.stat-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0.55rem 0 0.4rem;
+}
+.stat-meta p { font-size: 0.85rem; margin: 0; color: var(--fg-dim); line-height: 1.5; }
 
 .stats-source-wrap {
   max-width: var(--max);
   margin: 0 auto;
-  padding: 0 2rem 2.25rem;
+  padding: 1.75rem 2rem 0;
 }
 .stats-source {
   margin: 0;
+  text-align: center;
   font-family: var(--font-body);
   font-size: 0.72rem;
   line-height: 1.5;
@@ -495,19 +507,8 @@ a  { color: inherit; text-decoration: none; }
   text-underline-offset: 2px;
 }
 .stats-source a:hover { color: var(--accent); }
-
-.stat-meta { flex: 1; }
-.stat-label {
-  display: block;
-  font-family: var(--font-body);
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 0.3rem;
-}
-.stat-meta p { font-size: 0.8rem; margin: 0; }
+@media (max-width: 900px) { .stats-row { grid-template-columns: 1fr 1fr; gap: 2rem 1.5rem; } }
+@media (max-width: 480px) { .stats-row { grid-template-columns: 1fr; gap: 1.75rem; } }
 
 /* ── JUUNI KAMPAANIA BANNER ── */
 .campaign-banner-section { padding: 0; margin-top: -4rem; }
@@ -2135,10 +2136,6 @@ a  { color: inherit; text-decoration: none; }
 @media (max-width: 960px) {
   .hero { min-height: 72vh; }
 
-  .stats-row { flex-direction: column; padding: 0 2rem; }
-  .stat-rule { width: 100%; height: 1px; }
-  .stat { padding: 1.75rem 0; }
-  .stat:first-child { padding-left: 0; }
 
 
   /* Keep the three cards in a side-by-side row so the section stays
