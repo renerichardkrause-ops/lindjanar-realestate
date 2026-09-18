@@ -4202,7 +4202,7 @@ html.st-lock, html.st-lock body { overflow: hidden; }
 .anchor-box { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1.75rem; align-items: center; background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 1.5rem 1.75rem; max-width: 860px; margin: 0 auto; }
 .anchor-num { font-family: var(--font-price); font-feature-settings: 'lnum'; font-variant-numeric: lining-nums tabular-nums; font-weight: 600; font-size: 2.2rem; line-height: 1; }
 .anchor-num--loss { color: #8a4a3a; }
-.anchor-num--gain { color: var(--gold); }
+.anchor-num--gain { color: var(--accent); }
 .anchor-from { font-family: var(--font-body); font-weight: 400; font-size: 0.8rem; color: var(--fg-dim); margin-right: 0.5rem; }
 .anchor-label { font-family: var(--font-body); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-dim); margin-top: 0.4rem; }
 .anchor-side p { margin: 0.4rem 0 0; font-size: 0.85rem; color: var(--fg-dim); }
