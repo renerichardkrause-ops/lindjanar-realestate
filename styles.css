@@ -3929,6 +3929,7 @@ main > section[id] { scroll-margin-top: 4.5rem; }
   main > .hero                 { order: 1; }
   main > .reviews-strip        { order: 2; }
   main > .stats-section        { order: 3; }
+  main > .anchor-section       { order: 4; }   /* hinnaankur, right before the prices */
   main > #pricing              { order: 4; }
   main > .pricing-section.alt-bg { order: 5; }
   main > .roi-section          { order: 6; }
