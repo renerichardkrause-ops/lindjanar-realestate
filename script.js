@@ -402,7 +402,7 @@ applyLanguage(localStorage.getItem('lang') || 'et');
     return lang === 'en' ? en : et;
   }
 
-  function fireConversion(type, userData, form) {
+  function fireConversion(type, userData, form, extra) {
     // Referral partner signups and contact requests are both leads.
     const method = type === 'referral' ? 'referral_signup' : 'contact_form';
 
@@ -436,6 +436,7 @@ applyLanguage(localStorage.getItem('lang') || 'et');
       var clientEl = form.querySelector('[name="referrer_type"]');
       if (clientEl && clientEl.value) params.client_type = clientEl.value;
     }
+    if (extra) Object.keys(extra).forEach(function (k) { params[k] = extra[k]; });
     window.gtag('event', 'generate_lead', params);
     if (window.posthog) window.posthog.capture('generate_lead', params);
     const label = window.ADS_CONTACT_LABEL;
@@ -443,6 +444,12 @@ applyLanguage(localStorage.getItem('lang') || 'et');
       window.gtag('event', 'conversion', { send_to: label });
     }
   }
+
+  // The stepper (stepper.js) submits on its own but must fire the same
+  // conversion so GA4 / Ads / Meta keep one lead definition.
+  window.LINDJANAR_fireLead = function (type, userData, extra) {
+    fireConversion(type, userData, null, extra);
+  };
 
   forms.forEach(function (form) {
     const type = form.getAttribute('data-form-type') || 'contact';
