@@ -4208,3 +4208,6 @@ html.st-lock, html.st-lock body { overflow: hidden; }
 .anchor-side p { margin: 0.4rem 0 0; font-size: 0.85rem; color: var(--fg-dim); }
 .anchor-vs { font-family: var(--font-display); font-style: italic; color: var(--fg-muted); font-size: 1.4rem; }
 @media (max-width: 640px) { .anchor-box { grid-template-columns: 1fr; gap: 1.1rem; } .anchor-vs { display: none; } .anchor-section { padding-top: 2.5rem; } }
+
+/* stats tile qualifier ("kuni") */
+.stat-qual { display: inline-block; font-family: var(--font-body); font-weight: 400; font-size: 0.72rem; letter-spacing: 0.04em; color: var(--fg-dim); margin-right: 0.4rem; vertical-align: baseline; }
