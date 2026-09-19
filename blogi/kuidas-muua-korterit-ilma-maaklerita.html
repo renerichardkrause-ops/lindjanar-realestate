@@ -327,6 +327,25 @@
   </div>
 </div>
 
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto täissuuruses" hidden>
+  <button type="button" class="lightbox-close" aria-label="Sulge">&times;</button>
+  <button type="button" class="lightbox-prev" aria-label="Eelmine foto">&#8249;</button>
+  <img class="lightbox-img" src="" alt="Kinnisvarafoto täissuuruses" />
+  <button type="button" class="lightbox-next" aria-label="Järgmine foto">&#8250;</button>
+</div>
 <script src="../script.js"></script>
+<script>
+/* Every photo in the article opens full-size; arrows / swipe-keys move
+   through all of them in reading order. */
+(function () {
+  var imgs = Array.prototype.slice.call(document.querySelectorAll('.article-hero img, .article-figure img'));
+  if (!imgs.length || typeof window.LINDJANAR_openLightbox !== 'function') return;
+  var list = imgs.map(function (im) { return { src: im.currentSrc || im.getAttribute('src'), alt: im.alt }; });
+  imgs.forEach(function (im, i) {
+    im.style.cursor = 'zoom-in';
+    im.addEventListener('click', function () { window.LINDJANAR_openLightbox(list, i); });
+  });
+})();
+</script>
 </body>
 </html>

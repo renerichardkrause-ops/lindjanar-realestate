@@ -89,7 +89,26 @@ FOOTER = '''<footer class="site-footer">
   </div>
 </div>
 
-<script src="../script.js"></script>'''
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto täissuuruses" hidden>
+  <button type="button" class="lightbox-close" aria-label="Sulge">&times;</button>
+  <button type="button" class="lightbox-prev" aria-label="Eelmine foto">&#8249;</button>
+  <img class="lightbox-img" src="" alt="Kinnisvarafoto täissuuruses" />
+  <button type="button" class="lightbox-next" aria-label="Järgmine foto">&#8250;</button>
+</div>
+<script src="../script.js"></script>
+<script>
+/* Every photo in the article opens full-size; arrows / swipe-keys move
+   through all of them in reading order. */
+(function () {
+  var imgs = Array.prototype.slice.call(document.querySelectorAll('.article-hero img, .article-figure img'));
+  if (!imgs.length || typeof window.LINDJANAR_openLightbox !== 'function') return;
+  var list = imgs.map(function (im) { return { src: im.currentSrc || im.getAttribute('src'), alt: im.alt }; });
+  imgs.forEach(function (im, i) {
+    im.style.cursor = 'zoom-in';
+    im.addEventListener('click', function () { window.LINDJANAR_openLightbox(list, i); });
+  });
+})();
+</script>'''
 
 FONTS = '''<link rel="preload" href="../assets/fonts/cabinet-grotesk-regular.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="../styles.css" />
@@ -100,19 +119,31 @@ FONTS = '''<link rel="preload" href="../assets/fonts/cabinet-grotesk-regular.wof
 
 # Author card under every post's closing CTA. A face and a direct line are
 # what a reader who has just finished a 3-minute article needs to act.
-AUTHOR = '''
+AUTHORS = {
+    'janar': dict(name='Janar Lind', img='assets/janar/janar-avatar.webp',
+                  alt='Janar Lind, kinnisvarafotograaf',
+                  role='Kinnisvarafotograaf ja sertifitseeritud droonipiloot. Tartust pärit, pildistan üle Eesti.'),
+    'richard': dict(name='René-Richard Krause', img='assets/richard/richard-avatar.webp',
+                    alt='René-Richard Krause, LINDJANARi partner',
+                    role='LINDJANARi partner. Seitse aastat kinnisvaras – vastan päringutele ja ütlen ausalt, mida su kodu müügiks vajab.'),
+}
+
+def author_block(meta):
+    a = AUTHORS.get(meta.get('author', 'janar'), AUTHORS['janar'])
+    return '''
     <aside class="article-author">
-      <img src="../assets/janar/janar-avatar.webp" alt="Janar Lind, kinnisvarafotograaf" width="240" height="240" loading="lazy" decoding="async" />
+      <img src="../%(img)s" alt="%(alt)s" width="240" height="240" loading="lazy" decoding="async" />
       <div class="article-author-body">
-        <p class="article-author-name">Janar Lind</p>
-        <p class="article-author-role">Kinnisvarafotograaf ja sertifitseeritud droonipiloot. Tartust pärit, pildistan üle Eesti.</p>
+        <p class="article-author-name">%(name)s</p>
+        <p class="article-author-role">%(role)s</p>
         <p class="article-author-contact">
           <a href="tel:+37253053253">+372 5305 3253</a>
           <a href="mailto:hello@lindjanar.ee">hello@lindjanar.ee</a>
         </p>
       </div>
     </aside>
-'''
+''' % a
+
 
 
 # ---------------------------------------------------------------- page builder
@@ -179,13 +210,15 @@ def build_post(meta, body, posts, known):
   "datePublished": "%s",
   "dateModified": "%s",
   "inLanguage": "et",
-  "author": { "@type": "Person", "name": "Janar Lind", "url": "%s/" },
+  "author": { "@type": "Person", "name": "%s", "url": "%s/" },
   "publisher": { "@type": "Organization", "name": "LINDJANAR Kinnisvarafotograafia", "url": "%s/" },
   "mainEntityOfPage": "%s",
   "image": "%s/%s"
 }
 </script>''' % (jsonstr(title), jsonstr(desc), meta['date'],
-                meta.get('updated', meta['date']), SITE, SITE, url, SITE, schema_img)
+                meta.get('updated', meta['date']),
+                AUTHORS.get(meta.get('author', 'janar'), AUTHORS['janar'])['name'],
+                SITE, SITE, url, SITE, schema_img)
 
     faq = meta.get('faq_json')
     faq_block = ''
@@ -232,7 +265,7 @@ def build_post(meta, body, posts, known):
 <main>
   <article class="article">
     <a href="./" class="back-to-blog">← Blogi</a>
-    <p class="article-meta">%(etdate)s · Janar Lind · %(read)s min lugemist</p>
+    <p class="article-meta">%(etdate)s · %(author_name)s · %(read)s min lugemist</p>
     <h1>%(title)s</h1>
 %(hero)s
 %(body)s
@@ -251,7 +284,8 @@ def build_post(meta, body, posts, known):
         'etdate': et_date(meta['date']),
         'read': readtime(body),
         'hero': hero_block(meta),
-        'author': AUTHOR,
+        'author': author_block(meta),
+        'author_name': AUTHORS.get(meta.get('author', 'janar'), AUTHORS['janar'])['name'],
         'jsonld': jsonld, 'faq': faq_block,
         'tracking': tracking(), 'fonts': FONTS,
         'header': HEADER, 'footer': FOOTER,
