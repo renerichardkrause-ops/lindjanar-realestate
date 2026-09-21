@@ -156,9 +156,9 @@ T = 'assets/tood/'
 # Blog share cards. Keep titles to 2-3 short lines and subtext to one
 # sentence – the generator warns on stderr if either overflows the panel.
 BLOG = {
- 'blogi-ohust':         (['Mida ostja', 'õhust näeb'], 'BLOGI',
+ 'blogi-ohust':         (['Mida droonifoto', 'ostjale näitab'], 'BLOGI',
                          [B+'droon-maja-loodus-01.webp'],
-                         'Seitse kodu ülevalt – ja miks ostja maksab selle vaate eest rohkem.'),
+                         'Ja miks ostja maksab selle vaate pärast rohkem.'),
  'blogi-vead':          (['Levinumad vead', 'kodu', 'pildistamisel'], 'BLOGI',
                          [B+'paar-2-parast.webp'],
                          'Vastuvalgus, uksest tehtud kaader ja kaldu seinad.'),
