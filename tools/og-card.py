@@ -19,13 +19,17 @@ from PIL import Image, ImageDraw, ImageFont
 FONTS = os.environ.get('LJ_FONTS', os.path.expanduser('~/.local/share/lj-fonts'))
 CG_FILE, DM_FILE = 'CormorantGaramond[wght].ttf', 'DMSans[opsz,wght].ttf'
 
-W, H, PW = 1200, 630, 548          # canvas, and ivory panel width
-PAD, MAXW = 76, 424                # left inset, usable text width
+# Render at 2x (2400x1260): Facebook/LinkedIn recompress hard, and the serif
+# title survives that only with pixels to spare. Layout numbers below are
+# in 1x design units; S scales everything.
+S = int(os.environ.get('LJ_OG_SCALE', '2'))
+W, H, PW = 1200 * S, 630 * S, 548 * S   # canvas, and ivory panel width
+PAD, MAXW = 76 * S, 424 * S             # left inset, usable text width
 IVORY = (247, 244, 239); GOLD = (184, 133, 74)
 INK = (28, 26, 23); DIM = (110, 103, 95); RULE = (212, 207, 198)
 
 def _f(name, size, variation):
-    ft = ImageFont.truetype(os.path.join(FONTS, name), size)
+    ft = ImageFont.truetype(os.path.join(FONTS, name), round(size * S))
     ft.set_variation_by_name(variation)
     return ft
 CG = lambda s, v='Light':   _f(CG_FILE, s, v)
@@ -36,7 +40,7 @@ def track(dr, xy, text, font, fill, sp=0):
     x, y = xy
     for c in text:
         dr.text((x, y), c, font=font, fill=fill)
-        x += dr.textlength(c, font=font) + sp
+        x += dr.textlength(c, font=font) + sp * S
 
 def cover(path, box):
     im = Image.open(path).convert('RGB')
@@ -46,7 +50,7 @@ def cover(path, box):
     return im.crop(((im.width - bw) // 2, (im.height - bh) // 2,
                     (im.width - bw) // 2 + bw, (im.height - bh) // 2 + bh))
 
-def mosaic(paths, box, gut=6):
+def mosaic(paths, box, gut=6 * S):
     """2 columns x 3 rows. Falls back to a single cover for one image."""
     bw, bh = box
     if len(paths) == 1:
@@ -64,7 +68,7 @@ def mosaic(paths, box, gut=6):
         out.paste(cover(p, (w, h)), (x, y))
     return out
 
-TITLE_TOP, TITLE_ROOM, SUB_TOP = 222, 208, 452
+TITLE_TOP, TITLE_ROOM, SUB_TOP = 222 * S, 208 * S, 452 * S
 
 def _fit(lines, start=96, floor=44):
     """Largest display size at which the title fits the panel, width and height."""
@@ -73,7 +77,7 @@ def _fit(lines, start=96, floor=44):
     while size > floor:
         ft = CG(size)
         fits_w = max(probe.textlength(l, font=ft) for l in lines) <= MAXW
-        fits_h = len(lines) * round(size * 1.02) <= TITLE_ROOM
+        fits_h = len(lines) * round(size * S * 1.02) <= TITLE_ROOM
         if fits_w and fits_h:
             return size
         size -= 2
@@ -98,14 +102,14 @@ def card(lines, photos, sub, eyebrow='PORTFOOLIO'):
     im = Image.new('RGB', (W, H), IVORY)
     im.paste(mosaic(photos, (W - PW, H)), (PW, 0))
     dr = ImageDraw.Draw(im)
-    dr.line([(PW, 0), (PW, H)], fill=RULE, width=1)
+    dr.line([(PW, 0), (PW, H)], fill=RULE, width=S)
 
-    track(dr, (PAD, 66), 'LINDJANAR', DM(17, 'Bold'), INK, sp=4.4)
-    track(dr, (PAD, 120), eyebrow, DM(12, 'Medium'), GOLD, sp=3.2)
-    dr.line([(PAD, 196), (PAD + 56, 196)], fill=GOLD, width=2)
+    track(dr, (PAD, 66 * S), 'LINDJANAR', DM(17, 'Bold'), INK, sp=4.4)
+    track(dr, (PAD, 120 * S), eyebrow, DM(12, 'Medium'), GOLD, sp=3.2)
+    dr.line([(PAD, 196 * S), (PAD + 56 * S, 196 * S)], fill=GOLD, width=2 * S)
 
     size = _fit(lines)
-    step = round(size * 1.02)
+    step = round(size * S * 1.02)
     subf = DM(22)                                   # subtext, readable at feed size
     subl = _wrap(sub, subf, MAXW)
     if ' '.join(subl) != ' '.join(sub.split()):
@@ -114,12 +118,12 @@ def card(lines, photos, sub, eyebrow='PORTFOOLIO'):
     # never collide with the domain line, whatever the title height.
     y = TITLE_TOP + max(0, (TITLE_ROOM - len(lines) * step) // 2)
     for l in lines:
-        dr.text((PAD - 4, y), l, font=CG(size), fill=INK); y += step
+        dr.text((PAD - 4 * S, y), l, font=CG(size), fill=INK); y += step
     y = SUB_TOP
     for l in subl:
-        dr.text((PAD, y), l, font=subf, fill=DIM); y += 30
+        dr.text((PAD, y), l, font=subf, fill=DIM); y += 30 * S
 
-    track(dr, (PAD, 536), 'KINNISVARA.LINDJANAR.EE', DM(13, 'Medium'), INK, sp=2.6)
+    track(dr, (PAD, 536 * S), 'KINNISVARA.LINDJANAR.EE', DM(13, 'Medium'), INK, sp=2.6)
     return im
 
 N = 'assets/naidised/'
@@ -157,7 +161,7 @@ T = 'assets/tood/'
 # sentence – the generator warns on stderr if either overflows the panel.
 BLOG = {
  'blogi-ohust':         (['Mida droonifoto', 'ostjale näitab'], 'BLOGI',
-                         [B+'droon-maja-loodus-01.webp'],
+                         [B+'droon-maja-loodus-01-full.webp'],
                          'Ja miks ostja maksab selle vaate pärast rohkem.'),
  'blogi-vead':          (['Levinumad vead', 'kodu', 'pildistamisel'], 'BLOGI',
                          [B+'paar-2-parast.webp'],
@@ -238,5 +242,5 @@ if __name__ == '__main__':
             continue
         out = f'assets/og/{name}.jpg'
         card(lines, photos, sub, eyebrow).save(
-            out, 'JPEG', quality=90, optimize=True, progressive=True)
+            out, 'JPEG', quality=95, optimize=True, progressive=True, subsampling=0)
         print(f'{out:34s} {os.path.getsize(out)//1024:>4} KB')
