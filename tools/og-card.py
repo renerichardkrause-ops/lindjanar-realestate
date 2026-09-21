@@ -162,7 +162,7 @@ T = 'assets/tood/'
 BLOG = {
  'blogi-ohust':         (['Mida droonifoto', 'ostjale näitab'], 'BLOGI',
                          [B+'droon-maja-loodus-01-full.webp'],
-                         'Ja miks ostja maksab selle vaate pärast rohkem.'),
+                         'Ja miks ostja selle vaate pärast rohkem maksab.'),
  'blogi-vead':          (['Levinumad vead', 'kodu', 'pildistamisel'], 'BLOGI',
                          [B+'paar-2-parast.webp'],
                          'Vastuvalgus, uksest tehtud kaader ja kaldu seinad.'),
