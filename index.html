@@ -1081,6 +1081,27 @@
     </div>
   </section>
 
+  <!-- Soovitame maaklerit: county map + agent cards (maaklerid.js) -->
+  <section class="realtors-section" id="maaklerid">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-et="Soovitame maaklerit" data-en="Recommended agents">Soovitame maaklerit</span>
+        <h2 data-et="Mõnikord on õige vastus maakler." data-en="Sometimes the right answer is an agent.">Mõnikord on õige vastus maakler.</h2>
+        <p data-et="Oleme seitse aastat kinnisvaras töötanud ja juhtinud üle 600 üürikorteri portfelli müüki ja käivet. Selle aja jooksul oleme näinud lähedalt, kuidas maaklerid päriselt töötavad – ja pildistanud kümnete maaklerite objekte. Siin on need, keda me ise valiksime." data-en="We have worked in real estate for seven years and led sales and revenue for a portfolio of 600+ rental apartments. In that time we have seen up close how agents really work – and photographed listings for dozens of them. These are the ones we would choose ourselves.">Oleme seitse aastat kinnisvaras töötanud ja juhtinud üle 600 üürikorteri portfelli müüki ja käivet. Selle aja jooksul oleme näinud lähedalt, kuidas maaklerid päriselt töötavad – ja pildistanud kümnete maaklerite objekte. Siin on need, keda me ise valiksime.</p>
+      </div>
+      <ul class="rm-cred">
+        <li><b>7</b> <span data-et="aastat kinnisvaras" data-en="years in real estate">aastat kinnisvaras</span></li>
+        <li><b>600+</b> <span data-et="üürikorterit hallatud" data-en="rental apartments managed">üürikorterit hallatud</span></li>
+        <li><b data-et="kümned" data-en="dozens">kümned</b> <span data-et="maaklerid, kellega koos töötatud" data-en="of agents worked with">maaklerid, kellega koos töötatud</span></li>
+      </ul>
+      <div class="rm-grid">
+        <div class="rm-map" id="agentMap"></div>
+        <div class="rm-cards" id="agentCards" aria-live="polite"></div>
+      </div>
+      <p class="rm-credit" data-et="Kaart: Maa-amet" data-en="Map: Estonian Land Board">Kaart: Maa-amet</p>
+    </div>
+  </section>
+
   <!-- ============================================================
        SÕIDUPIIRKOND
        ============================================================ -->
@@ -1271,6 +1292,7 @@
 
 <script src="script.js"></script>
 <script src="stepper.js"></script>
+<script src="maaklerid.js"></script>
 <script>
 (function () {
   // "Loe edasi" toggles – phone only; the CSS hides the long blocks until opened.

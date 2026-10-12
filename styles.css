@@ -3938,6 +3938,7 @@ main > section[id] { scroll-margin-top: 4.5rem; }
   main > .process-section      { order: 9; }
   main > .photographer-section { order: 10; }
   main > .agency-section       { order: 11; }
+  main > .realtors-section     { order: 11; }   /* soovitame maaklerit, right after agency */
   main > .travel-section       { order: 12; }
   main > .referral-section     { order: 13; }
   main > .bna-section          { order: 14; }
@@ -4209,3 +4210,32 @@ html.st-lock, html.st-lock body { overflow: hidden; }
 
 /* stats tile qualifier ("kuni") */
 .stat-qual { display: inline-block; font-family: var(--font-body); font-weight: 400; font-size: 0.72rem; letter-spacing: 0.04em; color: var(--fg-dim); margin-right: 0.4rem; vertical-align: baseline; }
+
+/* ── SOOVITAME MAAKLERIT (maaklerid.js) ── */
+.realtors-section { padding: 6rem 0; }
+.rm-cred { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; list-style: none; padding: 0; margin: 0 0 2.75rem; color: var(--fg-dim); font-size: 0.88rem; }
+.rm-cred b { font-family: var(--font-price); font-feature-settings: 'lnum'; font-weight: 600; color: var(--fg); font-size: 1.15rem; margin-right: 0.25rem; }
+.rm-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 3.5rem; align-items: center; }
+.rm-svg { width: 100%; height: auto; display: block; }
+.rm-svg path { fill: #dcd6ca; stroke: var(--bg); stroke-width: 3.5; stroke-linejoin: round; cursor: pointer; transition: fill .18s; outline: none; }
+.rm-svg path.has { fill: #c3cdbc; }
+.rm-svg path:hover, .rm-svg path:focus-visible { fill: #93a48d; }
+.rm-svg path.on { fill: var(--accent); }
+.rm-svg circle { fill: var(--gold); stroke: var(--bg); stroke-width: 5; pointer-events: none; }
+.rm-cards { display: grid; gap: 1rem; align-content: center; min-height: 16rem; }
+.rm-card { background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 1.5rem; display: grid; grid-template-columns: 4.5rem 1fr; gap: 1.25rem; align-items: start; }
+.rm-ava { width: 4.5rem; height: 4.5rem; border-radius: 50%; background: var(--bg-alt); display: grid; place-items: center; font-family: var(--font-display); font-size: 1.6rem; color: var(--fg-dim); }
+.rm-tag { display: block; font-family: var(--font-body); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+.rm-name { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.05; margin: 0 0 0.15rem; color: var(--fg); }
+.rm-firm { color: var(--fg-dim); font-size: 0.88rem; margin: 0 0 0.85rem; }
+.rm-kv { display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 1rem; margin: 0; font-size: 0.88rem; }
+.rm-kv dt { color: var(--fg-muted); font-size: 0.64rem; letter-spacing: 0.12em; text-transform: uppercase; padding-top: 0.2rem; }
+.rm-kv dd { margin: 0; color: var(--fg); }
+.rm-perk { margin: 1rem 0 0; padding-left: 0.65rem; border-left: 2px solid var(--gold); font-size: 0.88rem; color: var(--fg); line-height: 1.5; }
+.rm-perk a { color: var(--accent); font-weight: 500; text-decoration: underline; text-underline-offset: 2px; }
+.rm-card--empty { display: block; background: transparent; border-style: dashed; padding: 1.75rem; }
+.rm-empty-h { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; margin: 0 0 0.5rem; color: var(--fg); text-wrap: balance; }
+.rm-empty-p { color: var(--fg-dim); font-size: 0.92rem; margin: 0 0 1.25rem; max-width: 34ch; }
+.rm-credit { margin: 1.5rem 0 0; font-size: 0.7rem; color: var(--fg-muted); }
+@media (max-width: 900px) { .rm-grid { grid-template-columns: 1fr; gap: 1.5rem; } .rm-cards { min-height: 0; } }
+@media (max-width: 640px) { .realtors-section { padding: 3.25rem 0; } .rm-card { grid-template-columns: 3.5rem 1fr; gap: 1rem; padding: 1.25rem; } .rm-ava { width: 3.5rem; height: 3.5rem; font-size: 1.25rem; } .rm-name { font-size: 1.4rem; } }
