@@ -613,3 +613,16 @@ document.querySelectorAll('[data-promo-until]').forEach(function (el) {
     if (ev.detail === 'granted') load();
   });
 })();
+
+/* Decorative card loops: respect reduced-motion (poster stays) and make
+   sure autoplay starts where the browser was hesitant. */
+(function () {
+  var vids = document.querySelectorAll('video.card-loop');
+  if (!vids.length) return;
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  vids.forEach(function (v) {
+    v.muted = true;
+    if (still) { v.removeAttribute('autoplay'); v.pause(); return; }
+    var p = v.play(); if (p && p.catch) p.catch(function () {});
+  });
+})();

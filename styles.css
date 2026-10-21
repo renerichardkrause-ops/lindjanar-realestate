@@ -4239,3 +4239,7 @@ html.st-lock, html.st-lock body { overflow: hidden; }
 .rm-credit { margin: 1.5rem 0 0; font-size: 0.7rem; color: var(--fg-muted); }
 @media (max-width: 900px) { .rm-grid { grid-template-columns: 1fr; gap: 1.5rem; } .rm-cards { min-height: 0; } }
 @media (max-width: 640px) { .realtors-section { padding: 3.25rem 0; } .rm-card { grid-template-columns: 3.5rem 1fr; gap: 1rem; padding: 1.25rem; } .rm-ava { width: 3.5rem; height: 3.5rem; font-size: 1.25rem; } .rm-name { font-size: 1.4rem; } }
+
+/* Premium house card: silent looping video instead of a still, purely decorative */
+.pricing-card--media .card-media video { display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.card-loop::-webkit-media-controls { display: none !important; }
